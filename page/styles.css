@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --cell-size: 4rem;
+    --body-color: rgb(216, 216, 216);
+}
+
+.row {
+    display: block;
+    line-height: 3;
+}
+
+.cell {
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+    font-size: larger;
+    vertical-align: top;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    /* border: 1px solid rgb(29, 29, 29); */
+}
+
+#calendar {
+    background-color: var(--body-color);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#days {
+    display: flex;
+}
+
+.day {
+    height: var(--cell-size) / 2;
+    width: var(--cell-size);
+}
+
+#header {
+    text-align: center;
+}
