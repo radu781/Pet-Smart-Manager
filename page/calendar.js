@@ -1,13 +1,11 @@
 class Calendar {
     constructor() {
-        this.calendar = document.getElementById("calendar")
         this.rows = document.querySelectorAll(".row")
-        this.header = document.querySelector("#header")
+        this.header = document.querySelector("#header-date")
         this.currentDate = new Date()
-        this.startingPosition = this.getStart()
-        this.endingPosition = this.getEnd(this.currentDate.getFullYear(), this.currentDate.getMonth())
+        this.selectedDate = this.currentDate
 
-        header.innerHTML = `${this.currentDate.toLocaleString("default", { month: "long" })} ${this.currentDate.getFullYear()}`
+        this.setHeader()
 
         this.dayCells = []
         for (let row of this.rows) {
@@ -20,7 +18,8 @@ class Calendar {
     }
 
     getStart() {
-        const currentDay = this.currentDate.toLocaleDateString("default", { weekday: "long" })
+        const firstDate = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1)
+        const firstDay = firstDate.toLocaleDateString("default", { weekday: "long" })
         const days = [
             "Monday",
             "Tuesday",
@@ -32,7 +31,7 @@ class Calendar {
         ]
         let index = 0
         for (const day of days) {
-            if (currentDay === day) {
+            if (firstDay === day) {
                 return index
             }
             index++
@@ -43,21 +42,38 @@ class Calendar {
         return new Date(year, month, 0).getDate();
     }
 
-    setDates() {
-        let val = 1
-        for (let i = 0; i < this.startingPosition; i++) {
-            const element = this.dayCells[i];
-            element.innerHTML = "&nbsp;"
-            element.style.background = "rgb(128, 128, 128)"
+    setHeader() {
+        if (this.currentDate.getFullYear() === this.selectedDate.getFullYear() &&
+            this.currentDate.getMonth() === this.selectedDate.getMonth()
+        ) {
+            this.header.innerHTML = `${this.selectedDate.toLocaleString("default", { month: "long" })} ${this.selectedDate.getFullYear()}`
+        } else {
+            this.header.innerHTML = `${this.selectedDate.toLocaleString("default", { month: "long" })} ${this.selectedDate.getFullYear()}<br>Go to today`
         }
-        for (let i = this.startingPosition; i < this.endingPosition; i++) {
+    }
+
+    setDates() {
+        const startingPosition = this.getStart()
+        const endingPosition = this.getEnd(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1)
+
+        let prevVal = this.getEnd(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
+        for (let i = startingPosition - 1; i >= 0; i--) {
             const element = this.dayCells[i];
+            element.innerHTML = prevVal--
+                element.style.background = "rgb(128, 128, 128)"
+        }
+
+        let val = 1
+        for (let i = startingPosition; i < endingPosition + startingPosition; i++) {
+            const element = this.dayCells[i];
+            element.style.background = "rgb(216, 216, 216)"
             element.innerHTML = val++
         }
-        for (let i = this.endingPosition; i < this.dayCells.length; i++) {
+        val = 1
+        for (let i = endingPosition + startingPosition; i < this.dayCells.length; i++) {
             const element = this.dayCells[i];
             element.style.background = "rgb(128, 128, 128)"
-            element.innerHTML = "&nbsp;"
+            element.innerHTML = val++
         }
     }
 
@@ -70,8 +86,32 @@ class Calendar {
             }
         }
     }
+
+    makeButtons() {
+        let prevBtn = document.querySelector("#prev-month-button")
+        prevBtn.addEventListener("click", () => {
+            this.selectedDate = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() - 1)
+            this.setHeader()
+            this.setDates()
+        })
+
+        let nextBtn = document.querySelector("#next-month-button")
+        nextBtn.addEventListener("click", () => {
+            this.selectedDate = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth() + 1)
+            this.setHeader()
+            this.setDates()
+        })
+
+        let todayBtn = document.querySelector("#header-date")
+        todayBtn.addEventListener("click", () => {
+            this.selectedDate = this.currentDate
+            this.setHeader()
+            this.setDates()
+        })
+    }
 }
 
 let calendar = new Calendar()
 calendar.setDates()
 calendar.markToday()
+calendar.makeButtons()

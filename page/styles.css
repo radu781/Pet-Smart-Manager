@@ -9,7 +9,7 @@
 }
 
 .row {
-    display: block;
+    display: flex;
     line-height: 3;
 }
 
@@ -36,13 +36,35 @@
 
 #days {
     display: flex;
+    justify-content: space-evenly;
 }
 
 .day {
     height: var(--cell-size) / 2;
     width: var(--cell-size);
+    border: 1px solid red;
 }
 
 #header {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#header>div {
+    display: inline;
+}
+
+#header-date {
+    height: var(--cell-size);
+}
+
+.clickable {
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.clickable:hover {
+    transition: all 250ms;
+    background-color: rgba(0, 0, 255, 0.5);
 }
