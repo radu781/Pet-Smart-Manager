@@ -42,10 +42,13 @@ class Calendar {
         return new Date(year, month, 0).getDate();
     }
 
+    isSameMonth() {
+        return (this.currentDate.getFullYear() === this.selectedDate.getFullYear() &&
+            this.currentDate.getMonth() === this.selectedDate.getMonth())
+    }
+
     setHeader() {
-        if (this.currentDate.getFullYear() === this.selectedDate.getFullYear() &&
-            this.currentDate.getMonth() === this.selectedDate.getMonth()
-        ) {
+        if (this.isSameMonth()) {
             this.header.innerHTML = `${this.selectedDate.toLocaleString("default", { month: "long" })} ${this.selectedDate.getFullYear()}`
         } else {
             this.header.innerHTML = `${this.selectedDate.toLocaleString("default", { month: "long" })} ${this.selectedDate.getFullYear()}<br>Go to today`
@@ -58,30 +61,41 @@ class Calendar {
 
         let prevVal = this.getEnd(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
         for (let i = startingPosition - 1; i >= 0; i--) {
-            const element = this.dayCells[i];
+            const element = this.dayCells[i]
             element.innerHTML = prevVal--
                 element.style.background = "rgb(128, 128, 128)"
         }
 
         let val = 1
         for (let i = startingPosition; i < endingPosition + startingPosition; i++) {
-            const element = this.dayCells[i];
+            const element = this.dayCells[i]
             element.style.background = "rgb(216, 216, 216)"
             element.innerHTML = val++
         }
         val = 1
         for (let i = endingPosition + startingPosition; i < this.dayCells.length; i++) {
-            const element = this.dayCells[i];
+            const element = this.dayCells[i]
             element.style.background = "rgb(128, 128, 128)"
             element.innerHTML = val++
         }
+
+        const bottomLeft = calendar.dayCells[calendar.dayCells.length - 7]
+        bottomLeft.style.borderBottomLeftRadius = "10px"
+        const bottomRight = calendar.dayCells[calendar.dayCells.length - 1]
+        bottomRight.style.borderBottomRightRadius = "10px"
+
+        this.markToday()
     }
 
     markToday() {
+        if (!this.isSameMonth()) {
+            return
+        }
         const today = this.currentDate.getDate()
         for (const cell of this.dayCells) {
             if (cell.innerText === today.toString()) {
                 cell.style.background = "rgb(160, 160, 160)"
+                cell.style.borderRadius = "10px"
                 break
             }
         }
@@ -113,5 +127,4 @@ class Calendar {
 
 let calendar = new Calendar()
 calendar.setDates()
-calendar.markToday()
 calendar.makeButtons()

@@ -21,11 +21,11 @@
     vertical-align: top;
     width: var(--cell-size);
     height: var(--cell-size);
-    /* border: 1px solid rgb(29, 29, 29); */
 }
 
 #calendar {
     background-color: var(--body-color);
+    border-radius: 10px;
 }
 
 .center {
@@ -42,13 +42,17 @@
 .day {
     height: var(--cell-size) / 2;
     width: var(--cell-size);
-    border: 1px solid red;
+    text-align: center;
 }
 
 #header {
     display: flex;
     justify-content: space-between;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #808080;
     align-items: center;
+    user-select: none;
 }
 
 #header>div {
