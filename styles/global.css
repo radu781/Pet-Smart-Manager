@@ -67,9 +67,10 @@ div.display_mode {
 /* navigation zone */
 
 nav {
+    
+    border-bottom: 0.1rem solid var(--darkgreen);
     background-color: var(--orange);
     height: 3.5rem;
-    border-top: 0.05rem solid rgb(8, 40, 88);
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -77,7 +78,7 @@ nav {
 }
 
 nav:hover {
-    border-top: 0.2rem solid rgb(8, 40, 88);
+    border-top: 0.2rem solid var(--darkgreen);
     transition: 150ms;
 }
 
@@ -96,44 +97,43 @@ ul.menu {
 }
 
 li.option_my_profile {
-    border-right: 0.1rem solid rgb(8, 40, 88);
+    border-right: 0.1rem solid var(--darkgreen);
     padding-left: 0.1rem;
     font-size: 1.25rem;
     text-align: center;
     flex-grow: 1;
     flex-basis: 0;
 }
-
 li.option_my_profile:hover {
-    border-left: 0.1rem solid rgb(8, 40, 88);
-    border-top-left-radius: 1.5rem;
-    border-bottom-left-radius: 1.5rem;
     color: black;
     transition: 350ms;
 }
-
 li.option_my_pets {
     font-size: 1.25rem;
     text-align: center;
     flex-grow: 1;
     flex-basis: 0;
 }
-
-li.option_my_groups {
-    border-left: 0.1rem solid rgb(8, 40, 88);
+li.option_my_groups {   
+    border-left: 0.1rem solid var(--darkgreen);
     font-size: 1.25rem;
     text-align: center;
     flex-grow: 1;
     flex-basis: 0;
 }
-
 li.option_my_groups:hover {
-    border-right: 0.1rem solid rgb(8, 40, 88);
-    border-top-right-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
     color: black;
     transition: 250ms;
 }
+
+a.link_for_menu{
+    text-decoration: none;
+    color: var(--darkgreen);
+}
+a.link_for_menu:hover{
+    color: black;
+}
+
 
 .main-content {
     display: flex;
@@ -141,7 +141,7 @@ li.option_my_groups:hover {
     margin: 10vh 10vh;
     border-style: solid;
     border-color: var(--darkblue);
-    border-radius: 1%;
+    border-radius: 0.5rem;
     padding: 5vh 5vh;
 }
 
@@ -162,4 +162,11 @@ li.option_my_groups:hover {
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
+}
+
+@media (max-width: 800px) {
+    .main-content {
+        margin: 5vh 5vh;
+        padding: 2.5vh 2.5vh;
+    }
 }
