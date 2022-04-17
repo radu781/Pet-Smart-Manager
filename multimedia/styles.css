@@ -1,0 +1,26 @@
+:root {
+    --margin: 10px;
+    --cell-size: 10rem;
+}
+
+.main {
+    display: flex;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    /* border: 1px solid black; */
+    /* padding: var(--margin); */
+    margin: var(--margin);
+    margin-top: calc(var(--margin) * 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cell img {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    object-fit: contain;
+}
