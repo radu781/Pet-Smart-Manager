@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="styles/style.css" rel="stylesheet">
-    <link href="styles/sofron.css" rel="stylesheet">
-    <title>Petbook</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/hazi.css">
 </head>
-
 <body>
     <header>
         <div class="site_logo">
@@ -26,29 +24,19 @@
         </ul>
     </nav>
     <hr>
-    <main>
-        <section class="pets">
-            <h2>My pets</h2>
-            <div class="pets">
-                <div class="pet">
-                    <h3>1st pet</h3>
-                </div>
-                <div class="pet">
-                    <h3>2nd pet</h3>
-                </div>
-                <div class="pet">
-                    <h3>3rd pet</h3>
-                </div>
-                <div class="pet">
-                    <h3>4th pet</h3>
-                </div>
-                <div class="pet">
-                    <h3>5th pet</h3>
-                </div>
-                <!--more pets-->
+    <div class="main-content">
+        <p class="default-title">Login</p>
+        <form class="hazi-form">
+            <div>
+                <label for="username">Username:</label>
+                <input type="email" name="username" id="username" required>
             </div>
-        </section>
-    </main>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <input class="default-button" type="submit" value="Login now!">
+        </form>
+    </div>
 </body>
-
 </html>

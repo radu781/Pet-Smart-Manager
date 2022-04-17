@@ -1,0 +1,53 @@
+form.hazi-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.hazi-form > div > label, #hazi-dynamic-fields > div > label {
+    display: flex;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    font-size: 2.5vh;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: var(--darkblue);
+}
+
+.hazi-form > div > input, #hazi-dynamic-fields > div > input[type=time] {
+    height: 3vh;
+    margin-bottom: 2vh;
+    width: 30vh;
+    background-color: var(--lightgreen);
+    border-style: double;
+    border-radius: 3%;
+    border-color: var(--darkblue);
+}
+
+.hazi-input-width {
+    width: 30vh;
+    background-color: var(--lightgreen);
+    border-style: double;
+    border-radius: 3%;
+    border-color: var(--darkblue);
+}
+
+#pet-selector {
+    height: 10vh;
+    margin-bottom: 2vh;
+    width: 25vh;
+    background-color: var(--lightgreen);
+    border-style: double;
+    border-radius: 3%;
+    border-color: var(--darkblue);
+}
+
+.hazi-center-left-align {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hazi-padding-top {
+	padding: 5vh 0vh 0vh;
+}

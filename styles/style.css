@@ -1,8 +1,20 @@
-body{
-    margin: 0rem;
-    padding: 0rem;
+* {
+    margin:0;
+    padding:0;
+    font-weight: normal;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
 
-    background: linear-gradient(rgb(242, 229, 213), white);
+body{
+    background-color: var(--yellow);
+}
+
+:root {
+	 --darkblue: #0C1F2D;
+	 --darkgreen: #12644E;
+	 --lightgreen: #6AD6C8;
+	 --yellow: #FDF2C9;
+     --orange: #FFD147;
 }
 
 
@@ -10,7 +22,7 @@ body{
 header{
     padding-left: 2%;
     padding-right: 2%;
-    background-color:rgb(242, 127, 180);
+    background-color: var(--orange);
     height: 5rem;
 
     display: flex;
@@ -46,7 +58,7 @@ div.display_mode{
 
 /* navigation zone */
 nav{
-    background-image: linear-gradient(rgb(242, 127, 180), rgb(242, 229, 213));
+    background-color: var(--orange);
     height: 3.5rem;
 
     border-top: 0.05rem solid rgb(8, 40, 88);
@@ -56,6 +68,7 @@ nav{
     flex-wrap: nowrap;  
     justify-content: center;
 }
+
 nav:hover{
     border-top: 0.2rem solid rgb(8, 40, 88);
 
@@ -72,6 +85,7 @@ ul.menu{
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-evenly;
+	align-items: center;
 }
 
 li.option_my_profile{
@@ -113,102 +127,30 @@ li.option_my_groups:hover{
     color: black;
     transition: 250ms;
 }
-a.option{
-    text-decoration: none;
-    color: rgb(8, 40, 88);
-}
-a.option:hover{
-    color: black;
-}
 
-
-/* content - my profile */
-main{
-    padding-top: 2.5%;
-    padding-bottom: 2.5%;
-    padding-left: 7.5%;
-    padding-right: 7.5%;
-}
-section.user_attributes{
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border: 0.125rem groove rgb(8, 40, 88);
-    border-radius: 1.5rem;
-
-    background-color: white;
-}
-h2{ 
-    color: rgb(8, 40, 88);
-}
-p{
-    color: rgb(8, 40, 88);
+.main-content {
+    margin: 10vh 10vh;
+    border-style: solid;
+    border-color: var(--darkblue);
+    border-radius: 1%;
+    padding: 5vh 5vh;
 }
 
-
-/* content - my pets */
-section.pets{
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border: 0.125rem groove rgb(8, 40, 88);
-
-    background-image: radial-gradient(rgb(4, 178, 217), white, rgb(4, 178, 217));
-    
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-div.pets{
-    padding: 1rem;
-
-    display:flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    row-gap: 1.5rem;
+.default-button {
+    background-color: var(--lightgreen);
+    border-style: double;
+    border-radius: 3%;
+    border-color: var(--darkblue);
+    margin-top: 3vh;
+    padding: 1vh 2vh 1vh;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--darkblue);
 }
 
-div.pet{
-    width: 75%;
-    height: 7.5rem;
-    border: 0.125rem groove rgb(8, 40, 88);
-    border-radius: 1rem;
-    background-color: white;
-
+.default-title { 
+    font-size: large;
+    font-weight: bold;
+    text-transform: uppercase;
     text-align: center;
-}
-
-
-/* content - my groups */
-section.groups{
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border: 0.125rem groove rgb(8, 40, 88);
-}
-div.groups{
-
-    padding: 1rem;
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    column-gap: 1.5rem;
-    row-gap: 1.5rem;
-}
-div.group{
-
-    height: 10rem;
-    width: 30%;
-
-    border: 0.125rem groove rgb(8, 40, 88);
-    border-radius: 1rem;
-
-    text-align:center;
-}
-
-/* other things */
-
-hr{
-    margin: 0rem;
-    background-color: rgb(8, 40, 88);
 }

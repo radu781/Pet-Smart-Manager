@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/hazi.css">
+</head>
+<body>
+    <header>
+        <div class="site_logo">
+            <img src="images/icon.png" alt="Logo">
+        </div>
+        <div class="site_name"><a class="site_name" href="homepage.html"><strong>Petbook</strong></a></div>
+        <div class="display_mode">Light/Dark mode</div>
+    </header>
+    <nav>
+        <ul class="menu">
+            <li class="option_my_profile"><a class="option" href="homepage.html">My profile</a></li>
+            <li class="option_my_pets"><a class="option" href="mypets.html">My pets</a></li>
+            <li class="option_my_groups"><a class="option" href="mygroups.html">My groups</a></li>
+        </ul>
+    </nav>
+    <hr>
+    <div class="main-content">
+        <form class="hazi-form">
+            <p class="default-title">Register</p>
+            <div>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <div>
+                <label for="fname">First name:</label>
+                <input type="text" id="fname" name="fname" required>
+            </div>
+            <div>
+                <label for="mname">Middle name:</label>
+                <input type="text" id="mname" name="mname">
+             </div>
+            <div>
+                <label for="lname">Last name:</label>
+                <input type="text" id="lname" name="lname" required>
+            </div>
+            <input class="default-button" type="submit" value="Register now!">
+        </form>
+    </div>
+    </body>
+</html>
