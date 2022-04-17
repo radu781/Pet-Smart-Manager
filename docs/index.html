@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="revised" content="2022/04/08">
+    <meta name="author" content="Radu-Alexandru Popa">
+    <meta name="description" content="Web application that allows users to manage resources regarding their pets">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../resources/icon.png" type="image/x-icon">
+
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noticia+Text&display=swap" rel="stylesheet">
+
+    <title>Pet Smart Manager documentation</title>
+</head>
+
+<body>
+    <h1 class="title">Pet smart manager documentation</h1>
+    <div class="main">
+
+        <!-- table of contents area -->
+        <nav class="left">
+            <h3 class="subtitle">Table of contents</h3>
+            <ol>
+                <li class="toc-category"><a href="#introduction">Introduction</a></li>
+                <ol>
+                    <li><a href="#purpose" class="internal-link">Purpose</a></li>
+                    <li><a href="#conventions">Document conventions</a></li>
+                    <li><a href="#intended-audience">Intended audience and reading suggestions</a></li>
+                    <li><a href="#product-scope">Product scope</a></li>
+                    <li><a href="#references">References</a></li>
+                </ol>
+
+                <li class="toc-category"><a href="#overall-description">Overall description</a></li>
+                <ol>
+                    <li><a href="#product-perspective">Product perspective</a> </li>
+                    <li><a href="#product-functions">Product functions</a> </li>
+                    <li><a href="#user-classes">User classes and characteristics</a> </li>
+                    <li><a href="#operating-environment">Operating environment</a> </li>
+                    <li><a href="#constraints">Design and implementation constraints</a> </li>
+                    <li><a href="#user-documentation">User documentation</a> </li>
+                    <li><a href="#assumptions">Assumptions and dependencies</a> </li>
+                </ol>
+
+                <li class="toc-category"><a href="#external-requirements">External interface requirements</a></li>
+                <ol>
+                    <li><a href="#user-interfaces"> User interfaces</a></li>
+                    <li><a href="#hardware-interfaces"> Hardware interfaces</a></li>
+                    <li><a href="#software-interfaces"> Software interfaces</a></li>
+                    <li><a href="#communication-interfaces"> Communication interfaces</a></li>
+                </ol>
+                <li class="toc-category"><a href="#system-features">System features</a></li>
+                <li class="toc-category"><a href="#other-nonf-requirements">Other nonfunctional requirements</a></li>
+                <ol>
+                    <li><a href="#performance-requirements"> Performance requirements</a></li>
+                    <li><a href="#safety-requirements"> Safety requirements</a></li>
+                    <li><a href="#security-requirements"> Security requirements</a></li>
+                    <li><a href="#software-qa"> Software quality attributes</a></li>
+                    <li><a href="#business-rules"> Business rules</a></li>
+                </ol>
+                <li class="toc-category"><a href="#other-requirements">Other requirements</a></li>
+                <li class="toc-category">Appendix</li>
+            </ol>
+        </nav>
+
+        <!-- main page area -->
+        <div class="right">
+            <ol>
+                <li id="introduction" class="subcategory">Introduction</li>
+                <ol>
+                    <li id="purpose" class="subcategory">Purpose</li>
+                    &nbsp;&nbsp;&nbsp;&nbsp; The purpose of this document is to present a detailed description of the open-source software PeM. It will explain the purpose and features of the software, the interfaces of the software, what the software will do and the constraints under which it must operate. This document is intended for users of the software and also potential developers. 
+                    <li id="conventions" class="subcategory">Document conventions</li>
+                    &nbsp;&nbsp;&nbsp;&nbsp; This Document was created based on the IEEE template for System Requirement Specification Documents. 
+                    <li id="intended-audience" class="subcategory">Intended audience</li>
+					&nbsp;&nbsp;&nbsp;&nbsp; Authenticated users, such as family members.
+                    <li id="product-scope" class="subcategory">Product scope</li>
+                    &nbsp;&nbsp;&nbsp;&nbsp; PeM is an application that allows authenticated users, such as family members, to manage the care of pets. They will be able to manage their feeding schedule, restrictions (if any), share various multimedia resources (pictures and videos) with other family members but also on social media, the pet's medical history (including first aid methods) and relationship with other animals.
+                    <li id="references" class="subcategory">References</li>
+                    &nbsp;&nbsp;&nbsp;&nbsp; <a href="https://github.com/rick4470/IEEE-SRS-Tempate">IEEE-SRS-Tempate</a></br>
+                </ol>
+
+                <li id="overall-description" class="subcategory">Overall description</li>
+                <ol>
+                    <li id="product-perspective" class="subcategory">Product perspective</li>
+					&nbsp;&nbsp;&nbsp;&nbsp; PeM is an application developed by three students of the Faculty of Informatics from Iasi, within the course "Web Technologies". The application focuses on the functionalities made available to its users and less on the graphic side. We want to believe that it is a useful application not only for members of the same family but why not, and for the recognized pet hotels for those situations where all family members are on vacation and we believe it would be useful for the staff of the pet hotel to have access to relevant information about hosted animals.
+                    <li id="product-functions" class="subcategory">Product functions</li>
+					My profile: </br>
+						&nbsp;&nbsp;&nbsp;&nbsp; - View account summary </br>
+						&nbsp;&nbsp;&nbsp;&nbsp; - Update account details </br>
+					My pets: </br>
+						&nbsp;&nbsp;&nbsp;&nbsp; - Add new pet </br>
+						&nbsp;&nbsp;&nbsp;&nbsp; - View existing pets </br>
+						&nbsp;&nbsp;&nbsp;&nbsp; - Update existing pets info </br>
+					My groups: </br>
+						&nbsp;&nbsp;&nbsp;&nbsp; - Create new group </br>
+						&nbsp;&nbsp;&nbsp;&nbsp; - Join existing group </br>
+						&nbsp;&nbsp;&nbsp;&nbsp; - View existing groups
+                    <li id="user-classes" class="subcategory">User classes and characteristics</li>
+					&nbsp;&nbsp;&nbsp;&nbsp; - Regular users, those who have the option to register, to log in, to add new pets within the application, to edit information about existing pets, to create new groups of pets or even to join to some already existing groups. </br>
+					&nbsp;&nbsp;&nbsp;&nbsp; - People who occasionally take care of pets (close family or pet hotel staff) who have access to registration, login, joining a group of pets to see information on how they will have to take care of and even edit the information they have access to. (for example: medical history, relationship with other animals and why not, upload media content).
+                    <li id="operating-environment" class="subcategory">Operating environment</li>
+                    <li id="constraints" class="subcategory">Design and implementation constraints</li>
+                    <li id="user-documentation" class="subcategory">User documentation</li>
+                    <li id="assumptions" class="subcategory">Assumptions and dependencies</li>
+                </ol>
+
+                <li id="external-requirements" class="subcategory">External interface requirements</li>
+                <ol>
+                    <li id="user-interfaces" class="subcategory">User interfaces</li>
+                    <li id="hardware-interfaces" class="subcategory">Hardware interfaces</li>
+                    <li id="software-interfaces" class="subcategory">Software interfaces</li>
+                    <li id="communication-interfaces" class="subcategory">Communication interfaces</li>
+                </ol>
+
+                <li id="system-features" class="subcategory">System features</li>
+                <ol>
+
+                </ol>
+
+                <li id="other-nonf-requirements" class="subcategory">Other nonfunctional requirements</li>
+                <ol>
+                    <li id="performance-requirements" class="subcategory">Performance requirements</li>
+                    <li id="safety-requirements" class="subcategory">Safety requirements</li>
+                    <li id="security-requirements" class="subcategory">Security requirements</li>
+                    <li id="software-qa" class="subcategory">Software quality attributes</li>
+                    <li id="business-rules" class="subcategory">Business rules</li>
+                </ol>
+
+                <li id="other-requirements" class="subcategory">Other requirements</li>
+                <ol>
+
+                </ol>
+
+                <li class="subcategory">Appendix</li>
+                <ol>
+
+                </ol>
+            </ol>
+
+        </div>
+    </div>
+</body>
+
+</html>
