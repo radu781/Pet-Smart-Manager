@@ -1,26 +1,38 @@
 :root {
     --margin: 10px;
     --cell-size: 10rem;
+    --darkblue: #0c1f2d;
+    --darkgreen: #12644e;
+    --lightgreen: #6ad6c8;
+    --yellow: #fdf2c9;
+    --orange: #ffd147;
 }
 
 .main {
     display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .cell {
     width: var(--cell-size);
     height: var(--cell-size);
-    /* border: 1px solid black; */
-    /* padding: var(--margin); */
     margin: var(--margin);
     margin-top: calc(var(--margin) * 2);
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
+    border: 1px solid var(--lightgreen);
+    padding: 5px 5px 50px 5px;
 }
 
 .cell img {
     width: var(--cell-size);
     height: var(--cell-size);
     object-fit: contain;
+}
+
+.cell p {
+    text-align: center;
 }

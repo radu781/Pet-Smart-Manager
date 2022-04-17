@@ -136,6 +136,8 @@ li.option_my_groups:hover {
 }
 
 .main-content {
+    display: flex;
+    flex-direction: column;
     margin: 10vh 10vh;
     border-style: solid;
     border-color: var(--darkblue);
