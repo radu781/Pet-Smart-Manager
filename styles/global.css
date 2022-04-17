@@ -67,7 +67,6 @@ div.display_mode {
 /* navigation zone */
 
 nav {
-    
     border-bottom: 0.1rem solid var(--darkgreen);
     background-color: var(--orange);
     height: 3.5rem;
@@ -142,7 +141,7 @@ a.link_for_menu:hover{
     border-style: solid;
     border-color: var(--darkblue);
     border-radius: 0.5rem;
-    padding: 5vh 5vh;
+    padding: 2.5vh 5vh 5vh 5vh;
 }
 
 .default-button {
@@ -162,6 +161,7 @@ a.link_for_menu:hover{
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
+    margin-bottom: 2.5vh;
 }
 
 @media (max-width: 800px) {

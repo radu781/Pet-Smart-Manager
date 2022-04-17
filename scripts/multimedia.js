@@ -5,14 +5,17 @@ const main = document.querySelector(".main")
 const mainContent = document.querySelector(".main-content")
 const availableWidth = (mainContent.clientWidth - mainContent.style.margin * 2 - mainContent.style.padding * 2) / 2 - 100
 const samplePetSources = [
-    { "src": "https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_960_720.jpg", "alt": "cat", "desc": "this is a dog" },
-    { "src": "https://cdn.pixabay.com/photo/2014/10/01/10/44/hedgehog-468228_960_720.jpg", "alt": "hedgehog", "desc": "same for a hedgehog" },
+    { "src": "https://cdn.pixabay.com/photo/2021/10/19/10/56/cat-6723256_960_720.jpg", "alt": "cat", "desc": "this is *not* a dog" },
+    { "src": "https://cdn.pixabay.com/photo/2014/10/01/10/44/hedgehog-468228_960_720.jpg", "alt": "hedgehog", "desc": "always prickly" },
     { "src": "https://cdn.pixabay.com/photo/2019/08/19/07/45/dog-4415649_960_720.jpg", "alt": "dog", "desc": "another dog, not the same for sure" },
     { "src": "https://cdn.pixabay.com/photo/2020/10/03/11/08/girl-5623231_960_720.jpg", "alt": "dog", "desc": "girl with dog, the pet is happy" },
     { "src": "https://cdn.pixabay.com/photo/2013/10/17/20/59/horse-197199_960_720.jpg", "alt": "horse", "desc": "horses are fun" },
     { "src": "https://cdn.pixabay.com/photo/2020/04/07/20/36/bunny-5014814_960_720.jpg", "alt": "bunny", "desc": "rabbits are fluffy and jumpy" },
     { "src": "https://cdn.pixabay.com/photo/2016/03/05/18/54/animal-1238228_960_720.jpg", "alt": "rat", "desc": "rats are not always gross" },
-    { "src": "https://cdn.pixabay.com/photo/2018/06/19/12/03/fish-3484346_960_720.jpg", "alt": "axolotl", "desc": "axolotls are weird but cute in a way" }
+    { "src": "https://cdn.pixabay.com/photo/2018/06/19/12/03/fish-3484346_960_720.jpg", "alt": "axolotl", "desc": "axolotls are weird but cute in a way" },
+    { "src": "https://cdn.pixabay.com/photo/2015/04/15/06/01/chinchilla-723359_960_720.jpg", "alt": "chinchilla", "desc": "bigger and not quite like rats" },
+    { "src": "https://cdn.pixabay.com/photo/2022/04/08/19/31/snail-7120170_960_720.jpg", "alt": "snail", "desc": "some people like snails, right?" },
+    { "src": "https://cdn.pixabay.com/photo/2019/04/24/21/55/cinema-4153289_960_720.jpg", "alt": "useful video", "desc": "guide for pet owners" }
 ]
 
 function refresh() {
@@ -42,10 +45,17 @@ function refresh() {
         imgNode.src = samplePetSources[index].src
         imgNode.alt = samplePetSources[index].alt
         cell.appendChild(imgNode)
+
         const pNode = document.createElement("p")
         const textNode = document.createTextNode(samplePetSources[index].desc)
         pNode.appendChild(textNode)
         cell.appendChild(pNode)
+
+        const button = document.createElement("button")
+        const details = document.createTextNode("Details")
+        button.appendChild(details)
+        button.classList.add("default-button")
+        cell.appendChild(button)
     }
 }
 refresh()

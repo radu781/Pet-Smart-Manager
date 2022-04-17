@@ -16,23 +16,22 @@
 
 .cell {
     width: var(--cell-size);
-    height: var(--cell-size);
+    /* height: var(--cell-size); */
     margin: var(--margin);
     margin-top: calc(var(--margin) * 2);
-    display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     align-items: center;
     border: 1px solid var(--lightgreen);
-    padding: 5px 5px 50px 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+.column:nth-child(2n) {
+    margin-top: 10rem;
 }
 
 .cell img {
     width: var(--cell-size);
     height: var(--cell-size);
     object-fit: contain;
-}
-
-.cell p {
-    text-align: center;
 }
