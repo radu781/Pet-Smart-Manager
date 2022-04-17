@@ -1,0 +1,214 @@
+body{
+    margin: 0rem;
+    padding: 0rem;
+
+    background: linear-gradient(rgb(242, 229, 213), white);
+}
+
+
+/* top bar */
+header{
+    padding-left: 2%;
+    padding-right: 2%;
+    background-color:rgb(242, 127, 180);
+    height: 5rem;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* header elements */
+div.site_logo{
+    height: 3.5rem;
+    width: 3.5rem;
+}
+img{
+    max-width: 100%;
+    max-height: 100%;
+}
+div.site_name{
+    font-size: 2.25rem;
+}
+a.site_name{
+    text-decoration: none;
+    color: black;
+}
+a.site_name:hover{
+    font-size: 2.375rem;
+}
+div.display_mode{
+    font-size: 1 rem;
+    color: black;
+}
+
+/* navigation zone */
+nav{
+    background-image: linear-gradient(rgb(242, 127, 180), rgb(242, 229, 213));
+    height: 3.5rem;
+
+    border-top: 0.05rem solid rgb(8, 40, 88);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;  
+    justify-content: center;
+}
+nav:hover{
+    border-top: 0.2rem solid rgb(8, 40, 88);
+
+    transition: 150ms;
+}
+
+/* navigation elements */
+ul.menu{
+    padding: 0rem;
+    list-style: none;
+    width: 80%;
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+
+li.option_my_profile{
+    border-right: 0.1rem solid rgb(8, 40, 88); 
+    padding-left: 0.1rem;
+
+    font-size: 1.25rem;
+    text-align: center;
+
+    flex-grow: 1;
+    flex-basis: 0;  
+}
+li.option_my_profile:hover{
+    border-left: 0.1rem solid rgb(8, 40, 88);
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+    color: black;
+    transition: 350ms;
+}
+li.option_my_pets{
+    font-size: 1.25rem;
+    text-align: center;
+
+    flex-grow: 1;
+    flex-basis: 0;  
+}
+li.option_my_groups{
+    border-left: 0.1rem solid rgb(8, 40, 88);
+    font-size: 1.25rem;
+    text-align: center;
+
+    flex-grow: 1;
+    flex-basis: 0;  
+}
+li.option_my_groups:hover{
+    border-right: 0.1rem solid rgb(8, 40, 88);
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+    color: black;
+    transition: 250ms;
+}
+a.option{
+    text-decoration: none;
+    color: rgb(8, 40, 88);
+}
+a.option:hover{
+    color: black;
+}
+
+
+/* content - my profile */
+main{
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    padding-left: 7.5%;
+    padding-right: 7.5%;
+}
+section.user_attributes{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: 0.125rem groove rgb(8, 40, 88);
+    border-radius: 1.5rem;
+
+    background-color: white;
+}
+h2{ 
+    color: rgb(8, 40, 88);
+}
+p{
+    color: rgb(8, 40, 88);
+}
+
+
+/* content - my pets */
+section.pets{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: 0.125rem groove rgb(8, 40, 88);
+
+    background-image: radial-gradient(rgb(4, 178, 217), white, rgb(4, 178, 217));
+    
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+div.pets{
+    padding: 1rem;
+
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 1.5rem;
+}
+
+div.pet{
+    width: 75%;
+    height: 7.5rem;
+    border: 0.125rem groove rgb(8, 40, 88);
+    border-radius: 1rem;
+    background-color: white;
+
+    text-align: center;
+}
+
+
+/* content - my groups */
+section.groups{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border: 0.125rem groove rgb(8, 40, 88);
+}
+div.groups{
+
+    padding: 1rem;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 1.5rem;
+    row-gap: 1.5rem;
+}
+div.group{
+
+    height: 10rem;
+    width: 30%;
+
+    border: 0.125rem groove rgb(8, 40, 88);
+    border-radius: 1rem;
+
+    text-align:center;
+}
+
+/* other things */
+
+hr{
+    margin: 0rem;
+    background-color: rgb(8, 40, 88);
+}
