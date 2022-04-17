@@ -5,26 +5,30 @@
 
 :root {
     --cell-size: 4rem;
-    --body-color: rgb(216, 216, 216);
+    --darkblue: #0c1f2d;
+    --darkgreen: #12644e;
+    --lightgreen: #6ad6c8;
+    --yellow: #fdf2c9;
+    --orange: #ffd147;
 }
 
 .row {
     display: flex;
-    line-height: 3;
 }
 
 .cell {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     text-align: center;
     font-size: larger;
     vertical-align: top;
     width: var(--cell-size);
     height: var(--cell-size);
+    justify-content: center;
+    align-items: center;
 }
 
 #calendar {
-    background-color: var(--body-color);
     border-radius: 10px;
 }
 
@@ -36,6 +40,7 @@
 
 #days {
     display: flex;
+    background-color: var(--lightgreen);
     justify-content: space-evenly;
 }
 
@@ -50,7 +55,7 @@
     justify-content: space-between;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    background-color: #808080;
+    background-color: var(--lightgreen);
     align-items: center;
     user-select: none;
 }
@@ -61,14 +66,54 @@
 
 #header-date {
     height: var(--cell-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .clickable {
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .clickable:hover {
-    transition: all 250ms;
-    background-color: rgba(0, 0, 255, 0.5);
+    transition: all 125ms ease-in;
+    background-color: var(--darkgreen);
+}
+
+@media (max-width: 700px) {
+    .day {
+        height: calc(var(--cell-size) / 3.5);
+        width: calc(var(--cell-size) / 1.5);
+        overflow-wrap: break-word;
+    }
+    #header-date {
+        height: calc(var(--cell-size) / 2);
+    }
+    .cell {
+        height: calc(var(--cell-size) / 1.5);
+        width: calc(var(--cell-size) / 1.5);
+    }
+}
+
+@media (max-width: 550px) {
+    .day {
+        height: calc(var(--cell-size) / 4);
+        width: calc(var(--cell-size) / 2);
+        overflow-wrap: break-word;
+    }
+    #header-date {
+        height: calc(var(--cell-size) / 2);
+    }
+    .cell {
+        height: calc(var(--cell-size) / 2);
+        width: calc(var(--cell-size) / 2);
+    }
+    #header .clickable {
+        width: 2rem;
+        height: 2rem;
+    }
+    #calendar {
+        font-size: small;
+    }
 }

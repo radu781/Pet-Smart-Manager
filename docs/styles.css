@@ -2,7 +2,7 @@
     padding: 0;
     margin: 0;
     font-weight: normal;
-    font-family: 'Noticia Text', serif;
+    font-family: "Noticia Text", serif;
 }
 
 :root {
@@ -121,6 +121,10 @@ ol {
 li:before {
     content: counters(item, ".") " ";
     counter-increment: item;
+}
+
+.subcategory+p {
+    padding-left: 1rem;
 }
 
 

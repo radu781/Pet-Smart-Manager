@@ -62,20 +62,23 @@ class Calendar {
         let prevVal = this.getEnd(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
         for (let i = startingPosition - 1; i >= 0; i--) {
             const element = this.dayCells[i]
+            element.style.border = "none"
+            element.style.background = "var(--darkgreen)"
             element.innerHTML = prevVal--
-                element.style.background = "rgb(128, 128, 128)"
         }
 
         let val = 1
         for (let i = startingPosition; i < endingPosition + startingPosition; i++) {
             const element = this.dayCells[i]
-            element.style.background = "rgb(216, 216, 216)"
+            element.style.border = "none"
+            element.style.background = "var(--yellow)"
             element.innerHTML = val++
         }
         val = 1
         for (let i = endingPosition + startingPosition; i < this.dayCells.length; i++) {
             const element = this.dayCells[i]
-            element.style.background = "rgb(128, 128, 128)"
+            element.style.background = "var(--darkgreen)"
+            element.style.border = "none"
             element.innerHTML = val++
         }
 
@@ -94,8 +97,9 @@ class Calendar {
         const today = this.currentDate.getDate()
         for (const cell of this.dayCells) {
             if (cell.innerText === today.toString()) {
-                cell.style.background = "rgb(160, 160, 160)"
+                cell.style.background = "var(--lightgreen)"
                 cell.style.borderRadius = "10px"
+                cell.style.border = "1px solid var(--darkgreen)"
                 break
             }
         }

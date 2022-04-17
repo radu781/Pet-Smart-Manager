@@ -1,0 +1,1 @@
+const subcategories = document.querySelectorAll(".subcategory")
