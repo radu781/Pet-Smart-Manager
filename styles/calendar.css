@@ -26,6 +26,7 @@
     height: var(--cell-size);
     justify-content: center;
     align-items: center;
+    transition: 125ms all;
 }
 
 #calendar {

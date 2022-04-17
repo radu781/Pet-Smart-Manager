@@ -1,5 +1,15 @@
 class Calendar {
     constructor() {
+        this.days = [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+        ]
+        this.generateCells()
         this.rows = document.querySelectorAll(".row")
         this.header = document.querySelector("#header-date")
         this.currentDate = new Date()
@@ -17,20 +27,39 @@ class Calendar {
         }
     }
 
+    generateCells() {
+        const days = document.querySelector("#days")
+        const columns = 6
+
+        for (let i = 0; i < columns; i++) {
+            const dayNode = document.createElement("div")
+            const textNode = document.createTextNode(this.days[i].slice(0, 3))
+            dayNode.appendChild(textNode)
+            dayNode.classList.add("day")
+            days.appendChild(dayNode)
+        }
+
+        const rows = 7
+        const calendarBody = document.querySelector("#calendar-body")
+
+        for (let i = 0; i < columns; i++) {
+            const row = document.createElement("div")
+            row.classList.add("row")
+            calendarBody.appendChild(row)
+            for (let j = 0; j < rows; j++) {
+                const cell = document.createElement("div")
+                cell.classList.add("cell")
+                row.appendChild(cell)
+            }
+        }
+    }
+
     getStart() {
         const firstDate = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), 1)
         const firstDay = firstDate.toLocaleDateString("default", { weekday: "long" })
-        const days = [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-        ]
+
         let index = 0
-        for (const day of days) {
+        for (const day of this.days) {
             if (firstDay === day) {
                 return index
             }
