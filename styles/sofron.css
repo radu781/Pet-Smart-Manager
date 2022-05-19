@@ -116,6 +116,11 @@ a.link{
         margin: 2.5vh;
     }
 }
+@media (max-width: 200px) {
+    h2.default-title{
+        margin: 0vh;
+    }
+}
 
 /* content - my groups */
 a.link.new_group{

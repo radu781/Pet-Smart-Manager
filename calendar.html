@@ -21,15 +21,34 @@
     </header>
     <nav>
         <ul class="menu">
-            <li class="option_my_profile"><a class="link_for_menu" href="homepage.html">My profile</a></li>
-            <li class="option_my_pets"><a class="link_for_menu" href="mypets.html">My pets</a></li>
-            <li class="option_my_groups"><a class="link_for_menu" href="mygroups.html">My groups</a></li>
+            <li class="normal option_my_profile"><a class="link_for_menu " href="homepage.html">My profile</a></li>
+            <li class="normal option_my_pets"><a class="link_for_menu " href="mypets.html">My pets</a></li>
+            <li class="normal option_my_groups"><a class="link_for_menu " href="mygroups.html">My groups</a></li>
+
+            <!-- responsive design -->
+            <li class="phone option_my_profile">
+                <a class="link_for_menu" href="homepage.html">
+                    <img src="resources/user.png">
+                </a>
+            </li>
+            <li class="phone option_my_pets">
+                <a class="link_for_menu " href="mypets.html">
+                    <img src="resources/pets.png">
+                </a>
+            </li>
+            <li class="phone option_my_groups">
+                <a class="link_for_menu " href="mygroups.html">
+                    <img src="resources/groups.png">
+                </a>
+            </li>
         </ul>
     </nav>
     <hr>
     <div class="main-content">
         <p class="default-title">Calendar</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quo voluptatum provident accusamus at. Porro fugiat quisquam possimus esse accusamus facere, obcaecati tenetur neque saepe, non dicta, et totam hic?</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quo voluptatum provident accusamus at.
+            Porro fugiat quisquam possimus esse accusamus facere, obcaecati tenetur neque saepe, non dicta, et totam
+            hic?</p>
         <div class="center">
             <div id="calendar">
                 <div id="header">
@@ -41,8 +60,12 @@
                 <div id="calendar-body"></div>
             </div>
         </div>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum ea commodi deserunt laboriosam assumenda iste expedita quos provident saepe? Voluptatibus molestias inventore minima voluptatum accusantium, rerum accusamus expedita ad aliquam.
-            Excepturi nemo natus reprehenderit dolore hic unde fugiat doloribus, ducimus sunt nulla. Nisi quod consequuntur numquam, atque odit dicta. Similique minus laudantium excepturi, tempore culpa atque obcaecati. Aperiam, ad vero!</p>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum ea commodi deserunt laboriosam assumenda
+            iste expedita quos provident saepe? Voluptatibus molestias inventore minima voluptatum accusantium, rerum
+            accusamus expedita ad aliquam.
+            Excepturi nemo natus reprehenderit dolore hic unde fugiat doloribus, ducimus sunt nulla. Nisi quod
+            consequuntur numquam, atque odit dicta. Similique minus laudantium excepturi, tempore culpa atque obcaecati.
+            Aperiam, ad vero!</p>
     </div>
     <script src="scripts/calendar.js"></script>
 </body>

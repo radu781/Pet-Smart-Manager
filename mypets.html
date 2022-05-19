@@ -21,11 +21,29 @@
     </header>
     <nav>
         <ul class="menu">
-            <li class="option_my_profile"><a class="link for_menu" href="homepage.html">My profile</a></li>
-            <li class="option_my_pets"><a class="link for_menu" href="mypets.html">My pets</a></li>
-            <li class="option_my_groups"><a class="link for_menu" href="mygroups.html">My groups</a></li>
+            <li class="normal option_my_profile"><a class="link_for_menu " href="homepage.html">My profile</a></li>
+            <li class="normal option_my_pets"><a class="link_for_menu " href="mypets.html">My pets</a></li>
+            <li class="normal option_my_groups"><a class="link_for_menu " href="mygroups.html">My groups</a></li>
+
+            <!-- responsive design -->
+            <li class="phone option_my_profile">
+                <a class="link_for_menu" href="homepage.html">
+                    <img src="resources/user.png">
+                </a>
+            </li>
+            <li class="phone option_my_pets">
+                <a class="link_for_menu " href="mypets.html">
+                    <img src="resources/pets.png">
+                </a>
+            </li>
+            <li class="phone option_my_groups">
+                <a class="link_for_menu " href="mygroups.html">
+                    <img src="resources/groups.png">
+                </a>
+            </li>
         </ul>
     </nav>
+
     <div class="main-content">
         <h2 class="default-title">My pets</h2>
         <i class='bx bxs-color'></i>
@@ -104,6 +122,7 @@
             <!--more pets-->
         </div>
     </div>
+
 </body>
 
 </html>
