@@ -24,6 +24,7 @@ h2.default-title{
     text-align: center;
 }
 
+
 /* content - my profile */
 p.user-details{
     padding: 0rem;
@@ -32,7 +33,7 @@ p.user-details{
 }
 
 
-/* content - my pets */
+/* content - my pets & my groups*/
 div.panel{
     width: 100%;
     display:flex;
@@ -50,12 +51,14 @@ p.command:hover{
     background-color: var(--lightgreenhover);
     transition: 100ms;
 }
+
+
+/* content - my pets */
 a.link.new_pet{
     margin: 2.5%;
     width: 12vh;
     color: white;
 }
-
 div.pets{
     padding-top: 5vh;
     padding-bottom: 2.5vh;
@@ -95,6 +98,46 @@ a.link{
     color: black;
 }
 
+
+/* content - my groups */
+a.link.new_group{
+    margin: 2.5%;
+    width: 15vh;
+    color: white;
+}
+div.groups{
+    padding-top: 5vh;
+    padding-bottom: 2.5vh;
+
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    row-gap: 4rem;
+}
+div.group{
+    flex-basis: 45%;
+
+    border: 0.15rem outset var(--lightgreen);
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+div.group:hover{
+    transform: scale(1.05);
+    transition: 250ms;
+}
+h3.group_name{
+    margin: 5vh;
+    margin-left: 2.5vh;
+    margin-right: 2.5vh;
+    font-size: 1.25rem;
+}
+
+
+/* responsive design */
 @media (max-width:700px){
     div.main-content{
         margin-left: 2.5vh;
@@ -115,6 +158,9 @@ a.link{
     h2.default-title{
         margin: 2.5vh;
     }
+    div.group{
+        flex-basis: 95%;
+    }
 }
 @media (max-width: 200px) {
     h2.default-title{
@@ -122,27 +168,3 @@ a.link{
     }
 }
 
-/* content - my groups */
-a.link.new_group{
-    color: white;
-}
-div.groups{
-    padding: 0rem;
-    padding-top: 2rem;
-
-    display:flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    row-gap: 1.5rem;
-}
-div.group{
-    width: 75%;
-    height: 7.5rem;
-    border: 0.25rem groove var(--lightgreen);
-    border-radius: 0.5rem;
-    background-color: white;
-
-    text-align: center;
-}
