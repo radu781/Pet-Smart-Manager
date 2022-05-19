@@ -2,6 +2,7 @@
     --darkblue: #0C1F2D;
     --darkgreen: #12644E;
     --lightgreen: #6AD6C8;
+    --lightgreenhover: #78f0e0;
     --yellow: #FDF2C9;
     --orange: #FFD147;
 }
@@ -11,9 +12,10 @@ body{
     background-color: white;
 }
 div.main-content{
-    padding: 2.5vh;
-    padding-bottom: 7.5vh;
-    background-color: var(--yellow);   
+    margin-left: 5vh;
+    margin-right: 5vh;
+    background-color: var(--yellow); 
+    border: 0.1rem solid black;
 }
 h2.default-title{
     margin: 5vh;
@@ -31,45 +33,46 @@ p.user-details{
 
 
 /* content - my pets */
-div.pets{
-
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-    row-gap: 4vh;
-    column-gap: 4vh;
-}
 div.panel{
-    width: 95%;
-    height: 2.5rem;
-
+    width: 100%;
     display:flex;
     justify-content:left;
     align-items: center;
 }
 p.command{
     padding: 0.25rem;
-    max-width: 75%;
     border: 0.15rem groove var(--lightgreen);
     border-radius: 0.5rem;
     background-color: var(--lightgreen);
-    color: white;
-    cursor: pointer;
+    text-align: center;
 }
 p.command:hover{
-    transform: scale(1.1);
+    background-color: var(--lightgreenhover);
     transition: 100ms;
 }
+a.link.new_pet{
+    margin: 2.5%;
+    width: 12vh;
+    color: white;
+}
 
+div.pets{
+    padding-top: 5vh;
+    padding-bottom: 2.5vh;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    row-gap: 4vh;
+}
 div.pet{
-    width: 30%;
+    flex-basis: 30%; /* only 3 items per row */
+
     border: 0.15rem outset var(--lightgreen);
     border-radius: 0.5rem;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
     text-align: center;
 }
 div.pet:hover{
@@ -87,23 +90,37 @@ img.pet_photo{
 p.pet_field{
     margin: 1vh;
 }
-a.link_for_pet{
+a.link{
     text-decoration: none;
     color: black;
 }
 
 @media (max-width:700px){
+    div.main-content{
+        margin-left: 2.5vh;
+        margin-right: 2.5vh;
+    }
     div.pet{
-        width: 40%;
+        flex-basis: 45.5%;
     }
 }
 @media (max-width:500px){
+    div.main-content{
+        margin-left: 1.25vh;
+        margin-right: 1.25vh;
+    }
     div.pet{
-        width: 75%;
+        flex-basis: 95%;
+    }
+    h2.default-title{
+        margin: 2.5vh;
     }
 }
 
 /* content - my groups */
+a.link.new_group{
+    color: white;
+}
 div.groups{
     padding: 0rem;
     padding-top: 2rem;
