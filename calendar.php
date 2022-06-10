@@ -60,6 +60,30 @@
                 <div id="calendar-body"></div>
             </div>
         </div>
+        <?php
+        set_include_path("utils");
+        include "dbmanager.php";
+        $result = DBManager::getInstance()->getFeedingTime();
+        ?>
+
+        <table>
+            <tr>
+                <th>id</th>
+                <th>pet_id</th>
+                <th>feed_time</th>
+            </tr>
+            <?php
+            foreach ($result as $line) {
+                echo "<tr>";
+                foreach ($line as $column) {
+                    echo "<td>$column</td>";
+                }
+                echo "</tr>";
+            }
+            ?>
+        </table>
+
+
         <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum ea commodi deserunt laboriosam assumenda
             iste expedita quos provident saepe? Voluptatibus molestias inventore minima voluptatum accusantium, rerum
             accusamus expedita ad aliquam.
