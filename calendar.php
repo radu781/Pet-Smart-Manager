@@ -66,7 +66,7 @@
         $result = DBManager::getInstance()->getFeedingTime();
         ?>
 
-        <table>
+        <table id="feed-values">
             <tr>
                 <th>id</th>
                 <th>pet_id</th>
@@ -75,9 +75,11 @@
             <?php
             foreach ($result as $line) {
                 echo "<tr>";
-                foreach ($line as $column) {
-                    echo "<td>$column</td>";
-                }
+                foreach ($line as $column) { ?>
+                    <td class="feed-time-cell">
+                        <?php echo $column; ?>
+                    </td>
+                <?php }
                 echo "</tr>";
             }
             ?>

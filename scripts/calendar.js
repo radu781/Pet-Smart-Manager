@@ -9,6 +9,21 @@ class Calendar {
             "Saturday",
             "Sunday"
         ]
+
+        const backgroundColors = ["#025DF5", "#03A3FF", "#0ED2E8", "#03FFD3", "#02F586"]
+        this.feedingTimes = []
+        const tableFeedTimes = document.querySelectorAll(".feed-time-cell")
+        for (let i = 0; i < tableFeedTimes.length; i += 3) {
+            const id = tableFeedTimes[i + 1].innerHTML.trim()
+            this.feedingTimes.push({
+                "id": tableFeedTimes[i].innerHTML.trim(),
+                "pet_id": tableFeedTimes[i + 1].innerHTML.trim(),
+                "feedTime": tableFeedTimes[i + 2].innerHTML.trim(),
+                "bgColor": backgroundColors[this.simpleHash(id.toString()) % backgroundColors.length]
+            })
+        }
+
+
         this.generateCells()
         this.rows = document.querySelectorAll(".row")
         this.header = document.querySelector("#header-date")
@@ -20,11 +35,23 @@ class Calendar {
         this.dayCells = []
         for (let row of this.rows) {
             for (let cell of row.childNodes) {
-                if (cell.innerText === "") {
-                    this.dayCells.push(cell)
-                }
+                this.dayCells.push(cell)
             }
         }
+
+        const mainTable = document.querySelector("#feed-values")
+        const mainContent = document.querySelector(".main-content")
+        mainContent.removeChild(mainTable)
+    }
+
+    simpleHash(str) {
+        let hash = 0;
+        for (let i = 0, len = str.length; i < len; i++) {
+            let chr = str.charCodeAt(i);
+            hash = (hash << 5) - hash + chr;
+            hash |= 0;
+        }
+        return hash;
     }
 
     generateCells() {
@@ -49,6 +76,17 @@ class Calendar {
             for (let j = 0; j < rows; j++) {
                 const cell = document.createElement("div")
                 cell.classList.add("cell")
+                const textField = document.createElement("div")
+                textField.classList.add("calendar-day")
+                cell.appendChild(textField)
+
+                for (let i = 0; i < Math.min(3, this.feedingTimes.length); i++) {
+                    const feed = document.createElement("div")
+                    feed.classList.add("feed")
+                    feed.innerHTML = this.feedingTimes[i].feedTime.slice(0, 5) + "id" + this.feedingTimes[i].pet_id
+                    feed.style.backgroundColor = this.feedingTimes[i].bgColor
+                    cell.appendChild(feed)
+                }
                 row.appendChild(cell)
             }
         }
@@ -93,7 +131,7 @@ class Calendar {
             const element = this.dayCells[i]
             element.style.border = "none"
             element.style.background = "var(--darkgreen)"
-            element.innerHTML = prevVal--
+            element.firstChild.innerHTML = prevVal--
         }
 
         let val = 1
@@ -101,14 +139,14 @@ class Calendar {
             const element = this.dayCells[i]
             element.style.border = "none"
             element.style.background = "var(--yellow)"
-            element.innerHTML = val++
+            element.firstChild.innerHTML = val++
         }
         val = 1
         for (let i = endingPosition + startingPosition; i < this.dayCells.length; i++) {
             const element = this.dayCells[i]
             element.style.background = "var(--darkgreen)"
             element.style.border = "none"
-            element.innerHTML = val++
+            element.firstChild.innerHTML = val++
         }
 
         const bottomLeft = calendar.dayCells[calendar.dayCells.length - 7]
