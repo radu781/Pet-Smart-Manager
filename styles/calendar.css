@@ -102,6 +102,9 @@
         height: calc(var(--cell-size) / 1.5);
         width: calc(var(--cell-size) / 1.5);
     }
+    .feed:last-child {
+        display: none;
+    }
     .feed {
         font-size: small;
     }
@@ -127,13 +130,13 @@
     #calendar {
         font-size: small;
     }
-    .feed:nth-last-child(1) {
+    .cell:nth-last-child(2) {
         display: none;
     }
 }
 
 @media (max-width: 700px) {
-    .feed:nth-last-child(2) {
+    .cell:nth-last-child(3) {
         display: none;
     }
     .day {
@@ -146,6 +149,6 @@
     }
     .cell {
         height: calc(var(--cell-size) / 2.5);
-        width: calc(var(--cell-size) / 2.5);
+        width: calc(var(--cell-size) / 2);
     }
 }

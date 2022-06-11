@@ -22,11 +22,19 @@
         public function getFeedingTime(): array
         {
             $out = [];
-            $statement = "SELECT * FROM pet_meals";
+            $statement = "SELECT * FROM pet_meals AS pmeal
+            JOIN pet_info AS pinfo 
+            ON pmeal.pet_id = pinfo.id 
+            ORDER BY pinfo.name";
             $result = $this->conn->query($statement);
 
             while ($row = $result->fetch_assoc()) {
-                $currentLine = ["id" => $row["id"], "pet_id" => $row["pet_id"], "feed_time" => $row["feed_time"]];
+                $currentLine = [
+                    "id" => $row["id"],
+                    "pet_id" => $row["pet_id"],
+                    "feed_time" => $row["feed_time"],
+                    "name" => $row["name"]
+                ];
                 array_push($out, $currentLine);
             }
             return $out;

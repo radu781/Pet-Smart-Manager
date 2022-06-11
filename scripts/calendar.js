@@ -13,15 +13,17 @@ class Calendar {
         const backgroundColors = ["#025DF5", "#03A3FF", "#0ED2E8", "#03FFD3", "#02F586"]
         this.feedingTimes = []
         const tableFeedTimes = document.querySelectorAll(".feed-time-cell")
-        for (let i = 0; i < tableFeedTimes.length; i += 3) {
-            const id = tableFeedTimes[i + 1].innerHTML.trim()
+        for (let i = 0; i < tableFeedTimes.length; i += 4) {
+            const petId = tableFeedTimes[i + 1].innerHTML.trim()
             this.feedingTimes.push({
                 "id": tableFeedTimes[i].innerHTML.trim(),
-                "pet_id": tableFeedTimes[i + 1].innerHTML.trim(),
+                "pet_id": petId,
                 "feedTime": tableFeedTimes[i + 2].innerHTML.trim(),
-                "bgColor": backgroundColors[this.simpleHash(id.toString()) % backgroundColors.length]
+                "bgColor": backgroundColors[this.simpleHash(petId.toString()) % backgroundColors.length],
+                "name": tableFeedTimes[i + 3].innerHTML.trim()
             })
         }
+        this.feedingTimes.sort((left, right) => left.feedTime > right.feedTime)
 
 
         this.generateCells()
@@ -56,7 +58,7 @@ class Calendar {
 
     generateCells() {
         const days = document.querySelector("#days")
-        const columns = 6
+        const columns = 7
 
         for (let i = 0; i < columns; i++) {
             const dayNode = document.createElement("div")
@@ -69,6 +71,10 @@ class Calendar {
         const rows = 7
         const calendarBody = document.querySelector("#calendar-body")
 
+        this.refreshFeed(columns, calendarBody, rows)
+    }
+
+    refreshFeed(columns, calendarBody, rows) {
         for (let i = 0; i < columns; i++) {
             const row = document.createElement("div")
             row.classList.add("row")
@@ -80,10 +86,10 @@ class Calendar {
                 textField.classList.add("calendar-day")
                 cell.appendChild(textField)
 
-                for (let i = 0; i < Math.min(3, this.feedingTimes.length); i++) {
+                for (let i = 0; i < Math.min(5, this.feedingTimes.length); i++) {
                     const feed = document.createElement("div")
                     feed.classList.add("feed")
-                    feed.innerHTML = this.feedingTimes[i].feedTime.slice(0, 5) + "id" + this.feedingTimes[i].pet_id
+                    feed.innerHTML = this.feedingTimes[i].feedTime.slice(0, 5) + " - " + this.feedingTimes[i].name
                     feed.style.backgroundColor = this.feedingTimes[i].bgColor
                     cell.appendChild(feed)
                 }
@@ -129,23 +135,23 @@ class Calendar {
         let prevVal = this.getEnd(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
         for (let i = startingPosition - 1; i >= 0; i--) {
             const element = this.dayCells[i]
-            element.style.border = "none"
             element.style.background = "var(--darkgreen)"
+            this.setBorder(element, i)
             element.firstChild.innerHTML = prevVal--
         }
 
         let val = 1
         for (let i = startingPosition; i < endingPosition + startingPosition; i++) {
             const element = this.dayCells[i]
-            element.style.border = "none"
             element.style.background = "var(--yellow)"
+            this.setBorder(element, i)
             element.firstChild.innerHTML = val++
         }
         val = 1
         for (let i = endingPosition + startingPosition; i < this.dayCells.length; i++) {
             const element = this.dayCells[i]
             element.style.background = "var(--darkgreen)"
-            element.style.border = "none"
+            this.setBorder(element, i)
             element.firstChild.innerHTML = val++
         }
 
@@ -155,6 +161,21 @@ class Calendar {
         bottomRight.style.borderBottomRightRadius = "10px"
 
         this.markToday()
+    }
+    setBorder(element, index) {
+        switch (index % 7) {
+            case 6:
+                element.style.border = "1px solid red"
+                element.style.borderLeft = "none"
+                break
+            case 5:
+                element.style.border = "1px solid red"
+                element.style.borderRight = "none"
+                break
+            default:
+                element.style.border = "none"
+                break
+        }
     }
 
     markToday() {
@@ -199,3 +220,37 @@ class Calendar {
 let calendar = new Calendar()
 calendar.setDates()
 calendar.makeButtons()
+
+function onPetFilterChanged() {
+    const checkboxes = document.getElementsByName("pet-filter")
+    const feedDivs = document.querySelectorAll(".feed")
+
+    let names = []
+    for (const time of calendar.feedingTimes) {
+        for (const box of checkboxes) {
+            if (time.pet_id === box.id && box.checked) {
+                names.push(time.name)
+            }
+        }
+    }
+
+    if (names !== []) {
+        for (const feedDiv of feedDivs) {
+            if (!findAny(names, feedDiv.innerHTML)) {
+                feedDiv.style.display = "none"
+            } else {
+                feedDiv.style.display = "block"
+            }
+        }
+    }
+    calendar.refreshFeed()
+}
+
+function findAny(array, str) {
+    for (const item of array) {
+        if (str.indexOf(item) !== -1) {
+            return true
+        }
+    }
+    return false
+}

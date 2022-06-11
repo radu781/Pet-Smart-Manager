@@ -1,3 +1,9 @@
+<?php
+set_include_path("utils");
+include "dbmanager.php";
+$result = DBManager::getInstance()->getFeedingTime();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/calendar.css">
+    <link rel="stylesheet" href="styles/hazi.css">
     <link rel="stylesheet" href="styles/global.css">
     <link rel="icon" href="../resources/icon.png" type="image/x-icon">
     <title>Calendar</title>
@@ -60,11 +67,17 @@
                 <div id="calendar-body"></div>
             </div>
         </div>
-        <?php
-        set_include_path("utils");
-        include "dbmanager.php";
-        $result = DBManager::getInstance()->getFeedingTime();
-        ?>
+        <form class="hazi-form">
+            <fieldset>
+                <legend>Filter by pets</legend>
+                <?php
+                foreach ($result as $pet) {
+                    echo '<input type="checkbox" onclick="onPetFilterChanged()" name="pet-filter" value="' . $pet["pet_id"] . '" id="' . $pet["pet_id"] . '" checked>' . '</input>';
+                    echo '<label for="' . $pet["pet_id"] . '">' . $pet["name"] . '</label>';
+                }
+                ?>
+            </fieldset>
+        </form>
 
         <table id="feed-values">
             <tr>
@@ -79,7 +92,7 @@
                     <td class="feed-time-cell">
                         <?php echo $column; ?>
                     </td>
-                <?php }
+            <?php }
                 echo "</tr>";
             }
             ?>
