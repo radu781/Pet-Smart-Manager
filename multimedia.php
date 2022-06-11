@@ -47,9 +47,21 @@
         </ul>
     </nav>
     <hr>
+    <?php
+    include 'utils/dbmanager.php';
+    $meals = DBManager::getInstance()->getPetMeals();
+    ?>
     <div class="main-content">
         <p class="default-title">Multimedia resources</p>
-        <div class="main"></div>
+        <div class="main">
+            <?php foreach ($meals as $meal) {
+                echo '<div class="cell">';
+                echo '<img src="multimedia/' . $meal["pet_id"] . "/" . $meal["filename"] . '">';
+                echo '<p>' . $meal["description"] . '</p>';
+                echo '<button class="default-button">Details</button>';
+                echo '</div>';
+            } ?>
+        </div>
     </div>
     <script src="scripts/multimedia.js"></script>
 </body>

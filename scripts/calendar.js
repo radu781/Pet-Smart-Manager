@@ -58,28 +58,28 @@ class Calendar {
 
     generateCells() {
         const days = document.querySelector("#days")
-        const columns = 7
+        const rows = 7
+        const columns = 6
 
-        for (let i = 0; i < columns; i++) {
+        for (let i = 0; i < rows; i++) {
             const dayNode = document.createElement("div")
-            const textNode = document.createTextNode(this.days[i].slice(0, 3))
+            const textNode = document.createTextNode(this.days[i])
             dayNode.appendChild(textNode)
             dayNode.classList.add("day")
             days.appendChild(dayNode)
         }
 
-        const rows = 7
         const calendarBody = document.querySelector("#calendar-body")
 
         this.refreshFeed(columns, calendarBody, rows)
     }
 
-    refreshFeed(columns, calendarBody, rows) {
-        for (let i = 0; i < columns; i++) {
+    refreshFeed(rows, calendarBody, cols) {
+        for (let i = 0; i < rows; i++) {
             const row = document.createElement("div")
             row.classList.add("row")
             calendarBody.appendChild(row)
-            for (let j = 0; j < rows; j++) {
+            for (let j = 0; j < cols; j++) {
                 const cell = document.createElement("div")
                 cell.classList.add("cell")
                 const textField = document.createElement("div")
@@ -179,17 +179,21 @@ class Calendar {
     }
 
     markToday() {
+        const days = document.querySelectorAll(".calendar-day")
         if (!this.isSameMonth()) {
+            for (const day of days) {
+                day.style.background = "none"
+                day.style.border = "none"
+            }
             return
         }
         const today = this.currentDate.getDate()
-        for (const cell of this.dayCells) {
-            if (cell.innerText === today.toString()) {
+        for (const cell of days) {
+            if (cell.innerText === today.toString() && this.isSameMonth()) {
                 cell.style.background = "var(--lightgreen)"
                 cell.style.borderRadius = "10px"
                 cell.style.border = "1px solid var(--darkgreen)"
-                break
-            }
+            } else if (cell.innerText === today.toString()) {}
         }
     }
 

@@ -56,9 +56,6 @@ $result = DBManager::getInstance()->getFeedingTime();
     <hr>
     <div class="main-content">
         <p class="default-title">Calendar</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit quo voluptatum provident accusamus at.
-            Porro fugiat quisquam possimus esse accusamus facere, obcaecati tenetur neque saepe, non dicta, et totam
-            hic?</p>
         <div class="center">
             <div id="calendar">
                 <div id="header">
@@ -100,14 +97,6 @@ $result = DBManager::getInstance()->getFeedingTime();
             }
             ?>
         </table>
-
-
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum ea commodi deserunt laboriosam assumenda
-            iste expedita quos provident saepe? Voluptatibus molestias inventore minima voluptatum accusantium, rerum
-            accusamus expedita ad aliquam.
-            Excepturi nemo natus reprehenderit dolore hic unde fugiat doloribus, ducimus sunt nulla. Nisi quod
-            consequuntur numquam, atque odit dicta. Similique minus laudantium excepturi, tempore culpa atque obcaecati.
-            Aperiam, ad vero!</p>
     </div>
     <script src="scripts/calendar.js"></script>
 </body>

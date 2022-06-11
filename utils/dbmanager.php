@@ -40,6 +40,28 @@
             return $out;
         }
 
+        public function getPetMeals(): array
+        {
+            $out = [];
+            $statement = "SELECT * FROM pet_media AS pmedia
+            JOIN pet_info AS pinfo 
+            ON pmedia.pet_id = pinfo.id 
+            ORDER BY pinfo.name";
+            $result = $this->conn->query($statement);
+
+            while ($row = $result->fetch_assoc()) {
+                $currentLine = [
+                    "id" => $row["id"],
+                    "pet_id" => $row["pet_id"],
+                    "filename" => $row["filename"],
+                    "name" => $row["name"],
+                    "description" => $row["description"]
+                ];
+                array_push($out, $currentLine);
+            }
+            return $out;
+        }
+
         private static ?DBManager $instance = null;
         private ?mysqli $conn = null;
         private string $username;

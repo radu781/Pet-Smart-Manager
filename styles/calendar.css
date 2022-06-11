@@ -19,13 +19,12 @@
 
 .cell {
     display: flex;
-    justify-content: center;
     text-align: center;
     font-size: larger;
     vertical-align: top;
     flex-direction: column;
     width: var(--cell-size);
-    justify-content: center;
+    justify-content: flex-start;
     transition: 125ms all;
 }
 
