@@ -109,7 +109,6 @@ p.pet_field{
     flex-basis: 40%;
 }
 p.pet_field_output{
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 1vh;
     position: relative;
     display: flex;
