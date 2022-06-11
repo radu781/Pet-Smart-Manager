@@ -85,7 +85,7 @@ div.pet{
     align-items: center;
 }
 div.pet:hover{
-    outline: 0.15rem outset var(--lightgreen);
+    outline: 0.2rem outset var(--lightgreen);
 }
 h3.pet_name{
     margin: 2.5vh;
