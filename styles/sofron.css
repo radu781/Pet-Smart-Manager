@@ -51,6 +51,7 @@ div.panel{
     row-gap: 0.75rem;
 }
 h3.subtitle{
+    position: relative;
     flex-basis: 100%;
     margin: 0vh;
     padding: 0rem 2.5rem 1.75rem 2.5rem;
@@ -73,7 +74,6 @@ img.plus{
 img.plus:hover{
     transform: scale(1.25);
 }
-
 
 
 /* content - my profile */
@@ -132,7 +132,7 @@ div.pet{
 }
 div.pet:hover{
     outline: 0.2rem outset var(--lightgreen);
-    transform: scale(1.05);
+    transform: scale(1.025);
 }
 h3.pet_name{
     margin: 2.5vh;
@@ -175,7 +175,7 @@ p.pet_field.with_link{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: left;
+    justify-content: center;
 }
 a.link{
     text-decoration: none;
@@ -190,7 +190,6 @@ a.link.for_pet::after{
     height: 5px;
     width: 0%;
     transition: all 750ms ease-out;
-    
 }
 a.link.for_pet:hover::after{
     opacity: 1;
@@ -199,6 +198,25 @@ a.link.for_pet:hover::after{
 img.new_page{
     width: 20%;
     height: 20%;
+}
+p.pet_field.delete{
+    margin: 2vh;
+    flex-basis: 0;
+    padding: 0.5vh;
+    border: 0.1rem solid var(--pink);
+    border-radius: 0.5rem;
+
+    color: var(--pink);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    transition: 500ms ease-out;
+}
+p.pet_field.delete:hover{
+    background-color: var(--pink);
+    color: white;
 }
 div.new_pet{
     opacity: 0.75;
@@ -228,24 +246,54 @@ div.groups{
     row-gap: 10vh;
 }
 div.group{
-    flex-basis: 45%;
+    flex-basis: 45%; /* only 2 items per row */
 
     border: 0.2rem outset var(--lightgreen);
     border-radius: 0.5rem;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     transition: all 700ms ease-out;
 }
 div.group:hover{
     outline: 0.2rem outset var(--lightgreen);
-    transform: scale(1.05);
+    transform: scale(1.025);
 }
 h3.group_name{
     margin: 5vh;
     margin-left: 2.5vh;
     margin-right: 2.5vh;
     font-size: 1.25rem;
+
+    flex-basis: 100%;
+}
+section.group_links{
+    display: block;
+}
+p.group_field.delete{
+    margin: 2vh;
+    flex-basis: 0;
+    padding: 0.5vh;
+    border: 0.1rem solid var(--purple);
+    border-radius: 0.5rem;
+
+    color: var(--purple);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    transition: 500ms ease-out;
+}
+p.group_field.delete:hover{
+    background-color: var(--purple);
+    color: white;
 }
 div.new_group{
     opacity: 0.75;

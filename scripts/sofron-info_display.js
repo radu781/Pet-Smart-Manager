@@ -1,7 +1,7 @@
-const infoButton = document.getElementById("info");
-var infoPanel = document.querySelectorAll(".informations");
+var petCard = document.querySelectorAll(".pet");
+var deleteImg = document.querySelectorAll(".delete");
 
-infoButton.addEventListener('click', () => {
-   for(var index = 0; index < infoPanel.length; index++)
-    infoPanel[index].classList.toggle('display');
+petCard.addEventListener('mouseover', () => {
+   for(var index = 0; index < deleteImg.length; index++)
+        deleteImg[index].classList.toggle('display');
 })
