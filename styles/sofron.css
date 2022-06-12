@@ -144,25 +144,29 @@ div.photo_container{
     flex-basis: 100%;
 }
 img.pet_photo{
-    width: 60%;
-    height: 60%;
+    width: 120px;
+    height: 120px;
 }
 p.pet_field{
+    flex-basis: 40%;
+
     margin: 1vh;
+    font-size: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    flex-basis: 40%;
 }
 p.pet_field_output{
+    flex-basis: 40%;
+
     margin: 1vh;
+    font-size: 90%;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    flex-basis: 40%;
 }
 section.pet_links{
     display: block;
@@ -325,7 +329,7 @@ div.new_group{
         flex-basis: 37.5%;
     }
 }
-@media (max-width:525px){
+@media (max-width:650px){
     div.main-content{
         padding-top: 2.5vh;
         padding-bottom: 2.5vh;
