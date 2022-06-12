@@ -1,21 +1,30 @@
 :root {
+    --black: #1E1E24;
+    --pink: #FF9FB2;
+    --pinkhover: #FFC2CE;
+    --blue: #0B3954;
+    --purple: #8963BA;
+
     --darkblue: #0C1F2D;
     --darkgreen: #12644E;
     --lightgreen: #6AD6C8;
     --lightgreenhover: #78f0e0;
     --yellow: #FDF2C9;
     --orange: #FFD147;
+    --orangehover: #FFDB70;
 }
 
 /* content - general */
 body{
-    background-color: white;
+    background-color: var(--white);
 }
 div.main-content{
-    margin-left: 5vh;
-    margin-right: 5vh;
-    background-color: var(--yellow); 
-    border: 0.1rem solid black;
+    margin: 0vh;
+    border: 0vh;
+    padding: 5vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    background-color: var(--white);
 }
 h2.default-title{
     margin: 5vh;
@@ -25,54 +34,125 @@ h2.default-title{
 }
 
 
-/* content - my profile */
-p.user-details{
-    padding: 0rem;
-    padding-top: 2rem;
-    color: var(--darkblue);
-}
 
-
-/* content - my pets & my groups*/
+/* content - my profile, my pets & my groups*/
 div.panel{
+    position: relative;
+    padding-top: 2.5vh;
+    padding-bottom: 2.5vh;
     width: 100%;
+    border: 0.1rem outset black;
+    border-radius: 0.5rem;
+    background-color: var(--lightgreen);
     display:flex;
-    justify-content:left;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+    row-gap: 2.5vh;
+}
+h3.subtitle{
+    margin: 0vh;
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    font-size: 150%;
+    text-align: center;
+}
+div.commands{
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2.5vh;
 }
 p.command{
     padding: 0.25rem;
-    border: 0.15rem groove var(--lightgreen);
+    border: 0.15rem groove var(--pink);
     border-radius: 0.5rem;
-    background-color: var(--lightgreen);
+    background-color: var(--pink);
+    color: white;
     text-align: center;
+    cursor: pointer;
 }
 p.command:hover{
-    background-color: var(--lightgreenhover);
-    transition: 100ms;
+    background-color: var(--pinkhover);
+    transition: 350ms ease-out;
 }
-
-
-/* content - my pets */
-a.link.new_pet{
-    margin: 2.5%;
-    width: 12vh;
+p.command.info.accessed{
+    background-color: var(--pinkhover);
+}
+p.command.info.accessed:hover{
+    background-color: var(--pink);
+    transition: 350ms ease-out;
+}
+div.informations{
+    position: absolute;
+    top: 10px;
+    right: 2.5vh;
+    bottom: 10px;
+    opacity: 0;
+    padding: 2.5vh;
+    border: 0.1rem outset black;
+    border-radius: 0.5rem;
+    background-color: var(--pink);
     color: white;
+    transition: all 350ms ease-out;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    row-gap: 2.5vh;
 }
-div.pets{
-    padding-top: 5vh;
+div.informations.display{
+    opacity: 1;
+}
+
+
+/* content - my profile */
+div.user_profile{
+    border: 0.1rem solid black;
+    border-top: 0rem;
+    border-radius: 0.5rem;
+    padding-top: 2.5vh;
     padding-bottom: 2.5vh;
+    background-color: white;
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    row-gap: 4vh;
+    row-gap: 2.5vh;
+}
+p.user-details{
+    flex-basis: 100%;
+    margin-left: 2.5vh;
+    padding: 0rem;
+    color: black;
+}
+
+
+/* content - my pets */
+div.pets{
+    border: 0.1rem solid black;
+    border-top: 0rem;
+    border-radius: 0.5rem;
+    padding-top: 7.5vh;
+    padding-bottom: 7.5vh;
+    background-color: white;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    row-gap: 6vh;
 }
 div.pet{
     flex-basis: 25%; /* only 3 items per row */
 
-    border: 0.15rem outset var(--lightgreen);
+    border: 0.2rem outset var(--lightgreen);
     border-radius: 0.5rem;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -156,26 +236,25 @@ img.new_page{
 
 
 /* content - my groups */
-a.link.new_group{
-    margin: 2.5%;
-    width: 15vh;
-    color: white;
-}
 div.groups{
-    padding-top: 5vh;
-    padding-bottom: 2.5vh;
+    border: 0.1rem solid black;
+    border-top: 0rem;
+    border-radius: 0.5rem;
+    padding-top: 7.5vh;
+    padding-bottom: 7.5vh;
+    background-color: white;
 
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    row-gap: 4rem;
+    row-gap: 10vh;
 }
 div.group{
     flex-basis: 45%;
 
-    border: 0.15rem outset var(--lightgreen);
+    border: 0.2rem outset var(--lightgreen);
     border-radius: 0.5rem;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -183,7 +262,7 @@ div.group{
 }
 div.group:hover{
     transform: scale(1.05);
-    transition: 250ms;
+    transition: all 700ms;
 }
 h3.group_name{
     margin: 5vh;
@@ -196,31 +275,31 @@ h3.group_name{
 /* responsive design */
 @media (max-width:950px){
     div.main-content{
-        margin-left: 2.5vh;
-        margin-right: 2.5vh;
+        margin-top: 2.5vh;
+        margin-bottom: 2.5vh;
     }
     div.pet{
+        flex-basis: 37.5%;
+    }
+    div.group{
         flex-basis: 37.5%;
     }
 }
 @media (max-width:525px){
     div.main-content{
-        margin-left: 1.25vh;
-        margin-right: 1.25vh;
+        padding-top: 2.5vh;
+        padding-bottom: 2.5vh;
     }
     div.pet{
-        flex-basis: 95%;
-    }
-    h2.default-title{
-        margin: 2.5vh;
+        flex-basis: 80%;
     }
     div.group{
-        flex-basis: 95%;
+        flex-basis: 80%;
     }
 }
-@media (max-width: 200px) {
-    h2.default-title{
-        margin: 0vh;
+/* @media (max-width: 325px) {
+    div.main-content{
+        
     }
-}
+} */
 

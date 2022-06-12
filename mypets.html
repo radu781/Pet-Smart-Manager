@@ -8,7 +8,8 @@
     <link href="styles/global.css" rel="stylesheet">
     <link href="styles/sofron.css" rel="stylesheet">
     <link rel="icon" href="../resources/icon.png" type="image/x-icon">
-    <title>Petbook</title>
+    <script src="scripts/sofron-info_display.js" defer></script>
+    <title>Petbook | My pets</title>
 </head>
 
 <body>
@@ -17,7 +18,10 @@
             <img src="resources/icon.png" alt="Logo">
         </div>
         <div class="site_name"><a class="site_name" href="homepage.html"><strong>Petbook</strong></a></div>
-        <div class="display_mode">Light/Dark mode</div>
+        <ul class="header_options">
+            <div class="display_mode">Light/Dark mode</div>
+            <div class="log_out"><img class="log_out" src="resources/logout.png"></div>
+        </ul>
     </header>
     <nav>
         <ul class="menu">
@@ -45,11 +49,18 @@
     </nav>
 
     <div class="main-content">
-        <h2 class="default-title">My pets</h2>
         <div class="panel">
-            <a class="link new_pet" href="new_pet.html">
-                <p class="command">Add pet</p>
-            </a>
+            <h3 class="subtitle">User's pets</h3>
+            <div class="commands">
+                <a class="link new_pet" href="new_pet.html">
+                    <p class="command">Add pet</p>
+                </a>
+                <p class="command info" id="info">Info</p>
+                <div class="informations">
+                    <p class="info">Here are your pets.</p>
+                    <p class="info">You can add new pets, edit the existing ones and delete them.</p>
+                </div>
+            </div>
         </div>
         <div class="pets">
             <div class="pet">

@@ -8,7 +8,7 @@
     <link href="styles/global.css" rel="stylesheet">
     <link href="styles/sofron.css" rel="stylesheet">
     <link rel="icon" href="../resources/icon.png" type="image/x-icon">
-    <title>Petbook</title>
+    <title>Petbook | My profile</title>
 </head>
 
 <body>
@@ -17,7 +17,10 @@
             <img src="resources/icon.png" alt="Logo">
         </div>
         <div class="site_name"><a class="site_name" href="homepage.html"><strong>Petbook</strong></a></div>
-        <div class="display_mode">Light/Dark mode</div>
+        <ul class="header_options">
+            <div class="display_mode">Light/Dark mode</div>
+            <div class="log_out"><img class="log_out" src="resources/logout.png"></div>
+        </ul>
     </header>
     <nav>
         <ul class="menu">
@@ -45,12 +48,16 @@
     </nav>
 
     <div class="main-content">
-        <h2 class="default-title">My profile</h2>
-        <p class="user-details">Username:</p>
-        <p class="user-details">Password:</p>
-        <p class="user-details">E-mail:</p>
-        <p class="user-details">Pets number:</p>
-        <p class="user-details">Groups number:</p>
+        <div class="panel">
+            <h3 class="subtitle">User's profile</h3>
+        </div>
+        <div class="user_profile">
+            <p class="user-details">Username:</p>
+            <p class="user-details">Password:</p>
+            <p class="user-details">E-mail:</p>
+            <p class="user-details">Pets number:</p>
+            <p class="user-details">Groups number:</p>
+        </div>
     </div>
 
 </body>

@@ -11,12 +11,13 @@ body {
 
 :root {
     --darkblue: #0C1F2D;
+    --lightbrown: #EDD382;
     --darkgreen: #12644E;
     --lightgreen: #6AD6C8;
     --yellow: #FDF2C9;
     --orange: #FFD147;
 }
-
+  
 
 /* top bar */
 
@@ -34,40 +35,58 @@ header {
 
 
 /* header elements */
-
 div.site_logo {
+    flex-basis: 10%;
     height: 3.5rem;
     width: 3.5rem;
 }
-
 img {
     max-width: 100%;
     max-height: 100%;
 }
 
 div.site_name {
+    flex-basis: 80%;
     font-size: 2.25rem;
+    text-align: center;
 }
-div.site_name:hover{
-    transform: scale(1.05);
-    transition: 200ms;
-}
-
 a.site_name {
     text-decoration: none;
     color: black;
 }
 
+ul.header_options{
+    flex-basis:10%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
 div.display_mode {
+    display: none;
     font-size: 1 rem;
     color: black;
+    flex-basis: 0%;
+}
+div.log_out{
+    flex-basis:100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+}
+img.log_out{
+    width: 1.75rem;
+    height: 1.75rem;
+    cursor: pointer;
 }
 
 
 /* navigation zone */
-
 nav {
-    border-bottom: 0.1rem solid var(--darkgreen);
+    border-top: 0.2rem solid black;
+    border-bottom: 0.2rem solid black;
     background-color: var(--orange);
     height: 3.5rem;
     display: flex;
@@ -75,18 +94,12 @@ nav {
     flex-wrap: nowrap;
     justify-content: center;
 }
-nav:hover {
-    outline: 0.2rem solid var(--darkgreen);
-    transition: 100ms;
-}
-
 
 /* navigation elements */
-
 ul.menu{
     padding: 0rem;
     list-style: none;
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -94,37 +107,21 @@ ul.menu{
     align-items: center;
 }
 li.normal{
+    flex-basis: 20%;
+    border-radius: 0.5rem;
     font-size: 1.25rem;
     text-align: center;
-    flex-grow: 1;
-    flex-basis: 0;
-}
-li.option_my_profile:hover {
-    color: black;
-    transition: 350ms;
-}
-li.option_my_pets{
-    border-left: 0.1rem solid var(--darkgreen);
-    border-right: 0.1rem solid var(--darkgreen);
-}
-li.option_my_pets:hover{
-    color: black;
-    transition: 350ms;
-}
-li.option_my_groups:hover {
-    color: black;
-    transition: 350ms;
 }
 li.phone{
     display: none;
 }
-
 a.link_for_menu{
     text-decoration: none;
-    color: var(--darkgreen);
+    color: var(--black);
 }
 a.link_for_menu:hover{
-    color: black;
+    color: var(--yellow);
+    transition: all 350ms ease-out;
 }
 
 
@@ -165,6 +162,19 @@ a.link_for_menu:hover{
     }
 }
 
+/* responsive header */
+@media (max-width: 600px) {
+    /* schimb logo-ul la dimensiune */
+    div.site_logo{
+        flex-basis: 25%;
+    }
+    div.site_name{
+        flex-basis: 50%;
+    }
+    ul.header_options{
+        flex-basis: 25%;
+    }
+}
 @media (max-width: 500px) {
     ul.menu{
         width: 100%;
