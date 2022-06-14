@@ -46,7 +46,7 @@
             $statement = "SELECT * FROM pet_media AS pmedia
             JOIN pet_info AS pinfo 
             ON pmedia.pet_id = pinfo.id 
-            ORDER BY pinfo.name";
+            ORDER BY pinfo.id";
             $result = $this->conn->query($statement);
 
             while ($row = $result->fetch_assoc()) {

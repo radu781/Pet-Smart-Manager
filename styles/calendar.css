@@ -26,6 +26,8 @@
     width: var(--cell-size);
     justify-content: flex-start;
     transition: 125ms all;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 #calendar {
@@ -88,11 +90,18 @@
     font-size: medium;
 }
 
+legend {
+    margin-top: 10px;
+}
+
 @media (max-width: 1200px) {
     .day {
         height: calc(var(--cell-size) / 3.5);
         width: calc(var(--cell-size) / 1.5);
         overflow-wrap: break-word;
+    }
+    .row {
+        height: 5rem;
     }
     #header-date {
         height: calc(var(--cell-size) / 2);
@@ -100,9 +109,6 @@
     .cell {
         height: calc(var(--cell-size) / 1.5);
         width: calc(var(--cell-size) / 1.5);
-    }
-    .feed:last-child {
-        display: none;
     }
     .feed {
         font-size: small;
@@ -114,6 +120,9 @@
         height: calc(var(--cell-size) / 4);
         width: calc(var(--cell-size) / 2);
         overflow-wrap: break-word;
+    }
+    .row {
+        height: 3rem;
     }
     #header-date {
         height: calc(var(--cell-size) / 2);
@@ -129,15 +138,9 @@
     #calendar {
         font-size: small;
     }
-    .cell:nth-last-child(2) {
-        display: none;
-    }
 }
 
 @media (max-width: 700px) {
-    .cell:nth-last-child(3) {
-        display: none;
-    }
     .day {
         height: calc(var(--cell-size) / 4.5);
         width: calc(var(--cell-size) / 2.5);

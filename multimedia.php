@@ -54,11 +54,29 @@
     <div class="main-content">
         <p class="default-title">Multimedia resources</p>
         <div class="main">
-            <?php foreach ($meals as $meal) {
+            <?php
+            $prevMeal = $meals[0];
+            if (sizeof($meals) > 0) {
+                echo '<div class="cell-group">';
+            }
+            for ($i = 0; $i < sizeof($meals); $i++) {
+                $currentMeal = $meals[$i];
+
+                if ($prevMeal["pet_id"] !== $currentMeal["pet_id"]) {
+                    echo '</div>';
+                    echo '<div class="cell-group">';
+                }
+
                 echo '<div class="cell">';
-                echo '<img src="multimedia/' . $meal["pet_id"] . "/" . $meal["filename"] . '">';
-                echo '<p>' . $meal["description"] . '</p>';
+                echo '<p>' . $currentMeal["name"] . '</p>';
+                echo '<img src="multimedia/' . $currentMeal["pet_id"] . "/" . $currentMeal["filename"] . '">';
+                echo '<p>' . $currentMeal["description"] . '</p>';
                 echo '<button class="default-button">Details</button>';
+                echo '</div>';
+
+                $prevMeal = $currentMeal;
+            }
+            if (sizeof($meals) > 0) {
                 echo '</div>';
             } ?>
         </div>

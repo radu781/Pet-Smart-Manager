@@ -11,19 +11,27 @@
 .main {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-evenly;
 }
 
 .cell {
     width: var(--cell-size);
-    /* height: var(--cell-size); */
     margin: var(--margin);
     margin-top: calc(var(--margin) * 2);
     flex-wrap: wrap;
     align-items: center;
+    border-radius: 5px;
     border: 1px solid var(--lightgreen);
     padding: 5px;
     text-align: center;
+}
+
+.cell-group {
+    border: 1px solid var(--darkblue);
+    border-radius: 5px;
+    display: flex;
+    margin: 10px;
 }
 
 .column:nth-child(2n) {
@@ -34,4 +42,19 @@
     width: var(--cell-size);
     height: var(--cell-size);
     object-fit: contain;
+}
+
+@media (max-width: 1000) {
+    .main {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 860px) {
+    .main {
+        align-items: center;
+    }
+    .cell-group {
+        flex-direction: column;
+    }
 }
