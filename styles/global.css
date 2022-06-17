@@ -155,6 +155,32 @@ a.link_for_menu:hover{
     margin-bottom: 2.5vh;
 }
 
+
+/* footer elements */
+footer{
+    border-top: 0.2rem solid black;
+    padding: 0.5rem 0rem;
+    background-color: var(--orange);
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.p_footer{
+    flex-basis: 90%;
+    padding: 0.25rem;
+    font-size: 85%;
+    color: black;
+    text-align: center;
+}
+.p_footer.copyright{
+    font-size: 100%;
+    color: black;
+}
+
+
+
 @media (max-width: 700px) {
     div.main-content {
         margin: 5vh 5vh;
