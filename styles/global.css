@@ -118,10 +118,11 @@ li.phone{
 a.link_for_menu{
     text-decoration: none;
     color: var(--black);
+    
+    transition: all 500ms ease-out;
 }
 a.link_for_menu:hover{
     color: var(--yellow);
-    transition: all 350ms ease-out;
 }
 
 
