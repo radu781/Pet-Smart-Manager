@@ -44,10 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             
             // Store data in session variables
             $_SESSION["loggedin"] = true;
-            $_SESSION["id"] = $login_result['id'];
-            $_SESSION["firstname"] = $login_result['firstname'];
-            $_SESSION["middlename"] = $login_result['middlename'];
-            $_SESSION["lastname"] = $login_result['lastname'];                     
+            $_SESSION["id"] = $login_result['id'];                
                             
             // Redirect user to homepage
             header("location: homepage.php");

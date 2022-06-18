@@ -102,6 +102,7 @@
         public function checkCredentials($param_username, $param_password) : array {
             $result = array(
                 'id' => 0,
+                'email' => "",
                 'firstname' => "",
                 'middlename' => "",
                 'lastname' => ""
@@ -110,7 +111,7 @@
             try {
                 $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $pdo->prepare("SELECT `id`, `email`, `password` FROM `users` WHERE `email` = :username AND `password` = SHA(:password)");
+                $stmt = $pdo->prepare("SELECT `id`, `email`, `firstname`, `middlename`, `lastname` FROM `users` WHERE `email` = :username AND `password` = SHA(:password)");
                 $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
                 $stmt->execute();
@@ -119,6 +120,7 @@
                     if ($row = $stmt->fetch()) {
                         $result = array(
                             'id' => $row["id"],
+                            'email' => $row["email"],
                             'firstname' => $row["firstname"],
                             'middlename' => $row["middlename"],
                             'lastname' => $row["lastname"]
