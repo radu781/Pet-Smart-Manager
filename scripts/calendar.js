@@ -86,7 +86,7 @@ class Calendar {
                 textField.classList.add("calendar-day")
                 cell.appendChild(textField)
 
-                for (let i = 0; i < Math.min(5, this.feedingTimes.length); i++) {
+                for (let i = 0; i < this.feedingTimes.length; i++) {
                     const feed = document.createElement("div")
                     feed.classList.add("feed")
                     feed.innerHTML = this.feedingTimes[i].feedTime.slice(0, 5) + " - " + this.feedingTimes[i].name
@@ -135,8 +135,8 @@ class Calendar {
         let prevVal = this.getEnd(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
         for (let i = startingPosition - 1; i >= 0; i--) {
             const element = this.dayCells[i]
+            this.markWeekend(element, i)
             element.style.background = "var(--darkgreen)"
-            this.setBorder(element, i)
             element.firstChild.innerHTML = prevVal--
         }
 
@@ -144,14 +144,14 @@ class Calendar {
         for (let i = startingPosition; i < endingPosition + startingPosition; i++) {
             const element = this.dayCells[i]
             element.style.background = "var(--yellow)"
-            this.setBorder(element, i)
+            this.markWeekend(element, i)
             element.firstChild.innerHTML = val++
         }
         val = 1
         for (let i = endingPosition + startingPosition; i < this.dayCells.length; i++) {
             const element = this.dayCells[i]
+            this.markWeekend(element, i)
             element.style.background = "var(--darkgreen)"
-            this.setBorder(element, i)
             element.firstChild.innerHTML = val++
         }
 
@@ -162,18 +162,15 @@ class Calendar {
 
         this.markToday()
     }
-    setBorder(element, index) {
+    markWeekend(element, index) {
         switch (index % 7) {
             case 6:
-                element.style.border = "1px solid red"
-                element.style.borderLeft = "none"
+                element.style.background = "#ccc19b"
                 break
             case 5:
-                element.style.border = "1px solid red"
-                element.style.borderRight = "none"
+                element.style.background = "#ccc19b"
                 break
             default:
-                element.style.border = "none"
                 break
         }
     }

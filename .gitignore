@@ -1,3 +1,5 @@
 .vscode/
 *.ini
 multimedia/
+*cache*
+config/passwords.json

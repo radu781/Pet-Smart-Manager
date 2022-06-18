@@ -16,32 +16,32 @@
         <div class="site_logo">
             <img src="resources/icon.png" alt="Logo">
         </div>
-        <div class="site_name"><a class="site_name" href="homepage.html"><strong>Petbook</strong></a></div>
+        <div class="site_name"><a class="site_name" href="homepage.php"><strong>Petbook</strong></a></div>
         <ul class="header_options">
             <div class="display_mode">Light/Dark mode</div>
-            <div class="log_out"><img class="log_out" src="resources/logout.png"></div>
+            <div class="log_out"><img class="log_out" src="resources/logout.png" alt="log out"></div>
         </ul>
     </header>
     <nav>
         <ul class="menu">
-            <li class="normal option_my_profile"><a class="link_for_menu " href="homepage.html">My profile</a></li>
-            <li class="normal option_my_pets"><a class="link_for_menu " href="mypets.html">Pets</a></li>
-            <li class="normal option_my_groups"><a class="link_for_menu " href="mygroups.html">Groups</a></li>
+            <li class="normal option_my_profile"><a class="link_for_menu " href="homepage.php">My profile</a></li>
+            <li class="normal option_my_pets"><a class="link_for_menu " href="mypets.php">Pets</a></li>
+            <li class="normal option_my_groups"><a class="link_for_menu " href="mygroups.php">Groups</a></li>
 
             <!-- responsive design -->
             <li class="phone option_my_profile">
-                <a class="link_for_menu" href="homepage.html">
-                    <img src="resources/user.png">
+                <a class="link_for_menu" href="homepage.php">
+                    <img src="resources/user.png" alt="user">
                 </a>
             </li>
             <li class="phone option_my_pets">
-                <a class="link_for_menu " href="mypets.html">
-                    <img src="resources/pets.png">
+                <a class="link_for_menu " href="mypets.php">
+                    <img src="resources/pets.png" alt="pets">
                 </a>
             </li>
             <li class="phone option_my_groups">
-                <a class="link_for_menu " href="mygroups.html">
-                    <img src="resources/groups.png">
+                <a class="link_for_menu " href="mygroups.php">
+                    <img src="resources/groups.png" alt="groups">
                 </a>
             </li>
         </ul>
@@ -57,7 +57,7 @@
             <div class="pet">
                 <h3 class="pet_name">1st pet</h3>
                 <div class="photo_container">
-                    <img class="pet_photo" src="resources/nopicture.png">
+                    <img class="pet_photo" src="resources/nopicture.png" alt="no picture">
                 </div>
                 <p class="pet_field">Name:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
@@ -68,17 +68,15 @@
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.html" class="link for_pet">Calendar</a><img
-                            class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img
-                            class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field delete">Delete</p>
                 </section>
             </div>
             <div class="pet">
                 <h3 class="pet_name">2nd pet</h3>
                 <div class="photo_container">
-                    <img class="pet_photo" src="resources/nopicture.png">
+                    <img class="pet_photo" src="resources/nopicture.png" alt="no picture">
                 </div>
                 <p class="pet_field">Name:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
@@ -89,17 +87,15 @@
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.html" class="link for_pet">Calendar</a><img
-                            class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img
-                            class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field delete">Delete</p>
                 </section>
             </div>
             <div class="pet">
                 <h3 class="pet_name">3rd pet</h3>
                 <div class="photo_container">
-                    <img class="pet_photo" src="resources/nopicture.png">
+                    <img class="pet_photo" src="resources/nopicture.png" alt="no picture">
                 </div>
                 <p class="pet_field">Name:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
@@ -110,17 +106,15 @@
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.html" class="link for_pet">Calendar</a><img
-                            class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img
-                            class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field delete">Delete</p>
                 </section>
             </div>
             <div class="pet">
                 <h3 class="pet_name">4th pet</h3>
                 <div class="photo_container">
-                    <img class="pet_photo" src="resources/nopicture.png">
+                    <img class="pet_photo" src="resources/nopicture.png" alt="no picture">
                 </div>
                 <p class="pet_field">Name:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
@@ -131,17 +125,15 @@
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.html" class="link for_pet">Calendar</a><img
-                            class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img
-                            class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field delete">Delete</p>
                 </section>
             </div>
             <div class="pet">
                 <h3 class="pet_name">5th pet</h3>
                 <div class="photo_container">
-                    <img class="pet_photo" src="resources/nopicture.png">
+                    <img class="pet_photo" src="resources/nopicture.png" alt="no picture">
                 </div>
                 <p class="pet_field">Name:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
@@ -152,15 +144,13 @@
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.html" class="link for_pet">Calendar</a><img
-                            class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img
-                            class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field delete">Delete</p>
                 </section>
             </div>
             <div class="new_pet">
-                <a class="new_pet" href="new_pet.html">
+                <a class="new_pet" href="new_pet.php">
                     <img class="plus" src="resources/add_icon.png">
                 </a>
             </div>
@@ -188,11 +178,8 @@
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.html" class="link for_pet friends">Calendar</a><img
-                            class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php"
-                            class="link for_pet friends">Multimedia</a><img class="new_page"
-                            src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
             </div>
             <div class="pet friends">
@@ -209,11 +196,8 @@
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.html" class="link for_pet friends">Calendar</a><img
-                            class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php"
-                            class="link for_pet friends">Multimedia</a><img class="new_page"
-                            src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
             </div>
             <div class="pet friends">
@@ -230,11 +214,8 @@
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.html" class="link for_pet friends">Calendar</a><img
-                            class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php"
-                            class="link for_pet friends">Multimedia</a><img class="new_page"
-                            src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
             </div>
             <div class="pet friends">
@@ -251,11 +232,8 @@
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.html" class="link for_pet friends">Calendar</a><img
-                            class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php"
-                            class="link for_pet friends">Multimedia</a><img class="new_page"
-                            src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
             </div>
         </div>

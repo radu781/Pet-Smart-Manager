@@ -8,7 +8,8 @@
             $this->host = $settings["host"];
             $this->password = $settings["password"];
             $this->dbName = $settings["schema"];
-            $this->conn = new mysqli($this->host, $this->username, $this->password, $this->dbName);
+            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
 
         public static function getInstance(): DBManager
@@ -21,87 +22,64 @@
 
         public function getFeedingTime(): array
         {
-            $out = [];
-            $statement = "SELECT * FROM pet_meals AS pmeal
+            $stmt = $this->conn->prepare("SELECT pmeal.id, pmeal.pet_id, pmeal.feed_time, pinfo.name
+            FROM pet_meals AS pmeal
             JOIN pet_info AS pinfo 
             ON pmeal.pet_id = pinfo.id 
-            ORDER BY pinfo.name";
-            $result = $this->conn->query($statement);
+            ORDER BY pinfo.name");
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-            while ($row = $result->fetch_assoc()) {
-                $currentLine = [
-                    "id" => $row["id"],
-                    "pet_id" => $row["pet_id"],
-                    "feed_time" => $row["feed_time"],
-                    "name" => $row["name"]
-                ];
-                array_push($out, $currentLine);
-            }
-            return $out;
+            return $result;
         }
 
         public function getPetMeals(): array
         {
-            $out = [];
-            $statement = "SELECT * FROM pet_media AS pmedia
+            $stmt = $this->conn->prepare("SELECT pmedia.pet_id, pmedia.filename, pmedia.description, pinfo.name
+            FROM pet_media AS pmedia
             JOIN pet_info AS pinfo 
             ON pmedia.pet_id = pinfo.id 
-            ORDER BY pinfo.id";
-            $result = $this->conn->query($statement);
+            ORDER BY pinfo.id");
+            $stmt->execute();
+            $result = $stmt->fetchAll();
 
-            while ($row = $result->fetch_assoc()) {
-                $currentLine = [
-                    "id" => $row["id"],
-                    "pet_id" => $row["pet_id"],
-                    "filename" => $row["filename"],
-                    "name" => $row["name"],
-                    "description" => $row["description"]
-                ];
-                array_push($out, $currentLine);
-            }
-            return $out;
+            return $result;
         }
 
-        public function checkExistingUser($param_email) {
-            $answer = false;
-
+        public function checkExistingUser(string $param_email): bool
+        {
             try {
-                $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $pdo->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
+                $stmt = $this->connection->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->execute();
 
-                if($stmt->rowCount() == 1) {
-                    $answer = true;
+                if ($stmt->rowCount() == 1) {
+                    return true;
                 }
-              } catch(PDOException $e) {
+            } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
-              }
-              $conn = null;
+            }
 
-            return $answer;
+            return false;
         }
 
-        public function registerUser($param_email, $param_password, $param_fname, $param_mname, $param_lname) {
+        public function registerUser(string $param_email, string $param_password, string $param_fname, string $param_mname, $param_lname)
+        {
             try {
-                $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $pdo->prepare("INSERT INTO `users` (`email`, `password`, `firstname`, `middlename`, `lastname`) VALUES (:email, :password, :firstname, :middlename, :lastname)");
+                $stmt = $this->conn->prepare("INSERT INTO `users` (`email`, `password`, `firstname`, `middlename`, `lastname`) VALUES (:email, :password, :firstname, :middlename, :lastname)");
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
                 $stmt->bindParam(":firstname", $param_fname, PDO::PARAM_STR);
                 $stmt->bindParam(":middlename", $param_mname, PDO::PARAM_STR);
                 $stmt->bindParam(":lastname", $param_lname, PDO::PARAM_STR);
                 $stmt->execute();
-              } catch(PDOException $e) {
+            } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
-              }
-              $conn = null;
+            }
         }
 
         private static ?DBManager $instance = null;
-        private ?mysqli $conn = null;
+        private ?PDO $conn = null;
         private string $username;
         private string $host;
         private string $password;

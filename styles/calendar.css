@@ -30,6 +30,10 @@
     scrollbar-width: none;
 }
 
+.cell::-webkit-scrollbar {
+    display: none;
+}
+
 #calendar {
     border-radius: 10px;
 }
@@ -68,9 +72,7 @@
 }
 
 #header-date {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 
 .clickable {
@@ -90,8 +92,26 @@
     font-size: medium;
 }
 
+.feed:hover {
+    cursor: pointer;
+}
+
 legend {
     margin-top: 10px;
+}
+
+label:hover {
+    cursor: pointer;
+}
+
+label {
+    display: inline-block;
+    margin: 0px 10px;
+}
+
+fieldset {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 @media (max-width: 1200px) {
