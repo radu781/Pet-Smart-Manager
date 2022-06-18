@@ -1,3 +1,64 @@
+<?php
+ // Include config file
+ require_once "utils/dbmanager.php";
+ require_once "utils/ValidateInput.php";
+
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to homepage
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    header("location: homepage.php");
+    exit;
+}
+
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+ 
+    $username = ValidateInput::work($_POST["username"]);
+    $password = ValidateInput::work($_POST["password"]);
+    $username_err = $password_err = $login_err = "";
+    $id = 0;
+ 
+    // Check if username is empty
+    if (empty($username)) {
+        $username_err = "Please enter username.";
+    } else {
+        if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            $username_err = "Invalid username format! <br>";
+        }
+    }
+    
+    // Check if password is empty
+    if (empty($password)) {
+        $password_err = "Please enter your password.";
+    }
+
+    if (empty($username_err) && empty($password_err)) {
+        $login_result = DBManager::getInstance()->checkCredentials($username, $password);
+
+        // Successfully logged in
+        if ($login_result['id'] > 0) {
+            // Password is correct, so start a new session
+            session_start();
+                            
+            // Store data in session variables
+            $_SESSION["loggedin"] = true;
+            $_SESSION["id"] = $login_result['id'];
+            $_SESSION["firstname"] = $login_result['firstname'];
+            $_SESSION["middlename"] = $login_result['middlename'];
+            $_SESSION["lastname"] = $login_result['lastname'];                     
+                            
+            // Redirect user to homepage
+            header("location: homepage.php");
+        } else {
+            // Password is not valid, display a generic error message
+            $login_err = "Invalid username or password.";
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +110,26 @@
     <hr>
     <div class="main-content">
         <p class="default-title">Login</p>
-        <form class="hazi-form">
+        <?php
+            if (!empty($username_err) || !empty($password_err) || !empty($login_err)) {
+                echo "<p class=\"hazi-alert-paragraph\">";
+
+                if (!empty($username_err)) {
+                    echo $username_err;
+                }
+
+                if (!empty($password_err)) {
+                    echo $password_err;
+                }
+
+                if (!empty($login_err)) {
+                    echo $login_err;
+                }
+
+                echo "</p>";
+            }
+            ?>
+        <form class="hazi-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div>
                 <label for="username">Username:</label>
                 <input type="email" name="username" id="username" required>

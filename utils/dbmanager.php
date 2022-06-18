@@ -63,8 +63,6 @@
         }
 
         public function checkExistingUser($param_email) {
-            $answer = false;
-
             try {
                 $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -73,31 +71,68 @@
                 $stmt->execute();
 
                 if($stmt->rowCount() == 1) {
-                    $answer = true;
+                    return true;
                 }
               } catch(PDOException $e) {
                 echo "Error: " . $e->getMessage();
               }
               $conn = null;
 
-            return $answer;
+            return false;
         }
 
         public function registerUser($param_email, $param_password, $param_fname, $param_mname, $param_lname) {
             try {
                 $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $pdo->prepare("INSERT INTO `users` (`email`, `password`, `firstname`, `middlename`, `lastname`) VALUES (:email, :password, :firstname, :middlename, :lastname)");
+                $stmt = $pdo->prepare("INSERT INTO `users` (`email`, `password`, `firstname`, `middlename`, `lastname`) VALUES (:email, SHA1(:password), :firstname, :middlename, :lastname)");
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
                 $stmt->bindParam(":firstname", $param_fname, PDO::PARAM_STR);
                 $stmt->bindParam(":middlename", $param_mname, PDO::PARAM_STR);
                 $stmt->bindParam(":lastname", $param_lname, PDO::PARAM_STR);
                 $stmt->execute();
+
               } catch(PDOException $e) {
                 echo "Error: " . $e->getMessage();
               }
               $conn = null;
+        }
+
+        public function checkCredentials($param_username, $param_password) : array {
+            $result = array(
+                'id' => 0,
+                'firstname' => "",
+                'middlename' => "",
+                'lastname' => ""
+            );
+
+            try {
+                $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $pdo->prepare("SELECT `id`, `email`, `password` FROM `users` WHERE `email` = :username AND `password` = SHA(:password)");
+                $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
+                $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result = array(
+                            'id' => $row["id"],
+                            'firstname' => $row["firstname"],
+                            'middlename' => $row["middlename"],
+                            'lastname' => $row["lastname"]
+                        );
+                    }
+                }
+
+              } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+              }
+
+              $conn = null;
+
+              return $result;
         }
 
         private static ?DBManager $instance = null;
