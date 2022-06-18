@@ -78,6 +78,40 @@
             }
         }
 
+        public function checkCredentials($param_username, $param_password) : array {
+            $result = array(
+                'id' => 0,
+                'email' => "",
+                'firstname' => "",
+                'middlename' => "",
+                'lastname' => ""
+            );
+
+            try {
+                $stmt = $this->conn->prepare("SELECT `id`, `email`, `firstname`, `middlename`, `lastname` FROM `users` WHERE `email` = :username AND `password` = SHA(:password)");
+                $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
+                $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result = array(
+                            'id' => $row["id"],
+                            'email' => $row["email"],
+                            'firstname' => $row["firstname"],
+                            'middlename' => $row["middlename"],
+                            'lastname' => $row["lastname"]
+                        );
+                    }
+                }
+
+              } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+              }
+
+              return $result;
+        }
+
         private static ?DBManager $instance = null;
         private ?PDO $conn = null;
         private string $username;

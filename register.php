@@ -3,15 +3,17 @@ include_once 'utils/dbmanager.php';
 include_once 'utils/ValidateInput.php';
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $email = $password = $fname = $mname = $lname = "";
+        $email      = ValidateInput::work($_POST["email"]);
+        $password   = ValidateInput::work($_POST["password"]);
+        $fname      = ValidateInput::work($_POST["fname"]);
+        $mname      = ValidateInput::work($_POST["mname"]);
+        $lname      = ValidateInput::work($_POST["lname"]);
         $emailErr = $passwordErr = $fnameErr = $mnameErr = $lnameErr = $successMsg =  "";
  
         // Validate email
-        if (empty($_POST["email"])) {
+        if (empty($email)) {
             $emailErr = "Email is required! <br>";
         } else {
-            $email = ValidateInput::work($_POST["email"]);
-            
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Invalid email format! <br>";
             }
@@ -23,52 +25,44 @@ include_once 'utils/ValidateInput.php';
         } else {
 
             // Validate password
-            if (empty($_POST["password"])) {
+            if (empty($password)) {
                 $passwordErr = "Password is required";
             } else {
-                $password = ValidateInput::work($_POST["password"]);
-    
                 if (strlen($_POST["password"]) <= 8) {
                     $passwordErr = "Your Password Must Contain At Least 8 Characters! <br>";
                 }
-                elseif(!preg_match("#[0-9]+#",$password)) {
+                elseif(!preg_match("#[0-9]+#", $password)) {
                     $passwordErr = "Your Password Must Contain At Least 1 Number! <br>";
                 }
-                elseif(!preg_match("#[A-Z]+#",$password)) {
+                elseif(!preg_match("#[A-Z]+#", $password)) {
                     $passwordErr = "Your Password Must Contain At Least 1 Capital Letter! <br>";
                 }
-                elseif(!preg_match("#[a-z]+#",$password)) {
+                elseif(!preg_match("#[a-z]+#", $password)) {
                     $passwordErr = "Your Password Must Contain At Least 1 Lowercase Letter! <br>";
                 }
             }
     
     
             // Validate first name
-            if (empty($_POST["fname"])) {
+            if (empty($fname)) {
                 $fnameErr = "First name is required! <br>";
             } else {
-                $fname = ValidateInput::work($_POST["fname"]);
-                
                 if (!preg_match("/^[a-zA-Z'-]+$/", $fname)) {
                     $fnameErr = "Invalid first name format! <br>";
                 }
             }
     
             // Validate middle name
-            if (!empty($_POST["mname"])) {
-                $mname = ValidateInput::work($_POST["mname"]);
-                
+            if (!empty($mname)) {
                 if (!preg_match("/^[a-zA-Z'-]+$/", $mname)) {
                     $mnameErr = "Invalid first name format! <br>";
                 }
             }
     
             // Validate last name
-            if (empty($_POST["lname"])) {
+            if (empty($lname)) {
                 $lnameErr = "Last name is required!";
             } else {
-                $lname = ValidateInput::work($_POST["lname"]);
-                
                 if (!preg_match("/^[a-zA-Z'-]+$/", $lname)) {
                     $lnameErr = "Invalid last name format! <br>";
                 }
@@ -135,7 +129,7 @@ include_once 'utils/ValidateInput.php';
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="hazi-form" method="POST">
             <p class="default-title">Register</p>
             <?php
-            if (!empty($emailErr) || !empty($passwordErr) || !empty($fnameErr) || !empty($mnameErr) || !empty($lnameErr) || !empty($succesMsg)) {
+            if (!empty($emailErr) || !empty($passwordErr) || !empty($fnameErr) || !empty($mnameErr) || !empty($lnameErr) || !empty($successMsg)) {
                 echo "<p class=\"hazi-alert-paragraph\">";
 
                 if (!empty($emailErr)) {
@@ -153,8 +147,8 @@ include_once 'utils/ValidateInput.php';
                  if (!empty($lnameErr)) {
                      echo $lnameErr;
                  }
-                 if (!empty($succesMsg)) {
-                     echo $succesMsg;
+                 if (!empty($successMsg)) {
+                     echo $successMsg;
                  }
 
                 echo "</p>";
