@@ -1,4 +1,0 @@
-host = my_host
-schema = my_database_schema
-username = my_username
-password = my_password

@@ -59,6 +59,7 @@
                 <input type="password" name="password" id="password" required>
             </div>
             <input class="default-button" type="submit" value="Login now!">
+            <p class="hazi-login-register-text">Don't have an account? <a href="register.php">Go to Register</a>.</p>
         </form>
     </div>
 </body>

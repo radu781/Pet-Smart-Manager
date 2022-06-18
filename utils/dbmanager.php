@@ -62,6 +62,44 @@
             return $out;
         }
 
+        public function checkExistingUser($param_email) {
+            $answer = false;
+
+            try {
+                $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $pdo->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
+                $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if($stmt->rowCount() == 1) {
+                    $answer = true;
+                }
+              } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+              }
+              $conn = null;
+
+            return $answer;
+        }
+
+        public function registerUser($param_email, $param_password, $param_fname, $param_mname, $param_lname) {
+            try {
+                $pdo = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $pdo->prepare("INSERT INTO `users` (`email`, `password`, `firstname`, `middlename`, `lastname`) VALUES (:email, :password, :firstname, :middlename, :lastname)");
+                $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+                $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+                $stmt->bindParam(":firstname", $param_fname, PDO::PARAM_STR);
+                $stmt->bindParam(":middlename", $param_mname, PDO::PARAM_STR);
+                $stmt->bindParam(":lastname", $param_lname, PDO::PARAM_STR);
+                $stmt->execute();
+              } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+              }
+              $conn = null;
+        }
+
         private static ?DBManager $instance = null;
         private ?mysqli $conn = null;
         private string $username;

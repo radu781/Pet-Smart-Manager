@@ -18,7 +18,7 @@ form.hazi-form {
 .hazi-form > div > input, #hazi-dynamic-fields > div > input[type=time] {
     height: 3vh;
     margin-bottom: 2vh;
-    width: 30vh;
+    width: 35vh;
     background-color: var(--lightgreen);
     border-style: double;
     border-radius: 3%;
@@ -26,7 +26,7 @@ form.hazi-form {
 }
 
 .hazi-input-width {
-    width: 30vh;
+    width: 35vh;
     background-color: var(--lightgreen);
     border-style: double;
     border-radius: 3%;
@@ -46,6 +46,29 @@ form.hazi-form {
 .hazi-center-left-align {
     margin-left: auto;
     margin-right: auto;
+}
+
+.hazi-alert-paragraph {
+    width: 90%;
+    text-align: center;
+    font-size: large;
+    background-color: var(--orange);
+    padding: 0.75vh 1.25vh;
+    margin-bottom: 1vh;
+    border: 2px solid;
+    border-radius: 0.5vh;
+}
+
+.hazi-login-register-text {
+    padding-top: 2vh;
+    color: var(--darkblue);
+    font-weight: 600;
+}
+
+.hazi-login-register-text a {
+    text-decoration: none;
+    color: var(--darkgreen);
+    font-weight: 800;
 }
 
 .hazi-padding-top {
