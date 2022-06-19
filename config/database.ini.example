@@ -1,0 +1,5 @@
+[database]
+host = your_host
+schema = your_schema
+username = your_username
+password = your_password

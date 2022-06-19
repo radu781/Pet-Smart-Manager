@@ -112,7 +112,7 @@
         public function checkExistingUser(string $param_email): bool
         {
             try {
-                $stmt = $this->conn->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
+                $stmt = $this->connection->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->execute();
 
@@ -174,12 +174,12 @@
             return $result;
         }
 
-        public function checkPetOwnership($param_owner_id, $param_pet_id): bool
+        public function checkPetOwnership(int $param_owner_id, int $param_pet_id): bool
         {
             $result = false;
 
             try {
-                $stmt = $this->conn->prepare("SELECT `id` FROM `owned_pets` WHERE `user_id` = :user_id AND `pet_id` = :pet_id");
+                $stmt = $this->connection->prepare("SELECT `id` FROM `owned_pets` WHERE `user_id` = :user_id AND `pet_id` = :pet_id");
                 $stmt->bindParam(":user_id", $param_owner_id, PDO::PARAM_STR);
                 $stmt->bindParam(":pet_id", $param_pet_id, PDO::PARAM_STR);
                 $stmt->execute();
@@ -194,10 +194,10 @@
             return $result;
         }
 
-        public function addPet(string $param_owner_id, $param_pet_name, string $param_breed, array $param_meal_arr, string $param_restrictions, string $param_medical_history, string $param_relationships)
+        public function addPet(string $param_owner_id, $param_pet_name, string $param_breed, array $param_meal_arr, string $param_restrictions, string $param_medical_history, string $param_relationships): void
         {
             try {
-                $stmt = $this->conn->prepare("INSERT INTO `pet_info` (`name`, `breed`, `restrictions`, `medical_history`, `relationships`) VALUES (:name, :breed, :restrictions, :medical_history, :relationships)");
+                $stmt = $this->connection->prepare("INSERT INTO `pet_info` (`name`, `breed`, `restrictions`, `medical_history`, `relationships`) VALUES (:name, :breed, :restrictions, :medical_history, :relationships)");
                 $stmt->bindParam(":name", $param_pet_name, PDO::PARAM_STR);
                 $stmt->bindParam(":breed", $param_breed, PDO::PARAM_STR);
                 $stmt->bindParam(":restrictions", $param_restrictions, PDO::PARAM_STR);
@@ -205,14 +205,14 @@
                 $stmt->bindParam(":relationships", $param_relationships, PDO::PARAM_STR);
                 $stmt->execute();
 
-                $pet_id = $this->conn->lastInsertId();
+                $pet_id = $this->connection->lastInsertId();
 
-                $stmt2 = $this->conn->prepare("INSERT INTO `owned_pets` (`pet_id`, `user_id`) VALUES (:pet_id, :user_id)");
+                $stmt2 = $this->connection->prepare("INSERT INTO `owned_pets` (`pet_id`, `user_id`) VALUES (:pet_id, :user_id)");
                 $stmt2->bindParam(":pet_id", $pet_id, PDO::PARAM_STR);
                 $stmt2->bindParam(":user_id", $param_owner_id, PDO::PARAM_STR);
                 $stmt2->execute();
 
-                $stmt3 = $this->conn->prepare("INSERT INTO `pet_meals` (`pet_id`, `feed_time`) VALUES (:pet_id, :feed_time)");
+                $stmt3 = $this->connection->prepare("INSERT INTO `pet_meals` (`pet_id`, `feed_time`) VALUES (:pet_id, :feed_time)");
                 $stmt3->bindParam(":pet_id", $pet_id, PDO::PARAM_STR);
                 for ($i = 0; $i < sizeof($param_meal_arr); $i++) {
                     if ($param_meal_arr[$i] != "") {
@@ -225,23 +225,23 @@
             }
         }
 
-        public function addGroup(string $param_owner_id, array $param_pets, string $param_name, string $param_invite_hash)
+        public function addGroup(string $param_owner_id, array $param_pets, string $param_name, string $param_invite_hash): void
         {
             try {
-                $stmt = $this->conn->prepare("INSERT INTO `groups` (`owner_id`, `name`, `invite_hash`) VALUES (:owner_id, :name, SHA1(:invite_hash))");
+                $stmt = $this->connection->prepare("INSERT INTO `groups` (`owner_id`, `name`, `invite_hash`) VALUES (:owner_id, :name, SHA1(:invite_hash))");
                 $stmt->bindParam(":owner_id", $param_owner_id, PDO::PARAM_STR);
                 $stmt->bindParam(":name", $param_name, PDO::PARAM_STR);
                 $stmt->bindParam(":invite_hash", $param_invite_hash, PDO::PARAM_STR);
                 $stmt->execute();
 
-                $group_id = $this->conn->lastInsertId();
+                $group_id = $this->connection->lastInsertId();
 
-                $stmt2 = $this->conn->prepare("INSERT INTO `group_members` (`group_id`, `user_id`) VALUES (:group_id, :user_id)");
+                $stmt2 = $this->connection->prepare("INSERT INTO `group_members` (`group_id`, `user_id`) VALUES (:group_id, :user_id)");
                 $stmt2->bindParam(":group_id", $group_id, PDO::PARAM_STR);
                 $stmt2->bindParam(":user_id", $param_owner_id, PDO::PARAM_STR);
                 $stmt2->execute();
 
-                $stmt3 = $this->conn->prepare("INSERT INTO `group_pet` (`group_id`, `pet_id`) VALUES (:group_id, :pet_id)");
+                $stmt3 = $this->connection->prepare("INSERT INTO `group_pet` (`group_id`, `pet_id`) VALUES (:group_id, :pet_id)");
                 $stmt3->bindParam(":group_id", $group_id, PDO::PARAM_STR);
 
                 for ($i = 0; $i < sizeof($param_pets); $i++) {
@@ -257,7 +257,7 @@
         {
             $result = "";
             try {
-                $stmt = $this->conn->prepare("SELECT `name` FROM `pet_info` WHERE `id` = :id");
+                $stmt = $this->connection->prepare("SELECT `name` FROM `pet_info` WHERE `id` = :id");
                 $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
                 $stmt->execute();
 
