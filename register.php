@@ -97,40 +97,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <header>
-        <div class="site_logo">
-            <img src="resources/icon.png" alt="Logo">
-        </div>
-        <div class="site_name"><a class="site_name" href="homepage.html"><strong>Petbook</strong></a></div>
-        <ul class="header_options">
-            <div class="display_mode">Light/Dark mode</div>
-            <div class="log_out"><img class="log_out" src="resources/logout.png"></div>
-        </ul>
-    </header>
-    <nav>
-        <ul class="menu">
-            <li class="normal option_my_profile"><a class="link_for_menu " href="homepage.html">My profile</a></li>
-            <li class="normal option_my_pets"><a class="link_for_menu " href="mypets.html">My pets</a></li>
-            <li class="normal option_my_groups"><a class="link_for_menu " href="mygroups.html">My groups</a></li>
+    <?php include "shared/header.php" ?>
 
-            <!-- responsive design -->
-            <li class="phone option_my_profile">
-                <a class="link_for_menu" href="homepage.html">
-                    <img src="resources/user.png">
-                </a>
-            </li>
-            <li class="phone option_my_pets">
-                <a class="link_for_menu " href="mypets.html">
-                    <img src="resources/pets.png">
-                </a>
-            </li>
-            <li class="phone option_my_groups">
-                <a class="link_for_menu " href="mygroups.html">
-                    <img src="resources/groups.png">
-                </a>
-            </li>
-        </ul>
-    </nav>
     <hr>
     <div class="main-content">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="hazi-form" method="POST">
@@ -185,6 +153,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <p class="hazi-login-register-text">Already have an account? <a href="login.php">Go to Login</a>.</p>
         </form>
     </div>
+    <?php include "shared/footer.php" ?>
 </body>
 
 </html>
