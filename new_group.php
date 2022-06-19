@@ -10,7 +10,37 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
     exit;
 }
 
-$my_pets = DBManager::getInstance()->returnPets($_SESSION["id"]);
+$my_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $selected_pets  = ValidateInput::work_arr($_POST['pets']);
+    $name           = ValidateInput::work($_POST['name']);
+
+    $selected_pets_err = $name_err = $successMsg = "";
+    
+    // Validate selected pets
+    foreach ($selected_pets as $selected_option) {
+        if (!DBManager::getInstance()->checkPetOwnership($_SESSION['id'], $selected_option)) {
+            $selected_pets_err = "Error! You have selected a pet that does not belong to you <br>";
+        }
+    }
+
+    // Validate group name
+    if (empty($name)) {
+        $name_err = "Group name is required <br>";
+    } else if (strlen($name) > 32 || preg_match('/[^A-Za-z]/i', $name)) {
+        $name_err = "Invalid group name <br>";
+    }
+
+    // Insert into database
+    if (empty($selected_pets_err) && empty($name_err)) {
+        DBManager::getInstance()->addGroup($_SESSION['id'], $selected_pets, $name, microtime());
+        $successMsg = "Group successfully created <br>";
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -65,10 +95,27 @@ $my_pets = DBManager::getInstance()->returnPets($_SESSION["id"]);
     <hr>
     <div class="main-content">
         <p class="default-title">Create new group</p>
-        <form class="hazi-form">
+            <?php
+            if (!empty($selected_pets_err) || !empty($name_err) || !empty($successMsg)) {
+                echo "<p class=\"hazi-alert-paragraph\">";
+
+                if (!empty($selected_pets_err)) {
+                    echo $selected_pets_err;
+                 }
+                 if (!empty($name_err)) {
+                     echo $name_err;
+                 }
+                 if (!empty($successMsg)) {
+                     echo $successMsg;
+                 }
+
+                echo "</p>";
+            }
+            ?>
+        <form class="hazi-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="hazi-center-left-align">
                 <label for="pets">Select pets:</label>
-                <select name="pets" class="hazi-selector" multiple>
+                <select name="pets[]" multiple="multiple" class="hazi-selector" required>
                     <?php 
                         for ($i = 0; $i < sizeof($my_pets); $i++) {
                             $pet_id = $my_pets[$i];
