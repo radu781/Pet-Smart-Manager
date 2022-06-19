@@ -1,3 +1,18 @@
+<?php
+ // Include config file
+ require_once "utils/dbmanager.php";
+ require_once "utils/ValidateInput.php";
+ require_once "utils/configuration.php";
+ 
+// Check if the user is not logged in, if yes then redirect him to login
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
+    header("location: login.php");
+    exit;
+}
+
+$my_pets = DBManager::getInstance()->returnPets($_SESSION["id"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,11 +69,13 @@
             <div class="hazi-center-left-align">
                 <label for="pets">Select pets:</label>
                 <select name="pets" class="hazi-selector" multiple>
-                    <option value="pet1">Pet 1</option>
-                    <option value="pet2">Pet 2</option>
-                    <option value="pet3">Pet 3</option>
-                    <option value="pet4">Pet 4</option>
-                    <option value="pet5">Pet 5</option>
+                    <?php 
+                        for ($i = 0; $i < sizeof($my_pets); $i++) {
+                            $pet_id = $my_pets[$i];
+                            $pet_name = DBManager::getInstance()->getPetName($pet_id["pet_id"]);
+                            echo "<option value=\"" . $my_pets[$i]["pet_id"] . "\">" . $pet_name .  "</option>\n";
+                        }
+                    ?>
                 </select>
             </div>
             <div class="hazi-center-left-align">
@@ -68,13 +85,6 @@
             <input class="default-button" type="submit" value="Create group">
         </form>
         <p class="default-title hazi-padding-top">Join group</p>
-        <form class="hazi-form">
-            <div class="hazi-center-left-align">
-                <label for="groupid">Group ID:</label>
-                <input type="text" name="groupid" id="groupid" required>
-            </div>
-            <input class="default-button" type="submit" value="Join now!">
-        </form>
     </div>
 </body>
 

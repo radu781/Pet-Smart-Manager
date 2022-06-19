@@ -2,9 +2,7 @@
  // Include config file
  require_once "utils/dbmanager.php";
  require_once "utils/ValidateInput.php";
-
-// Initialize the session
-session_start();
+ require_once "utils/configuration.php";
  
 // Check if the user is not logged in, if yes then redirect him to login
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
@@ -35,9 +33,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate breed
     if (empty($breed)) {
-        $breed_arr = "Breed is required <br>";
-    } else if (!in_array($breed, $breed_arr)) {
-        $breed_err = "Invalid breed <br>";
+        $breed_err = "Breed is required <br>";
+    } else if (strlen($breed) > 32 || preg_match('/[^A-Za-z]/i', $breed)) {
+        $breed_err = "Invalid breed name <br>";
     }
 
     // Validate number of meals & their values
@@ -72,6 +70,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($petname_err) && empty($breed_err) && empty($meals_err) && empty($restrictions_err) && empty($medical_history_err) && empty($relationships_err) && empty($successMsg)) {
         DBManager::getInstance()->addPet($_SESSION["id"], $petname, $breed, $meal_arr, $restrictions, $medical_history, $relationships);
+        $successMsg = "Pet has been succesfully added <br>";
     }
 }
 
@@ -164,12 +163,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" id="petname" name="petname" min="1" max="32" required>
             </div>
             <div class="hazi-center-left-align">
-                <label for="breed">Select breed: <i>(required)</i></label>
-                <select name="breed" class="hazi-select" required>
-                    <option value="dog">Dog</option>
-                    <option value="cat">Cat</option>
-                    <option value="chicken">Chicken</option>
-                </select>
+                <label for="breed">Breed: <i>(required)</i></label>
+                <input type="text" id="breed" name="breed" min="1" max="32" required>
             </div>
             <div>
                 <label for="meals">Meals per day: <i>(optional)</i></label>

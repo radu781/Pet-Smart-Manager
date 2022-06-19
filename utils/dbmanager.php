@@ -139,6 +139,27 @@
             }
         }
 
+        public function getPetName(string $param_pet_id): string
+        {
+            $result = "";
+            try {
+                $stmt = $this->conn->prepare("SELECT `name` FROM `pet_info` WHERE `id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result = $row["name"];
+                    }
+                    
+                }
+
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
         /* functie Session ...TO DO */
 
         /* functions to return user details */

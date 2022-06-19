@@ -1,10 +1,8 @@
 <?php
- // Include config file
- require_once "utils/dbmanager.php";
- require_once "utils/ValidateInput.php";
-
-// Initialize the session
-session_start();
+// Include config file
+require_once "utils/dbmanager.php";
+require_once "utils/ValidateInput.php";
+require_once "utils/configuration.php";
  
 // Check if the user is already logged in, if yes then redirect him to homepage
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
