@@ -30,13 +30,14 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
         <div class="panel">
             <h3 class="subtitle">User's pets</h3>
             <p class="details">Here are your pets.</p>
-            <p class="details">You can add new pets, edit the existing ones or delete them.</p>
+            <p class="details">You can add new pets or delete them.</p>
         </div>
         <div class="pets">
             <?php
             for ($i = 0; $i < sizeof($user_pets); $i++) {
                 $pet_id = $user_pets[$i];
-                $pet_info = DBManager::getInstance()->getPetCardData($pet_id["pet_id"]);
+                $pet_info = DBManager::getInstance()->getPetNameAndBreed($pet_id["pet_id"]);
+                $pet_noOfMeals = DBManager::getInstance()->getPetNoOfMeals($pet_id["pet_id"]);
                 echo '<div class="pet">';
                 echo '<h3 class="pet_name">' . $pet_info["name"] . '</h3>';
                 echo '<div class="photo_container">';
@@ -44,8 +45,11 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 echo '</div>';
                 echo '<p class="pet_field">Breed:</p>';
                 echo '<p class="pet_field_output"><i>' . $pet_info["breed"] . '</i></p>';
-                echo '<p class="pet_field">Meals:</p>';
-                echo '<p class="pet_field_output">lorem</p>';
+                echo '<p class="pet_field">Meals / day:</p>';
+                if ($pet_noOfMeals == 0)
+                    echo '<p class="pet_field_output"> unspecified </p>';
+                else
+                    echo '<p class="pet_field_output">' . $pet_noOfMeals . '</p>';
                 echo '<section class="pet_links">';
                 echo '<p class="pet_field with_link"><a href="petdetails.php" class="link for_pet">Details</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo '<p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>';

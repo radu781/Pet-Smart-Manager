@@ -211,7 +211,7 @@ p.pet_field.with_link{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: left;
 }
 a.link{
     text-decoration: none;

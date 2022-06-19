@@ -187,7 +187,6 @@
                 if ($stmt->rowCount() == 1) {
                     $result = true;
                 }
-
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
@@ -226,7 +225,8 @@
             }
         }
 
-        public function addGroup(string $param_owner_id, array $param_pets, string $param_name, string $param_invite_hash) {
+        public function addGroup(string $param_owner_id, array $param_pets, string $param_name, string $param_invite_hash)
+        {
             try {
                 $stmt = $this->conn->prepare("INSERT INTO `groups` (`owner_id`, `name`, `invite_hash`) VALUES (:owner_id, :name, SHA1(:invite_hash))");
                 $stmt->bindParam(":owner_id", $param_owner_id, PDO::PARAM_STR);
@@ -273,11 +273,15 @@
             }
         }
 
-        /* functie Session ...TO DO */
-
-        /* functions to return user details */
+        /* function to return user details */
         public function returnUserData(string $param_id): array
         {
+            $result = array(
+                'email' => "",
+                'firstname' => "",
+                'middlename' => "",
+                'lastname' => ""
+            );
             // create statement to return user's details
             try {
                 $stmt = $this->connection->prepare("SELECT `firstname`, `lastname`, `middlename`, `email` FROM `users` WHERE `id` = :id");
@@ -300,6 +304,7 @@
             }
         }
 
+        /* function to return user's pets' id */
         public function getPets(string $param_id): array
         {
             // create statement to return user's pets' id
@@ -315,7 +320,8 @@
             }
         }
 
-        public function getPetCardData(string $param_pet_id): array
+        /* function to return pet's name & breed for card */
+        public function getPetNameAndBreed(string $param_pet_id): array
         {
             $result = array(
                 'name' => "",
@@ -338,6 +344,21 @@
                 echo "Error: " . $e->getMessage();
             }
             return $result;
+        }
+
+        /* function to return pet's no of meals for card */
+        public function getPetNoOfMeals(string $param_pet_id): string
+        {
+            try {
+                $stmt = $this->conn->prepare("SELECT `id` FROM `pet_meals` WHERE `pet_id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $result = $stmt->fetchAll();
+                return sizeof($result);
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
         }
 
 
