@@ -139,6 +139,7 @@
             }
         }
 
+<<<<<<< Updated upstream
         public function getPetName(string $param_pet_id): string
         {
             $result = "";
@@ -162,6 +163,8 @@
 
         /* functie Session ...TO DO */
 
+=======
+>>>>>>> Stashed changes
         /* functions to return user details */
         public function returnUserData(string $param_id)
         {
@@ -187,7 +190,7 @@
             }
         }
 
-        public function returnPets(string $param_id)
+        public function getPets(string $param_id)
         {
             // create statement to return user's pets' id
             try {
@@ -201,6 +204,7 @@
                 echo "Error: " . $e->getMessage();
             }
         }
+
 
         private static ?DBManager $instance = null;
         private ?PDO $conn = null;
