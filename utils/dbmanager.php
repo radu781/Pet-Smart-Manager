@@ -8,8 +8,8 @@
             $this->host = $settings["host"];
             $this->password = $settings["password"];
             $this->dbName = $settings["schema"];
-            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection = new PDO("mysql:host=$this->host;dbname=$this->dbName", $this->username, $this->password);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
 
         public static function getInstance(): DBManager
@@ -20,30 +20,78 @@
             return self::$instance;
         }
 
-        public function getFeedingTime(): array
+        public function getFeedingTime(int $userId): array
         {
-            $stmt = $this->conn->prepare("SELECT pmeal.id, pmeal.pet_id, pmeal.feed_time, pinfo.name
-            FROM pet_meals AS pmeal
-            JOIN pet_info AS pinfo 
-            ON pmeal.pet_id = pinfo.id 
-            ORDER BY pinfo.name");
+            $stmt = $this->connection->prepare("SELECT
+              pm.id,
+              pm.pet_id,
+              pm.feed_time,
+              pi.name
+            FROM
+              owned_pets AS op
+              JOIN pet_info AS pi ON op.pet_id = pi.id
+              AND op.user_id = :user_id
+              JOIN pet_meals AS pm ON pm.pet_id = pi.id
+            ORDER BY
+              pi.name");
+            $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetchAll();
 
             return $result;
         }
 
-        public function getPetMeals(): array
+        public function getPetMedia(int $userId): array
         {
-            $stmt = $this->conn->prepare("SELECT pmedia.pet_id, pmedia.filename, pmedia.description, pinfo.name
-            FROM pet_media AS pmedia
-            JOIN pet_info AS pinfo 
-            ON pmedia.pet_id = pinfo.id 
-            ORDER BY pinfo.id");
+            $stmt = $this->connection->prepare("SELECT
+              pm.pet_id,
+              pm.filename,
+              pm.description,
+              pi.name
+            FROM
+              pet_info AS pi
+              JOIN owned_pets AS op ON op.pet_id = pi.id
+              AND op.user_id = :user_id
+              JOIN pet_media AS pm ON pm.pet_id = pi.id
+            ORDER BY pi.id");
+            $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetchAll();
 
             return $result;
+        }
+
+        private function petMediaExists(int $petId, string $filename): bool
+        {
+            $stmt = $this->connection->prepare("SELECT
+              COUNT(*) as \"count\"
+            FROM
+              pet_media
+            WHERE
+              pet_id = :petId
+              AND filename = :filename");
+            $stmt->bindParam(":petId", $petId, PDO::PARAM_INT);
+            $stmt->bindParam(":filename", $filename, PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+
+            return $result[0]["count"] !== 0;
+        }
+
+        public function insertPetMedia(int $petId, string $filename, string $description): void
+        {
+            if (self::petMediaExists($petId, $filename)) {
+                echo "File already uploaded!";
+                return;
+            }
+            $stmt = $this->connection->prepare("INSERT into
+              pet_media (pet_id, filename, description)
+            values
+              (:petId, :filename, :description)");
+            $stmt->bindParam(":petId", $petId, PDO::PARAM_INT);
+            $stmt->bindParam(":filename", $filename, PDO::PARAM_STR);
+            $stmt->bindParam(":description", $description, PDO::PARAM_STR);
+            $stmt->execute();
         }
 
         public function checkExistingUser(string $param_email): bool
@@ -63,10 +111,11 @@
             return false;
         }
 
-        public function registerUser(string $param_email, string $param_password, string $param_fname, string $param_mname, $param_lname)
+        public function registerUser(string $param_email, string $param_password, string $param_fname, string $param_mname, string $param_lname): void
         {
             try {
-                $stmt = $this->conn->prepare("INSERT INTO `users` (`email`, `password`, `firstname`, `middlename`, `lastname`) VALUES (:email, SHA(:password), :firstname, :middlename, :lastname)");
+                $stmt = $this->connection->prepare("INSERT INTO `users` (`email`, `password`, `firstname`, `middlename`, `lastname`) 
+                VALUES (:email, SHA(:password), :firstname, :middlename, :lastname)");
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
                 $stmt->bindParam(":firstname", $param_fname, PDO::PARAM_STR);
@@ -78,7 +127,8 @@
             }
         }
 
-        public function checkCredentials($param_username, $param_password) : array {
+        public function checkCredentials(string $param_username, string $param_password): array
+        {
             $result = array(
                 'id' => 0,
                 'email' => "",
@@ -88,7 +138,9 @@
             );
 
             try {
-                $stmt = $this->conn->prepare("SELECT `id`, `email`, `firstname`, `middlename`, `lastname` FROM `users` WHERE `email` = :username AND `password` = SHA(:password)");
+                $stmt = $this->connection->prepare("SELECT `id`, `email`, `firstname`, `middlename`, `lastname`
+                FROM `users`
+                WHERE `email` = :username AND `password` = SHA(:password)");
                 $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
                 $stmt->execute();
@@ -104,15 +156,14 @@
                         );
                     }
                 }
-
-              } catch(PDOException $e) {
+            } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
-              }
+            }
 
-              return $result;
+            return $result;
         }
 
-        public function addPet(string $param_owner_id, $param_pet_name, string $param_breed, array $param_meal_arr, string $param_restrictions, string $param_medical_history, string $param_relationships)
+        public function addPet(string $param_owner_id, $param_pet_name, string $param_breed, array $param_meal_arr, string $param_restrictions, string $param_medical_history, string $param_relationships): void
         {
             try {
                 $stmt = $this->conn->prepare("INSERT INTO `pet_info` (`name`, `breed`, `restrictions`, `medical_history`, `relationships`) VALUES (:name, :breed, :restrictions, :medical_history, :relationships)");
@@ -122,7 +173,7 @@
                 $stmt->bindParam(":medical_history", $param_medical_history, PDO::PARAM_STR);
                 $stmt->bindParam(":relationships", $param_relationships, PDO::PARAM_STR);
                 $stmt->execute();
-                
+
                 $pet_id = $this->conn->lastInsertId();
 
                 $stmt2 = $this->conn->prepare("INSERT INTO `owned_pets` (`pet_id`, `user_id`) VALUES (:pet_id, :user_id)");
@@ -144,7 +195,7 @@
         }
 
         private static ?DBManager $instance = null;
-        private ?PDO $conn = null;
+        private ?PDO $connection = null;
         private string $username;
         private string $host;
         private string $password;

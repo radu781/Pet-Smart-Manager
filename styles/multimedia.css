@@ -30,6 +30,8 @@
 .cell-group {
     border: 1px solid var(--darkblue);
     border-radius: 5px;
+    flex-wrap: wrap;
+    justify-content: space-around;
     display: flex;
     margin: 10px;
 }
@@ -57,4 +59,9 @@
     .cell-group {
         flex-direction: column;
     }
+}
+
+.inline-form {
+    display: flex;
+    flex-direction: column;
 }

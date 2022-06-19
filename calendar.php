@@ -1,9 +1,3 @@
-<?php
-set_include_path("utils");
-include "dbmanager.php";
-$result = DBManager::getInstance()->getFeedingTime();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,6 +65,12 @@ $result = DBManager::getInstance()->getFeedingTime();
             <fieldset>
                 <legend>Filter by pets</legend>
                 <?php
+                set_include_path("utils");
+                include "dbmanager.php";
+                if (!session_id()) {
+                    session_start();
+                }
+                $result = DBManager::getInstance()->getFeedingTime($_SESSION["id"]);
                 foreach ($result as $pet) {
                     echo '<input type="checkbox" onclick="onPetFilterChanged()" name="pet-filter" value="' . $pet["pet_id"] . '" id="' . $pet["pet_id"] . '" checked>' . '</input>';
                     echo '<label for="' . $pet["pet_id"] . '">' . $pet["name"] . '</label>';
