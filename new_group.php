@@ -53,7 +53,7 @@
         <form class="hazi-form">
             <div class="hazi-center-left-align">
                 <label for="pets">Select pets:</label>
-                <select name="pets" id="pet-selector" multiple>
+                <select name="pets" class="hazi-selector" multiple>
                     <option value="pet1">Pet 1</option>
                     <option value="pet2">Pet 2</option>
                     <option value="pet3">Pet 3</option>

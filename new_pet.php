@@ -1,3 +1,63 @@
+<?php
+ // Include config file
+ require_once "utils/dbmanager.php";
+ require_once "utils/ValidateInput.php";
+
+// Initialize the session
+session_start();
+ 
+// Check if the user is not logged in, if yes then redirect him to login
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
+    header("location: login.php");
+    exit;
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    $breed_arr = array("cat", "dog", "chicken");
+
+    $petname            = ValidateInput::work($_POST["petname"]);
+    $breed              = ValidateInput::work($_POST["breed"]);
+    $meals              = ValidateInput::work($_POST["meals"]);
+    $restrictions       = ValidateInput::work($_POST["restrictions"]);
+    $medical_history    = ValidateInput::work($_POST["medical-history"]);
+    $relationship       = ValidateInput::work($_POST["relationship"]);
+    
+    $meal_arr = array("", "", "", "");
+
+    $petname_err = $breed_err = $meals_err = $restrictions_err = $medical_history_err = $relationship_err = "";
+
+    // Validate pet name
+    if (empty($petname)) {
+        $petname_err = "Pet name is required <br>";
+    } else if (strlen($petname) > 20 || preg_match('/[^A-Za-z]/i', $petname)) {
+        $petname_err = "Invalid pet name! <br>";
+    }
+
+    // Validate breed
+    if (empty($breed)) {
+        $breed_arr = "Breed is required <br>";
+    } else if (!in_array($breed, $breed_arr)) {
+        $breed_err = "Invalid breed <br>";
+    }
+
+    // Validate number of meals & their values
+    if (empty($meals) || $meals < 0 || $meals > 4) {
+        $meals_err = "The number of daily meals is invalid <br>";
+    } else {
+        for ($i = 0; $i < $meals; $i++) {
+            $meal_arr[$i] = ValidateInput::work($_POST["meal" . ($i+1)]);
+
+            if ($meal_arr[$i] == "") {
+                $meal_arr = "Meal time cannot be empty <br>";
+            } else if (!preg_match('/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/', $meal_arr[$i])) {
+                $meals_err = "Meal time is incorrect <br>";
+            }
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,25 +109,29 @@
     </nav>
     <hr>
     <div class="main-content">
-        <form class="hazi-form">
+        <form class="hazi-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <p class="default-title">Add new pet</p>
             <div class="hazi-center-left-align">
                 <label for="petname">Pet name: <i>(required)</i></label>
                 <input type="text" id="petname" name="petname" required>
             </div>
+            <div class="hazi-center-left-align">
+                <label for="breed">Select breed: <i>(required)</i></label>
+                <select name="breed" class="hazi-select" required>
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="chicken">Chicken</option>
+                </select>
+            </div>
             <div>
                 <label for="meals">Meals per day: <i>(optional)</i></label>
-                <input type="number" name="meals" id="meals" min="1" max="4" onclick="addFields()">
+                <input type="number" name="meals" id="meals" min="0" max="4" onclick="addFields()" value="0">
             </div>
             <div id="hazi-dynamic-fields">
             </div>
             <div class="hazi-center-left-align">
                 <label for="restrictions">Restrictions: <i>(optional)</i></label>
                 <textarea class="hazi-input-width" name="restrictions" id="restrictions" rows="5"></textarea>
-            </div>
-            <div class="hazi-center-left-align">
-                <label for="media">Media: <i>(optional)</i></label>
-                <input type="file" name="media" id="media" multiple>
             </div>
             <div class="hazi-center-left-align">
                 <label for="medical-history">Medical history: <i>(optional)</i></label>

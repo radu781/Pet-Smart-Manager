@@ -66,7 +66,7 @@
         public function registerUser(string $param_email, string $param_password, string $param_fname, string $param_mname, $param_lname)
         {
             try {
-                $stmt = $this->conn->prepare("INSERT INTO `users` (`email`, `password`, `firstname`, `middlename`, `lastname`) VALUES (:email, :password, :firstname, :middlename, :lastname)");
+                $stmt = $this->conn->prepare("INSERT INTO `users` (`email`, `password`, `firstname`, `middlename`, `lastname`) VALUES (:email, SHA(:password), :firstname, :middlename, :lastname)");
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
                 $stmt->bindParam(":firstname", $param_fname, PDO::PARAM_STR);

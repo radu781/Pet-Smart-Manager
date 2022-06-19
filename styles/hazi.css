@@ -33,14 +33,29 @@ form.hazi-form {
     border-color: var(--darkblue);
 }
 
-#pet-selector {
+.hazi-selector {
     height: 10vh;
     margin-bottom: 2vh;
-    width: 25vh;
+    width: 35vh;
     background-color: var(--lightgreen);
     border-style: double;
     border-radius: 3%;
     border-color: var(--darkblue);
+}
+
+.hazi-select
+{
+    height: 3vh;
+    margin-bottom: 2vh;
+    width: 35vh;
+    background-color: var(--lightgreen);
+    border-style: double;
+    border-radius: 3%;
+    border-color: var(--darkblue);
+}
+
+.hazi-select select {
+    display: none; /*hide original SELECT element: */
 }
 
 .hazi-center-left-align {
