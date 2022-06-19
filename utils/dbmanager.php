@@ -49,7 +49,7 @@
         public function checkExistingUser(string $param_email): bool
         {
             try {
-                $stmt = $this->connection->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
+                $stmt = $this->conn->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->execute();
 
@@ -96,11 +96,7 @@
                 if ($stmt->rowCount() == 1) {
                     if ($row = $stmt->fetch()) {
                         $result = array(
-                            'id' => $row["id"],
-                            'email' => $row["email"],
-                            'firstname' => $row["firstname"],
-                            'middlename' => $row["middlename"],
-                            'lastname' => $row["lastname"]
+                            'id' => $row["id"]
                         );
                     }
                 }
