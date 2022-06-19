@@ -97,11 +97,7 @@
                 if ($stmt->rowCount() == 1) {
                     if ($row = $stmt->fetch()) {
                         $result = array(
-                            'id' => $row["id"],
-                            'email' => $row["email"],
-                            'firstname' => $row["firstname"],
-                            'middlename' => $row["middlename"],
-                            'lastname' => $row["lastname"]
+                            'id' => $row["id"]
                         );
                     }
                 }
