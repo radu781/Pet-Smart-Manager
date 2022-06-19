@@ -20,17 +20,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $meals              = ValidateInput::work($_POST["meals"]);
     $restrictions       = ValidateInput::work($_POST["restrictions"]);
     $medical_history    = ValidateInput::work($_POST["medical-history"]);
-    $relationship       = ValidateInput::work($_POST["relationship"]);
+    $relationships      = ValidateInput::work($_POST["relationships"]);
     
     $meal_arr = array("", "", "", "");
 
-    $petname_err = $breed_err = $meals_err = $restrictions_err = $medical_history_err = $relationship_err = "";
+    $petname_err = $breed_err = $meals_err = $restrictions_err = $medical_history_err = $relationships_err = $successMsg = "";
 
     // Validate pet name
     if (empty($petname)) {
         $petname_err = "Pet name is required <br>";
-    } else if (strlen($petname) > 20 || preg_match('/[^A-Za-z]/i', $petname)) {
-        $petname_err = "Invalid pet name! <br>";
+    } else if (strlen($petname) > 32 || preg_match('/[^A-Za-z0-9]/i', $petname)) {
+        $petname_err = "Invalid pet name <br>";
     }
 
     // Validate breed
@@ -41,7 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate number of meals & their values
-    if (empty($meals) || $meals < 0 || $meals > 4) {
+    if ($meals < 0 || $meals > 4) {
         $meals_err = "The number of daily meals is invalid <br>";
     } else {
         for ($i = 0; $i < $meals; $i++) {
@@ -53,6 +53,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $meals_err = "Meal time is incorrect <br>";
             }
         }
+    }
+
+    // Validate restrictions
+    if (strlen($restrictions) > 255) {
+        $restrictions_err = "Error! Restrictions description cannot exceed 255 characters <br>";
+    }
+
+    // Validate medical history
+    if (strlen($medical_history) > 255) {
+        $medical_history_err = "Error! Medical history description cannot exceed 255 characters <br>";
+    }
+
+    // Validate relationships
+    if (strlen($relationships) > 255) {
+        $relationship_err = "Error! Restrictions description cannot exceed 255 characters <br>";
+    }
+
+    if (empty($petname_err) && empty($breed_err) && empty($meals_err) && empty($restrictions_err) && empty($medical_history_err) && empty($relationships_err) && empty($successMsg)) {
+        DBManager::getInstance()->addPet($_SESSION["id"], $petname, $breed, $meal_arr, $restrictions, $medical_history, $relationships);
     }
 }
 
@@ -111,9 +130,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="main-content">
         <form class="hazi-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <p class="default-title">Add new pet</p>
+            <?php
+            if (!empty($petname_err) || !empty($breed_err) || !empty($meals_err) || !empty($restrictions_err) || !empty($medical_history_err) || !empty($relationships_err) || !empty($successMsg)) {
+                echo "<p class=\"hazi-alert-paragraph\">";
+
+                if (!empty($petname_err)) {
+                    echo $petname_err;
+                 }
+                 if (!empty($breed_err)) {
+                     echo $breed_err;
+                 }
+                 if (!empty($meals_err)) {
+                     echo $meals_err;
+                 }
+                 if (!empty($restrictions_err)) {
+                     echo $restrictions_err;
+                 }
+                 if (!empty($medical_history_err)) {
+                     echo $medical_history_err;
+                 }
+                 if (!empty($relationships_err)) {
+                     echo $relationships_err;
+                 }
+                 if (!empty($successMsg)) {
+                     echo $successMsg;
+                 }
+
+                echo "</p>";
+            }
+            ?>
             <div class="hazi-center-left-align">
                 <label for="petname">Pet name: <i>(required)</i></label>
-                <input type="text" id="petname" name="petname" required>
+                <input type="text" id="petname" name="petname" min="1" max="32" required>
             </div>
             <div class="hazi-center-left-align">
                 <label for="breed">Select breed: <i>(required)</i></label>
@@ -131,15 +179,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="hazi-center-left-align">
                 <label for="restrictions">Restrictions: <i>(optional)</i></label>
-                <textarea class="hazi-input-width" name="restrictions" id="restrictions" rows="5"></textarea>
+                <textarea class="hazi-input-width" name="restrictions" id="restrictions" rows="5" max="255"></textarea>
             </div>
             <div class="hazi-center-left-align">
                 <label for="medical-history">Medical history: <i>(optional)</i></label>
-                <textarea class="hazi-input-width" name="medical-history" id="medical-history" rows="5"></textarea>
+                <textarea class="hazi-input-width" name="medical-history" id="medical-history" rows="5" max="255"></textarea>
             </div>
             <div class="hazi-center-left-align">
-                <label for="relationship">Relationships: <i>(optional)</i></label>
-                <textarea class="hazi-input-width" name="relationship" id="relationship" rows="3"></textarea>
+                <label for="relationships">Relationships: <i>(optional)</i></label>
+                <textarea class="hazi-input-width" name="relationships" id="relationship" rows="3" max="255"></textarea>
             </div>
             <input class="default-button" type="submit" value="Register now!">
         </form>

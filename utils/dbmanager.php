@@ -112,6 +112,37 @@
               return $result;
         }
 
+        public function addPet(string $param_owner_id, $param_pet_name, string $param_breed, array $param_meal_arr, string $param_restrictions, string $param_medical_history, string $param_relationships)
+        {
+            try {
+                $stmt = $this->conn->prepare("INSERT INTO `pet_info` (`name`, `breed`, `restrictions`, `medical_history`, `relationships`) VALUES (:name, :breed, :restrictions, :medical_history, :relationships)");
+                $stmt->bindParam(":name", $param_pet_name, PDO::PARAM_STR);
+                $stmt->bindParam(":breed", $param_breed, PDO::PARAM_STR);
+                $stmt->bindParam(":restrictions", $param_restrictions, PDO::PARAM_STR);
+                $stmt->bindParam(":medical_history", $param_medical_history, PDO::PARAM_STR);
+                $stmt->bindParam(":relationships", $param_relationships, PDO::PARAM_STR);
+                $stmt->execute();
+                
+                $pet_id = $this->conn->lastInsertId();
+
+                $stmt2 = $this->conn->prepare("INSERT INTO `owned_pets` (`pet_id`, `user_id`) VALUES (:pet_id, :user_id)");
+                $stmt2->bindParam(":pet_id", $pet_id, PDO::PARAM_STR);
+                $stmt2->bindParam(":user_id", $param_owner_id, PDO::PARAM_STR);
+                $stmt2->execute();
+
+                $stmt3 = $this->conn->prepare("INSERT INTO `pet_meals` (`pet_id`, `feed_time`) VALUES (:pet_id, :feed_time)");
+                $stmt3->bindParam(":pet_id", $pet_id, PDO::PARAM_STR);
+                for ($i = 0; $i < sizeof($param_meal_arr); $i++) {
+                    if ($param_meal_arr[$i] != "") {
+                        $stmt3->bindParam(":feed_time", $param_meal_arr[$i], PDO::PARAM_STR);
+                        $stmt3->execute();
+                    }
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
         private static ?DBManager $instance = null;
         private ?PDO $conn = null;
         private string $username;
