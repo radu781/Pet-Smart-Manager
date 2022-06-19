@@ -1,3 +1,15 @@
+<?php
+require_once "utils/dbmanager.php";
+require_once "utils/configuration.php";
+
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
+    header("location: login.php");
+    exit;
+}
+
+$user_data = DBManager::getInstance()->returnPets($_SESSION["id"]);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -49,7 +49,7 @@
         public function checkExistingUser(string $param_email): bool
         {
             try {
-                $stmt = $this->connection->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
+                $stmt = $this->conn->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->execute();
 
@@ -78,7 +78,8 @@
             }
         }
 
-        public function checkCredentials($param_username, $param_password) : array {
+        public function checkCredentials($param_username, $param_password): array
+        {
             $result = array(
                 'id' => 0,
                 'email' => "",
@@ -104,12 +105,11 @@
                         );
                     }
                 }
-
-              } catch(PDOException $e) {
+            } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
-              }
+            }
 
-              return $result;
+            return $result;
         }
 
         public function addPet(string $param_owner_id, $param_pet_name, string $param_breed, array $param_meal_arr, string $param_restrictions, string $param_medical_history, string $param_relationships)
@@ -122,7 +122,7 @@
                 $stmt->bindParam(":medical_history", $param_medical_history, PDO::PARAM_STR);
                 $stmt->bindParam(":relationships", $param_relationships, PDO::PARAM_STR);
                 $stmt->execute();
-                
+
                 $pet_id = $this->conn->lastInsertId();
 
                 $stmt2 = $this->conn->prepare("INSERT INTO `owned_pets` (`pet_id`, `user_id`) VALUES (:pet_id, :user_id)");
@@ -138,6 +138,48 @@
                         $stmt3->execute();
                     }
                 }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        /* functie Session ...TO DO */
+
+        /* functions to return user details */
+        public function returnUserData(string $param_id)
+        {
+            // create statement to return user's details
+            try {
+                $stmt = $this->conn->prepare("SELECT `firstname`, `lastname`, `middlename`, `email` FROM `users` WHERE `id` = :id");
+                $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result = array(
+                            'email' => $row["email"],
+                            'firstname' => $row["firstname"],
+                            'middlename' => $row["middlename"],
+                            'lastname' => $row["lastname"]
+                        );
+                    }
+                }
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        public function returnPets(string $param_id)
+        {
+            // create statement to return user's pets' id
+            try {
+                $stmt = $this->conn->prepare("SELECT `pet_id` FROM `owned_pets` WHERE `user_id` = :id");
+                $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $result = $stmt->fetchAll();
+                return $result;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }

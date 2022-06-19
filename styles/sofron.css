@@ -86,18 +86,23 @@ div.user_profile{
     border-top: 0rem;
     border-radius: 0.5rem;
     padding-top: 2.5vh;
+    padding-left: 2.5vh;
     padding-bottom: 2.5vh;
     background-color: white;
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: left;
     align-items: center;
     row-gap: 2.5vh;
 }
 p.user-details{
-    flex-basis: 100%;
-    margin-left: 2.5vh;
+    flex-basis: 49%;
+    padding: 0rem;
+    color: black;
+}
+p.data{
+    flex-basis: 49%;
     padding: 0rem;
     color: black;
 }
