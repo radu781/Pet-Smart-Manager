@@ -47,7 +47,7 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 echo '<p class="pet_field_output"><i>' . $pet_info["breed"] . '</i></p>';
                 echo '<p class="pet_field">Meals / day:</p>';
                 if ($pet_noOfMeals == 0)
-                    echo '<p class="pet_field_output"> unspecified </p>';
+                    echo '<p class="pet_field_output"> ??? </p>';
                 else
                     echo '<p class="pet_field_output">' . $pet_noOfMeals . '</p>';
                 echo '<section class="pet_links">';

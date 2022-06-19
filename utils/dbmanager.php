@@ -350,7 +350,7 @@
         public function getPetNoOfMeals(string $param_pet_id): string
         {
             try {
-                $stmt = $this->conn->prepare("SELECT `id` FROM `pet_meals` WHERE `pet_id` = :id");
+                $stmt = $this->connection->prepare("SELECT `id` FROM `pet_meals` WHERE `pet_id` = :id");
                 $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
                 $stmt->execute();
 

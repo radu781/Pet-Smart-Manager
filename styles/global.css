@@ -80,6 +80,10 @@ img.log_out{
     width: 1.75rem;
     height: 1.75rem;
     cursor: pointer;
+    transition: all 500ms ease-out;
+}
+img.log_out:hover{
+    transform: scale(1.25);
 }
 
 
