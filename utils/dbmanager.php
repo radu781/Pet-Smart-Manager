@@ -97,7 +97,7 @@
         public function checkExistingUser(string $param_email): bool
         {
             try {
-                $stmt = $this->connection->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
+                $stmt = $this->conn->prepare("SELECT `email` FROM `users` WHERE `email` = :email");
                 $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
                 $stmt->execute();
 
@@ -148,11 +148,7 @@
                 if ($stmt->rowCount() == 1) {
                     if ($row = $stmt->fetch()) {
                         $result = array(
-                            'id' => $row["id"],
-                            'email' => $row["email"],
-                            'firstname' => $row["firstname"],
-                            'middlename' => $row["middlename"],
-                            'lastname' => $row["lastname"]
+                            'id' => $row["id"]
                         );
                     }
                 }
@@ -193,6 +189,70 @@
                 echo "Error: " . $e->getMessage();
             }
         }
+
+        public function getPetName(string $param_pet_id): string
+        {
+            $result = "";
+            try {
+                $stmt = $this->conn->prepare("SELECT `name` FROM `pet_info` WHERE `id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result = $row["name"];
+                    }
+                    
+                }
+
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        /* functie Session ...TO DO */
+
+        /* functions to return user details */
+        public function returnUserData(string $param_id)
+        {
+            // create statement to return user's details
+            try {
+                $stmt = $this->conn->prepare("SELECT `firstname`, `lastname`, `middlename`, `email` FROM `users` WHERE `id` = :id");
+                $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result = array(
+                            'email' => $row["email"],
+                            'firstname' => $row["firstname"],
+                            'middlename' => $row["middlename"],
+                            'lastname' => $row["lastname"]
+                        );
+                    }
+                }
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        public function getPets(string $param_id)
+        {
+            // create statement to return user's pets' id
+            try {
+                $stmt = $this->conn->prepare("SELECT `pet_id` FROM `owned_pets` WHERE `user_id` = :id");
+                $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $result = $stmt->fetchAll();
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
 
         private static ?DBManager $instance = null;
         private ?PDO $connection = null;
