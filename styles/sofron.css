@@ -184,6 +184,22 @@ p.pet_field_output{
     align-items: center;
     flex-wrap: wrap;
 }
+p.pet_field_output.meals{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+span.no_of_meals{
+    flex-basis: 78%;
+}
+img.infomeals{
+    flex-basis: 20%;
+    width: 20%;
+    height: 20%;
+    cursor: pointer;
+}
 section.pet_links{
     display: block;
 }

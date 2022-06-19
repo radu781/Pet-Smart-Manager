@@ -160,6 +160,7 @@
             }
         }
 
+<<<<<<< Updated upstream
         public function addGroup(string $param_owner_id, array $param_pets, string $param_name, string $param_invite_hash) {
             try {
                 $stmt = $this->conn->prepare("INSERT INTO `groups` (`owner_id`, `name`, `invite_hash`) VALUES (:owner_id, :name, SHA1(:invite_hash))");
@@ -187,6 +188,8 @@
             }
         }
 
+=======
+>>>>>>> Stashed changes
         public function getPetName(string $param_pet_id): string
         {
             $result = "";
@@ -199,7 +202,6 @@
                     if ($row = $stmt->fetch()) {
                         $result = $row["name"];
                     }
-                    
                 }
 
                 return $result;
@@ -208,10 +210,13 @@
             }
         }
 
+<<<<<<< Updated upstream
         /* functie Session ...TO DO */
 
+=======
+>>>>>>> Stashed changes
         /* functions to return user details */
-        public function returnUserData(string $param_id)
+        public function returnUserData(string $param_id): array
         {
             // create statement to return user's details
             try {
@@ -235,7 +240,7 @@
             }
         }
 
-        public function getPets(string $param_id)
+        public function getPets(string $param_id): array
         {
             // create statement to return user's pets' id
             try {
@@ -244,6 +249,30 @@
                 $stmt->execute();
 
                 $result = $stmt->fetchAll();
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        public function getPetCardData(string $param_pet_id): array
+        {
+            $result = array(
+                'name' => "",
+                'breed' => ""
+            );
+            try {
+                $stmt = $this->conn->prepare("SELECT `name`, `breed` FROM `pet_info` WHERE `id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result["name"] = $row["name"];
+                        $result["breed"] = $row["breed"];
+                    }
+                }
+
                 return $result;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
