@@ -174,7 +174,28 @@
             return $result;
         }
 
-        public function addPet(string $param_owner_id, $param_pet_name, string $param_breed, array $param_meal_arr, string $param_restrictions, string $param_medical_history, string $param_relationships): void
+        public function checkPetOwnership($param_owner_id, $param_pet_id): bool
+        {
+            $result = false;
+
+            try {
+                $stmt = $this->conn->prepare("SELECT `id` FROM `owned_pets` WHERE `user_id` = :user_id AND `pet_id` = :pet_id");
+                $stmt->bindParam(":user_id", $param_owner_id, PDO::PARAM_STR);
+                $stmt->bindParam(":pet_id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    $result = true;
+                }
+
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+
+            return $result;
+        }
+
+        public function addPet(string $param_owner_id, $param_pet_name, string $param_breed, array $param_meal_arr, string $param_restrictions, string $param_medical_history, string $param_relationships)
         {
             try {
                 $stmt = $this->conn->prepare("INSERT INTO `pet_info` (`name`, `breed`, `restrictions`, `medical_history`, `relationships`) VALUES (:name, :breed, :restrictions, :medical_history, :relationships)");
@@ -205,6 +226,33 @@
             }
         }
 
+        public function addGroup(string $param_owner_id, array $param_pets, string $param_name, string $param_invite_hash) {
+            try {
+                $stmt = $this->conn->prepare("INSERT INTO `groups` (`owner_id`, `name`, `invite_hash`) VALUES (:owner_id, :name, SHA1(:invite_hash))");
+                $stmt->bindParam(":owner_id", $param_owner_id, PDO::PARAM_STR);
+                $stmt->bindParam(":name", $param_name, PDO::PARAM_STR);
+                $stmt->bindParam(":invite_hash", $param_invite_hash, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $group_id = $this->conn->lastInsertId();
+
+                $stmt2 = $this->conn->prepare("INSERT INTO `group_members` (`group_id`, `user_id`) VALUES (:group_id, :user_id)");
+                $stmt2->bindParam(":group_id", $group_id, PDO::PARAM_STR);
+                $stmt2->bindParam(":user_id", $param_owner_id, PDO::PARAM_STR);
+                $stmt2->execute();
+
+                $stmt3 = $this->conn->prepare("INSERT INTO `group_pet` (`group_id`, `pet_id`) VALUES (:group_id, :pet_id)");
+                $stmt3->bindParam(":group_id", $group_id, PDO::PARAM_STR);
+
+                for ($i = 0; $i < sizeof($param_pets); $i++) {
+                    $stmt3->bindParam(":pet_id", $param_pets[$i], PDO::PARAM_STR);
+                    $stmt3->execute();
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
         public function getPetName(string $param_pet_id): string
         {
             $result = "";
@@ -228,7 +276,7 @@
         /* functie Session ...TO DO */
 
         /* functions to return user details */
-        public function returnUserData(string $param_id)
+        public function returnUserData(string $param_id): array
         {
             // create statement to return user's details
             try {
@@ -252,7 +300,7 @@
             }
         }
 
-        public function getPets(string $param_id)
+        public function getPets(string $param_id): array
         {
             // create statement to return user's pets' id
             try {
@@ -265,6 +313,31 @@
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
+        }
+
+        public function getPetCardData(string $param_pet_id): array
+        {
+            $result = array(
+                'name' => "",
+                'breed' => ""
+            );
+            try {
+                $stmt = $this->connection->prepare("SELECT `name`, `breed` FROM `pet_info` WHERE `id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result["name"] = $row["name"];
+                        $result["breed"] = $row["breed"];
+                    }
+                }
+
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            return $result;
         }
 
 

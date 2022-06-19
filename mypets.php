@@ -35,20 +35,19 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
         <div class="pets">
             <?php
             for ($i = 0; $i < sizeof($user_pets); $i++) {
+                $pet_id = $user_pets[$i];
+                $pet_info = DBManager::getInstance()->getPetCardData($pet_id["pet_id"]);
                 echo '<div class="pet">';
-                echo '<h3 class="pet_name">1st pet</h3>';
+                echo '<h3 class="pet_name">' . $pet_info["name"] . '</h3>';
                 echo '<div class="photo_container">';
                 echo '<img class="pet_photo" src="resources/nopicture.png" alt="no picture">';
                 echo '</div>';
-                echo '<p class="pet_field">Name:</p>';
-                echo '<p class="pet_field_output"><i>lorem</i></p>';
                 echo '<p class="pet_field">Breed:</p>';
-                echo '<p class="pet_field_output"><i>lorem</i></p>';
-                echo '<p class="pet_field">Meals / day:</p>';
-                echo '<p class="pet_field_output"><i>lorem</i></p>';
-                echo '<p class="pet_field">Relationship with animals:</p>';
-                echo '<p class="pet_field_output"><i>lorem</i></p>';
+                echo '<p class="pet_field_output"><i>' . $pet_info["breed"] . '</i></p>';
+                echo '<p class="pet_field">Meals:</p>';
+                echo '<p class="pet_field_output">lorem</p>';
                 echo '<section class="pet_links">';
+                echo '<p class="pet_field with_link"><a href="petdetails.php" class="link for_pet">Details</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo '<p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo '<p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo  '<p class="pet_field delete">Delete</p>';
