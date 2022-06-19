@@ -58,26 +58,64 @@
                     <div id="next-month-button" class="clickable">&gt;&gt;&gt;</div>
                 </div>
                 <div id="days"></div>
-                <div id="calendar-body"></div>
+                <div id="calendar-body">
+                    <?php
+                    set_include_path("utils");
+                    include "dbmanager.php";
+                    if (!session_id()) {
+                        session_start();
+                    }
+                    $result = DBManager::getInstance()->getFeedingTime($_SESSION["id"]);
+                    $backgroundColors = ["#025DF5", "#03A3FF", "#0ED2E8", "#03FFD3", "#02F586"];
+                    for ($i = 0; $i < 6; $i++) {
+                        echo '<div class="row">';
+                        for ($j = 0; $j < 7; $j++) {
+                            echo '<div class="cell" style="background: var(--yellow)">';
+                            echo '<div class="calendar-day">' . "1" . '</div>';
+                            foreach ($result as $pet) {
+                                $color = $backgroundColors[(int)sha1($pet["name"]) % sizeof($backgroundColors)];
+                                $currentId = random_int(0, 1000000) . "-" . $pet["id"] . "-" . $pet["pet_id"];
+                                echo "<div class=\"feed\" style=\"background-color:$color\" onclick=\"onFeedCellClicked('$currentId')\" id=\"$currentId\">";
+                                echo substr($pet["feed_time"], 0, 5) . "-" . $pet["name"];
+                                echo '</div>';
+                            }
+                            echo '</div>';
+                        }
+                        echo "</div>";
+                    }
+                    ?></div>
             </div>
         </div>
         <form class="hazi-form">
             <fieldset>
                 <legend>Filter by pets</legend>
                 <?php
-                set_include_path("utils");
-                include "dbmanager.php";
-                if (!session_id()) {
-                    session_start();
-                }
-                $result = DBManager::getInstance()->getFeedingTime($_SESSION["id"]);
-                foreach ($result as $pet) {
-                    echo '<input type="checkbox" onclick="onPetFilterChanged()" name="pet-filter" value="' . $pet["pet_id"] . '" id="' . $pet["pet_id"] . '" checked>' . '</input>';
-                    echo '<label for="' . $pet["pet_id"] . '">' . $pet["name"] . '</label>';
+                $prevPet = $result[0];
+                echo '<input type="checkbox" onclick="onPetFilterChanged()" name="pet-filter" value="' . $prevPet["name"] . '" id="' . $prevPet["id"] . "-" . $prevPet["pet_id"]  . '" checked>' . '</input>';
+                echo '<label class="pet-name" for="' . $prevPet["id"] . "-" . $prevPet["pet_id"] . '">' . $prevPet["name"] . '</label>';
+
+                for ($i = 1; $i < sizeof($result); $i++) {
+                    $currentPet = $result[$i];
+                    if ($prevPet["name"] !== $currentPet["name"]) {
+                        echo '<input type="checkbox" onclick="onPetFilterChanged()" name="pet-filter" value="' . $currentPet["name"] . '" id="' . $prevPet["id"] . "-" . $currentPet["pet_id"] . '" checked>' . '</input>';
+                        echo '<label class="pet-name" for="' . $prevPet["id"] . "-" . $currentPet["pet_id"] . '">' . $currentPet["name"] . '</label>';
+                    }
+                    $prevPet = $currentPet;
                 }
                 ?>
             </fieldset>
         </form>
+        <?php
+        foreach ($_POST as $item => $e) {
+            if (strpos($item, "update") !== false) {
+                $item = explode("-", $item);
+                DBManager::getInstance()->updateFeedingTime($item[1], $item[2], $e);
+                unset($item);
+                echo '<script>window.location="calendar.php"</script>';
+                break;
+            }
+        }
+        ?>
 
         <table id="feed-values">
             <tr>
@@ -90,16 +128,16 @@
             foreach ($result as $line) {
                 echo "<tr>";
                 foreach ($line as $column) {
-                    if ($show) { ?>
-                        <td class="feed-time-cell">
-                        <?php echo $column;
-                    } ?>
-                        </td>
-                <?php $show = !$show;
+                    if ($show) {
+                        echo '<td class="feed-time-cell">';
+                        echo $column;
+                    }
+                    echo '</td>';
+                    $show = !$show;
                 }
-                echo "</tr>";
+                echo '</tr>';
             }
-                ?>
+            ?>
         </table>
     </div>
     <script src="scripts/calendar.js"></script>

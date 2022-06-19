@@ -41,6 +41,21 @@
             return $result;
         }
 
+        public function updateFeedingTime(int $id, int $petId, string $feedingTime): void
+        {
+            $stmt = $this->connection->prepare("UPDATE
+              pet_meals as pm
+            set
+              pm.feed_time = :feedingTime
+            where
+              pm.id = :id
+              and pm.pet_id = :petId");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt->bindParam(":petId", $petId, PDO::PARAM_INT);
+            $stmt->bindParam(":feedingTime", $feedingTime, PDO::PARAM_STR);
+            $stmt->execute();
+        }
+
         public function getPetMedia(int $userId): array
         {
             $stmt = $this->connection->prepare("SELECT
@@ -202,7 +217,6 @@
                     if ($row = $stmt->fetch()) {
                         $result = $row["name"];
                     }
-                    
                 }
 
                 return $result;
@@ -218,7 +232,7 @@
         {
             // create statement to return user's details
             try {
-                $stmt = $this->conn->prepare("SELECT `firstname`, `lastname`, `middlename`, `email` FROM `users` WHERE `id` = :id");
+                $stmt = $this->connection->prepare("SELECT `firstname`, `lastname`, `middlename`, `email` FROM `users` WHERE `id` = :id");
                 $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
                 $stmt->execute();
 
@@ -242,7 +256,7 @@
         {
             // create statement to return user's pets' id
             try {
-                $stmt = $this->conn->prepare("SELECT `pet_id` FROM `owned_pets` WHERE `user_id` = :id");
+                $stmt = $this->connection->prepare("SELECT `pet_id` FROM `owned_pets` WHERE `user_id` = :id");
                 $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
                 $stmt->execute();
 

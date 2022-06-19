@@ -10,23 +10,21 @@ class Calendar {
             "Sunday"
         ]
 
-        const backgroundColors = ["#025DF5", "#03A3FF", "#0ED2E8", "#03FFD3", "#02F586"]
         this.feedingTimes = []
-        const tableFeedTimes = document.querySelectorAll(".feed-time-cell")
-        for (let i = 0; i < tableFeedTimes.length; i += 4) {
-            const petId = tableFeedTimes[i + 1].innerHTML.trim()
+        const tableFeedTimes = document.querySelector(".cell")
+        const feed = tableFeedTimes.children;
+        for (let i = 1; i < feed.length; i++) {
+            const pet = feed[i]
+            const name = pet.innerHTML.substring(6)
             this.feedingTimes.push({
-                "id": tableFeedTimes[i].innerHTML.trim(),
-                "pet_id": petId,
-                "feedTime": tableFeedTimes[i + 2].innerHTML.trim(),
-                "bgColor": backgroundColors[this.simpleHash(petId.toString()) % backgroundColors.length],
-                "name": tableFeedTimes[i + 3].innerHTML.trim()
+                "feedTime": pet.innerHTML.substring(0, 5),
+                "name": name
             })
         }
         this.feedingTimes.sort((left, right) => left.feedTime > right.feedTime)
 
 
-        this.generateCells()
+        this.refreshFeed();
         this.rows = document.querySelectorAll(".row")
         this.header = document.querySelector("#header-date")
         this.currentDate = new Date()
@@ -54,24 +52,6 @@ class Calendar {
             hash |= 0;
         }
         return hash;
-    }
-
-    generateCells() {
-        const days = document.querySelector("#days")
-        const rows = 7
-        const columns = 6
-
-        for (let i = 0; i < rows; i++) {
-            const dayNode = document.createElement("div")
-            const textNode = document.createTextNode(this.days[i])
-            dayNode.appendChild(textNode)
-            dayNode.classList.add("day")
-            days.appendChild(dayNode)
-        }
-
-        const calendarBody = document.querySelector("#calendar-body")
-
-        this.refreshFeed(columns, calendarBody, rows)
     }
 
     refreshFeed(rows, calendarBody, cols) {
@@ -135,6 +115,9 @@ class Calendar {
         let prevVal = this.getEnd(this.selectedDate.getFullYear(), this.selectedDate.getMonth())
         for (let i = startingPosition - 1; i >= 0; i--) {
             const element = this.dayCells[i]
+            if (element.nodeName == "#text") {
+                continue
+            }
             this.markWeekend(element, i)
             element.style.background = "var(--darkgreen)"
             element.firstChild.innerHTML = prevVal--
@@ -143,6 +126,9 @@ class Calendar {
         let val = 1
         for (let i = startingPosition; i < endingPosition + startingPosition; i++) {
             const element = this.dayCells[i]
+            if (element.nodeName == "#text") {
+                continue
+            }
             element.style.background = "var(--yellow)"
             this.markWeekend(element, i)
             element.firstChild.innerHTML = val++
@@ -150,12 +136,18 @@ class Calendar {
         val = 1
         for (let i = endingPosition + startingPosition; i < this.dayCells.length; i++) {
             const element = this.dayCells[i]
+            if (element.nodeName == "#text") {
+                continue
+            }
             this.markWeekend(element, i)
             element.style.background = "var(--darkgreen)"
             element.firstChild.innerHTML = val++
         }
 
         const bottomLeft = calendar.dayCells[calendar.dayCells.length - 7]
+        if (bottomLeft.nodeName === "#text") {
+            return
+        }
         bottomLeft.style.borderBottomLeftRadius = "10px"
         const bottomRight = calendar.dayCells[calendar.dayCells.length - 1]
         bottomRight.style.borderBottomRightRadius = "10px"
@@ -229,7 +221,7 @@ function onPetFilterChanged() {
     let names = []
     for (const time of calendar.feedingTimes) {
         for (const box of checkboxes) {
-            if (time.pet_id === box.id && box.checked) {
+            if (time.name === box.defaultValue && box.checked) {
                 names.push(time.name)
             }
         }
@@ -254,4 +246,24 @@ function findAny(array, str) {
         }
     }
     return false
+}
+let clickedItems = {}
+
+function onFeedCellClicked(id) {
+    if (clickedItems[id]) {
+        return
+    }
+    clickedItems[id] = true
+    let currentCell = document.getElementById(id)
+    let oldValue = currentCell.innerHTML.substring(0, 5)
+    currentCell.innerHTML = ""
+    let form = document.createElement("form")
+    form.method = "POST"
+    let input = document.createElement("input")
+    input.type = "text"
+    input.name = `update${id}`
+    input.required = "true"
+    input.value = oldValue
+    form.appendChild(input)
+    currentCell.append(form)
 }
