@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles/global.css" rel="stylesheet">
     <link href="styles/index.css" rel="stylesheet">
     <link rel="icon" href="../resources/icon.png" type="image/x-icon">
     <title>Petbook</title>
@@ -25,9 +26,9 @@
             </a>
         </div>
     </header>
-    <main class="main-content">
+    <main>
         <section class="intro">
-            <div class="left text">
+            <div class="span-2-col text">
                 <h3 class="subtitle">
                     What is Petbook?
                 </h3>
@@ -36,25 +37,26 @@
                     calendar to the possibility of sharing photos with them, Petbook is the solution no matter what.
                 </p>
             </div>
-            <div class="right image">
+            <div class="small image">
                 <img class="intro" src="resources/landing_page_images/introdraw1.svg" height=400px width=400px></img>
             </div>
         </section>
         <section class="intro">
-            <div class="right image">
+            <div class="small image">
                 <img class="intro" src="resources/landing_page_images/introdraw2.svg" height=400px></img>
             </div>
-            <div class="left text">
+            <div class="right text">
                 <h3 class="subtitle">
                     Start the journey
                 </h3>
                 <p class="description">We think that no more words are needed, so
-                    we let you to convince yourself. Start the journey by <a class="page_link bottom"
-                        href="register.php"><i>clicking
+                    we let you to convince yourself. Start the journey by <a class="page_link bottom" href="register.php"><i>clicking
                             here</i></a>.
                 </p>
             </div>
         </section>
     </main>
-
+    <?php
+    include "shared/footer.php"
+    ?>
 </body>
