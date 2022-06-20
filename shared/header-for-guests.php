@@ -9,7 +9,7 @@
 </header>
 <nav>
     <ul class="menu">
-        <li class="normal option_my_profile"><a class="link_for_menu " href="index.html">Home</a></li>
+        <li class="normal option_my_profile"><a class="link_for_menu " href="index.php">Home</a></li>
         <li class="normal option_my_pets"><a class="link_for_menu " href="login.php">Login</a></li>
         <li class="normal option_my_groups"><a class="link_for_menu " href="register.php">Register</a></li>
 
