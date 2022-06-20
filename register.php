@@ -129,23 +129,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "</p>";
             }
             ?>
-            <div>
+            <div class="hazi-form-row">
                 <label for="email">Email:</label>
                 <input type="text" id="email" name="email" required>
             </div>
-            <div>
+            <div class="hazi-form-row">
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" required>
             </div>
-            <div>
+            <div class="hazi-form-row">
                 <label for="fname">First name:</label>
                 <input type="text" id="fname" name="fname" required>
             </div>
-            <div>
+            <div class="hazi-form-row">
                 <label for="mname">Middle name:</label>
                 <input type="text" id="mname" name="mname">
             </div>
-            <div>
+            <div class="hazi-form-row">
                 <label for="lname">Last name:</label>
                 <input type="text" id="lname" name="lname" required>
             </div>

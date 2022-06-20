@@ -89,3 +89,43 @@ form.hazi-form {
 .hazi-padding-top {
 	padding: 5vh 0vh 0vh;
 }
+
+@media (max-width: 900px) {
+
+    .hazi-form > div > input, #hazi-dynamic-fields > div > input[type=time] {
+        width: 30vh;
+    }
+    
+    .hazi-input-width {
+        width: 30vh;
+    }
+    
+    .hazi-selector {
+        width: 30vh;
+    }
+    
+    .hazi-select
+    {
+        width: 30vh;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .hazi-form > div > input, #hazi-dynamic-fields > div > input[type=time] {
+        width: 25vh;
+    }
+    
+    .hazi-input-width {
+        width: 25vh;
+    }
+    
+    .hazi-selector {
+        width: 25vh;
+    }
+    
+    .hazi-select
+    {
+        width: 25vh;
+    }
+}
