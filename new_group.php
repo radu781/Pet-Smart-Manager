@@ -82,8 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
         <form class="hazi-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="hazi-center-left-align">
-                <label for="pets">Select pets:</label>
-                <select name="pets[]" multiple="multiple" class="hazi-selector" required>
+                <label for="pets[]">Select pets:</label>
+                <select name="pets[]" id="pets[]" multiple="multiple" class="hazi-selector" required>
                     <?php
                     for ($i = 0; $i < sizeof($my_pets); $i++) {
                         $pet_id = $my_pets[$i];
@@ -99,7 +99,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <input class="default-button" type="submit" value="Create group">
         </form>
-        <p class="default-title hazi-padding-top">Join group</p>
     </div>
     <?php include "shared/footer.php" ?>
 </body>
