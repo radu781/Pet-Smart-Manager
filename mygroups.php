@@ -20,7 +20,10 @@
             <h3 class="subtitle">Groups</h3>
             <p class="details">Here are all of your groups.</p>
             <p class="details">You can create new groups or delete the ones created by you.</p>
-            <p class="details">You can join groups created by others using the key of the group.</p>
+            <p class="details">You can join groups created by others using the key of their group.</p>
+            <a class="join_group" href="joingroup.php">
+                <p class="join_group">Join group</p>
+            </a>
         </div>
         <div class="groups">
             <div class="group">
