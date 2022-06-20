@@ -5,14 +5,13 @@
     <div class="site_name"><a class="site_name" href="homepage.php"><strong>Petbook</strong></a></div>
     <ul class="header_options">
         <div class="display_mode">Light/Dark mode</div>
-        <div class="log_out"><a href="logout.php"><img class="log_out" src="resources/logout.png" alt="log out"></a></div>
     </ul>
 </header>
 <nav>
     <ul class="menu">
-        <li class="normal option_my_profile"><a class="link_for_menu " href="homepage.php">My profile</a></li>
-        <li class="normal option_my_pets"><a class="link_for_menu " href="mypets.php">Pets</a></li>
-        <li class="normal option_my_groups"><a class="link_for_menu " href="mygroups.php">Groups</a></li>
+        <li class="normal option_my_profile"><a class="link_for_menu " href="index.html">Home</a></li>
+        <li class="normal option_my_pets"><a class="link_for_menu " href="login.php">Login</a></li>
+        <li class="normal option_my_groups"><a class="link_for_menu " href="register.php">Register</a></li>
 
         <!-- responsive design -->
         <li class="phone option_my_profile">

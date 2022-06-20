@@ -68,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php include "shared/header.php" ?>
+    <?php include "shared/header-for-guests.php" ?>
     <hr>
     <div class="main-content">
         <p class="default-title">Login</p>
