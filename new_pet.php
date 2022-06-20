@@ -26,46 +26,56 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate pet name
     if (empty($petname)) {
-        $petname_err = "Pet name is required <br>";
-    } else if (strlen($petname) > 32 || preg_match('/[^A-Za-z0-9]/i', $petname)) {
-        $petname_err = "Invalid pet name <br>";
+        $petname_err = "Pet name is required!<br>";
+    } else {
+        if (preg_match('/[^A-Za-z0-9]/i', $petname)) {
+            $petname_err = "Invalid pet name!<br>";
+        }
+        if (strlen($petname) < 2 || strlen($petname) > 64) {
+            $petname_err .= "Pet name must have between 2-64 characters!";
+        }
     }
 
     // Validate breed
     if (empty($breed)) {
         $breed_err = "Breed is required <br>";
-    } else if (strlen($breed) > 32 || preg_match('/[^A-Za-z]/i', $breed)) {
-        $breed_err = "Invalid breed name <br>";
+    } else {
+        if (preg_match('/[^A-Za-z]/i', $breed)) {
+            $breed_err = "Invalid breed name <br>";
+        }
+        if (strlen($petname) < 2 || strlen($petname) > 64) {
+            $breed_err .= "Breed name must have between 2-64 characters!";
+        }
     }
 
     // Validate number of meals & their values
     if ($meals < 0 || $meals > 4) {
-        $meals_err = "The number of daily meals is invalid <br>";
+        $meals_err = "The number of daily meals is invalid! <br>";
     } else {
         for ($i = 0; $i < $meals; $i++) {
             $meal_arr[$i] = ValidateInput::work($_POST["meal" . ($i+1)]);
 
             if ($meal_arr[$i] == "") {
-                $meal_arr = "Meal time cannot be empty <br>";
+                $meal_arr = "Meal time cannot be empty! <br>";
             } else if (!preg_match('/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/', $meal_arr[$i])) {
-                $meals_err = "Meal time is incorrect <br>";
+                $meals_err = "Meal time is incorrect! <br>";
             }
         }
     }
 
     // Validate restrictions
     if (strlen($restrictions) > 255) {
-        $restrictions_err = "Error! Restrictions description cannot exceed 255 characters <br>";
+        $restrictions_err = "Error! Restrictions description cannot exceed 255 characters! <br>";
     }
 
     // Validate medical history
     if (strlen($medical_history) > 255) {
-        $medical_history_err = "Error! Medical history description cannot exceed 255 characters <br>";
+        $medical_history_err = "Error! Medical history description cannot exceed 255 characters! <br>";
     }
 
     // Validate relationships
     if (strlen($relationships) > 255) {
-        $relationship_err = "Error! Restrictions description cannot exceed 255 characters <br>";
+        $relationship_err = "Error! Restrictions description cannot exceed 255 characters! <br>";
     }
 
     if (empty($petname_err) && empty($breed_err) && empty($meals_err) && empty($restrictions_err) && empty($medical_history_err) && empty($relationships_err) && empty($successMsg)) {
@@ -128,11 +138,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
             <div class="hazi-center-left-align">
                 <label for="petname">Pet name: <i>(required)</i></label>
-                <input type="text" id="petname" name="petname" minlength="2" maxlength="32" required>
+                <input type="text" id="petname" name="petname" minlength="2" maxlength="64" value="<?php if (empty($petname_err)) echo $petname;  ?>" required>
             </div>
             <div class="hazi-center-left-align">
                 <label for="breed">Breed: <i>(required)</i></label>
-                <input type="text" id="breed" name="breed" minlength="2" maxlength="32" required>
+                <input type="text" id="breed" name="breed" minlength="2" maxlength="64" value="<?php if (empty($breed_err)) echo $breed;  ?>" required>
             </div>
             <div>
                 <label for="meals">Meals per day: <i>(optional)</i></label>
@@ -142,15 +152,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="hazi-center-left-align">
                 <label for="restrictions">Restrictions: <i>(optional)</i></label>
-                <textarea class="hazi-input-width" name="restrictions" id="restrictions" rows="5" maxlength="255"></textarea>
+                <textarea class="hazi-input-width" name="restrictions" id="restrictions" rows="5" maxlength="255"><?php if (empty($restrictions_err)) echo $restrictions;  ?></textarea>
             </div>
             <div class="hazi-center-left-align">
                 <label for="medical-history">Medical history: <i>(optional)</i></label>
-                <textarea class="hazi-input-width" name="medical-history" id="medical-history" rows="5" maxlength="255"></textarea>
+                <textarea class="hazi-input-width" name="medical-history" id="medical-history" rows="5" maxlength="255"><?php if (empty($medical_history_err)) echo $medical_history;  ?></textarea>
             </div>
             <div class="hazi-center-left-align">
                 <label for="relationships">Relationships: <i>(optional)</i></label>
-                <textarea class="hazi-input-width" name="relationships" id="relationships" rows="3" maxlength="255"></textarea>
+                <textarea class="hazi-input-width" name="relationships" id="relationships" rows="3" maxlength="255"><?php if (empty($relationships_err)) echo $relationships;  ?></textarea>
             </div>
             <input class="default-button" type="submit" value="Register now!">
         </form>

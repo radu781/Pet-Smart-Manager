@@ -38,14 +38,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strlen($_POST["password"]) <= 8) {
                 $passwordErr = "Your Password Must Contain At Least 8 Characters! <br>";
             }
-            elseif(!preg_match("#[0-9]+#", $password)) {
-                $passwordErr = "Your Password Must Contain At Least 1 Number! <br>";
+            if(!preg_match("#[0-9]+#", $password)) {
+                $passwordErr .= "Your Password Must Contain At Least 1 Number! <br>";
             }
-            elseif(!preg_match("#[A-Z]+#", $password)) {
-                $passwordErr = "Your Password Must Contain At Least 1 Capital Letter! <br>";
+            if(!preg_match("#[A-Z]+#", $password)) {
+                $passwordErr .= "Your Password Must Contain At Least 1 Capital Letter! <br>";
             }
-            elseif(!preg_match("#[a-z]+#", $password)) {
-                $passwordErr = "Your Password Must Contain At Least 1 Lowercase Letter! <br>";
+            if(!preg_match("#[a-z]+#", $password)) {
+                $passwordErr .= "Your Password Must Contain At Least 1 Lowercase Letter! <br>";
             }
         }
 
@@ -57,12 +57,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if (!preg_match("/^[a-zA-Z'-]+$/", $fname)) {
                 $fnameErr = "Invalid first name format! <br>";
             }
+            if (strlen($fname) < 2 || strlen($fname) > 64) {
+                $fnameErr .= "First name must have between 2-64 characters!";
+            }
         }
 
         // Validate middle name
         if (!empty($mname)) {
             if (!preg_match("/^[a-zA-Z'-]+$/", $mname)) {
                 $mnameErr = "Invalid first name format! <br>";
+            }
+            if (strlen($mname) < 2 || strlen($mname) > 64) {
+                $mnameErr .= "Middle name must have between 2-64 characters!";
             }
         }
 
@@ -72,6 +78,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             if (!preg_match("/^[a-zA-Z'-]+$/", $lname)) {
                 $lnameErr = "Invalid last name format! <br>";
+            }
+            if (strlen($lname) < 2 || strlen($lname) > 64) {
+                $lnameErr .= "Last name must have between 2-64 characters!";
             }
         }
 
@@ -128,7 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
             <div class="hazi-form-row">
                 <label for="email">Email:</label>
-                <input type="text" id="email" name="email" required>
+                <input type="text" id="email" name="email" value="<?php if (empty($emailErr)) echo $email;  ?>" required>
             </div>
             <div class="hazi-form-row">
                 <label for="password">Password:</label>
@@ -136,15 +145,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="hazi-form-row">
                 <label for="fname">First name:</label>
-                <input type="text" id="fname" name="fname" required>
+                <input type="text" id="fname" name="fname" minlength="2" maxlength="64" value="<?php if (empty($fnameErr)) echo $fname;  ?>" required>
             </div>
             <div class="hazi-form-row">
                 <label for="mname">Middle name:</label>
-                <input type="text" id="mname" name="mname">
+                <input type="text" id="mname" name="mname" minlength="2" maxlength="64" value="<?php if (empty($mnameErr)) echo $mname;  ?>">
             </div>
             <div class="hazi-form-row">
                 <label for="lname">Last name:</label>
-                <input type="text" id="lname" name="lname" required>
+                <input type="text" id="lname" name="lname" minlength="2" maxlength="64" value="<?php if (empty($lnameErr)) echo $lname;  ?>" required>
             </div>
             <input class="default-button" type="submit" value="Register now!">
             <p class="hazi-login-register-text">Already have an account? <a href="login.php">Go to Login</a>.</p>
