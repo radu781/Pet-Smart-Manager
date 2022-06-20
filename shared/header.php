@@ -10,6 +10,13 @@
 </header>
 <nav>
     <ul class="menu">
+        <?php if (!session_id()) {
+            session_start();
+        }
+        if (!isset($_SESSION["id"]) || (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"])) {
+            echo '<script>window.location="login.php"</script>';
+        }
+        ?>
         <li class="normal option_my_profile"><a class="link_for_menu " href="homepage.php">My profile</a></li>
         <li class="normal option_my_pets"><a class="link_for_menu " href="mypets.php">Pets</a></li>
         <li class="normal option_my_groups"><a class="link_for_menu " href="mygroups.php">Groups</a></li>

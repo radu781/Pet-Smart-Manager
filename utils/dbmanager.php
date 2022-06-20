@@ -35,9 +35,13 @@
             ORDER BY
               pi.name");
             $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-
+            try {
+                $stmt->execute();
+                $result = $stmt->fetchAll();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                return ["id" => "-1", "pet_id" => "-1", "feed_time" => "00:00:00"];
+            }
             return $result;
         }
 
@@ -52,8 +56,12 @@
               and pm.pet_id = :petId");
             $stmt->bindParam(":id", $id, PDO::PARAM_INT);
             $stmt->bindParam(":petId", $petId, PDO::PARAM_INT);
-            $stmt->bindParam(":feedingTime", $feedingTime, PDO::PARAM_STR);
-            $stmt->execute();
+            try {
+                $stmt->bindParam(":feedingTime", $feedingTime, PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
         }
 
         public function getPetMedia(int $userId): array
@@ -104,9 +112,13 @@
             values
               (:petId, :filename, :description)");
             $stmt->bindParam(":petId", $petId, PDO::PARAM_INT);
-            $stmt->bindParam(":filename", $filename, PDO::PARAM_STR);
-            $stmt->bindParam(":description", $description, PDO::PARAM_STR);
-            $stmt->execute();
+            try {
+                $stmt->bindParam(":filename", $filename, PDO::PARAM_STR);
+                $stmt->bindParam(":description", $description, PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
         }
 
         public function checkExistingUser(string $param_email): bool
@@ -311,7 +323,10 @@
         {
             // create statement to return user's pets' id
             try {
-                $stmt = $this->connection->prepare("SELECT `pet_id` FROM `owned_pets` WHERE `user_id` = :id");
+                $stmt = $this->connection->prepare("SELECT `pet_id`, `name` 
+                FROM `owned_pets` AS `op` 
+                JOIN `pet_info` AS `pi` 
+                ON pi.id = op.pet_id and user_id = :id");
                 $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
                 $stmt->execute();
 
@@ -348,8 +363,8 @@
             return $result;
         }
 
-        /* function to return pet's no of meals for card - used in mypets.php*/
-        public function getPetNoOfMeals(string $param_pet_id): string
+        /* function to return pet's no of meals for card */
+        public function getPetNoOfMeals(string $param_pet_id): int
         {
             try {
                 $stmt = $this->connection->prepare("SELECT `id` FROM `pet_meals` WHERE `pet_id` = :id");

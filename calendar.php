@@ -18,21 +18,24 @@
     <div class="main-content">
         <p class="default-title">Calendar</p>
         <div class="center">
-            <div id="calendar">
-                <div id="header">
-                    <div id="prev-month-button" class="clickable">&lt;&lt;&lt;</div>
-                    <div id="header-date" class="clickable">Today</div>
-                    <div id="next-month-button" class="clickable">&gt;&gt;&gt;</div>
-                </div>
-                <div id="days"></div>
-                <div id="calendar-body">
+            <?php
+            set_include_path("utils");
+            include "dbmanager.php";
+            if (!session_id()) {
+                session_start();
+            }
+            $result = DBManager::getInstance()->getFeedingTime($_SESSION["id"]);
+            if (sizeof($result) > 0) {
+            ?>
+                <div id="calendar">
+                    <div id="header">
+                        <div id="prev-month-button" class="clickable">&lt;&lt;&lt;</div>
+                        <div id="header-date" class="clickable">Today</div>
+                        <div id="next-month-button" class="clickable">&gt;&gt;&gt;</div>
+                    </div>
+                    <div id="days"></div>
+                    <div id="calendar-body">
                     <?php
-                    set_include_path("utils");
-                    include "dbmanager.php";
-                    if (!session_id()) {
-                        session_start();
-                    }
-                    $result = DBManager::getInstance()->getFeedingTime($_SESSION["id"]);
                     $backgroundColors = ["#025DF5", "#03A3FF", "#0ED2E8", "#03FFD3", "#02F586"];
                     for ($i = 0; $i < 6; $i++) {
                         echo '<div class="row">';
@@ -50,62 +53,69 @@
                         }
                         echo "</div>";
                     }
+                } else {
+                echo '<div>Add a pet to use the feeding calendar</div>';}
                     ?></div>
-            </div>
+                </div>
         </div>
-        <form class="hazi-form">
-            <fieldset>
-                <legend>Filter by pets</legend>
-                <?php
-                $prevPet = $result[0];
-                echo '<input type="checkbox" onclick="onPetFilterChanged()" name="pet-filter" value="' . $prevPet["name"] . '" id="' . $prevPet["id"] . "-" . $prevPet["pet_id"]  . '" checked>' . '</input>';
-                echo '<label class="pet-name" for="' . $prevPet["id"] . "-" . $prevPet["pet_id"] . '">' . $prevPet["name"] . '</label>';
+        <?php if (sizeof($result) > 0) { ?>
 
-                for ($i = 1; $i < sizeof($result); $i++) {
-                    $currentPet = $result[$i];
-                    if ($prevPet["name"] !== $currentPet["name"]) {
-                        echo '<input type="checkbox" onclick="onPetFilterChanged()" name="pet-filter" value="' . $currentPet["name"] . '" id="' . $prevPet["id"] . "-" . $currentPet["pet_id"] . '" checked>' . '</input>';
-                        echo '<label class="pet-name" for="' . $prevPet["id"] . "-" . $currentPet["pet_id"] . '">' . $currentPet["name"] . '</label>';
+            <form class="hazi-form">
+                <fieldset>
+                    <legend>Filter by pets</legend>
+                    <?php
+                    $prevPet = $result[0];
+                    echo '<input type="checkbox" onclick="onPetFilterChanged()" name="pet-filter" value="' . $prevPet["name"] . '" id="' . $prevPet["id"] . "-" . $prevPet["pet_id"]  . '" checked>' . '</input>';
+                    echo '<label class="pet-name" for="' . $prevPet["id"] . "-" . $prevPet["pet_id"] . '">' . $prevPet["name"] . '</label>';
+
+                    for ($i = 1; $i < sizeof($result); $i++) {
+                        $currentPet = $result[$i];
+                        if ($prevPet["name"] !== $currentPet["name"]) {
+                            echo '<input type="checkbox" onclick="onPetFilterChanged()" name="pet-filter" value="' . $currentPet["name"] . '" id="' . $prevPet["id"] . "-" . $currentPet["pet_id"] . '" checked>' . '</input>';
+                            echo '<label class="pet-name" for="' . $prevPet["id"] . "-" . $currentPet["pet_id"] . '">' . $currentPet["name"] . '</label>';
+                        }
+                        $prevPet = $currentPet;
                     }
-                    $prevPet = $currentPet;
-                }
-                ?>
-            </fieldset>
-        </form>
-        <?php
-        foreach ($_POST as $item => $e) {
-            if (strpos($item, "update") !== false) {
-                $item = explode("-", $item);
-                DBManager::getInstance()->updateFeedingTime($item[1], $item[2], $e);
-                unset($item);
-                echo '<script>window.location="calendar.php"</script>';
-                break;
-            }
-        }
-        ?>
-
-        <table id="feed-values">
-            <tr>
-                <th>id</th>
-                <th>pet_id</th>
-                <th>feed_time</th>
-            </tr>
+                    ?>
+                </fieldset>
+            <?php } ?>
+            </form>
             <?php
-            $show = true;
-            foreach ($result as $line) {
-                echo "<tr>";
-                foreach ($line as $column) {
-                    if ($show) {
-                        echo '<td class="feed-time-cell">';
-                        echo $column;
-                    }
-                    echo '</td>';
-                    $show = !$show;
+            foreach ($_POST as $item => $e) {
+                if (strpos($item, "update") !== false) {
+                    $item = explode("-", $item);
+                    DBManager::getInstance()->updateFeedingTime($item[1], $item[2], $e);
+                    unset($item);
+                    echo '<script>window.location="calendar.php"</script>';
+                    break;
                 }
-                echo '</tr>';
             }
             ?>
-        </table>
+
+            <?php if (sizeof($result) > 0) { ?>
+                <table id="feed-values">
+                    <tr>
+                        <th>id</th>
+                        <th>pet_id</th>
+                        <th>feed_time</th>
+                    </tr>
+                    <?php
+                    $show = true;
+                    foreach ($result as $line) {
+                        echo "<tr>";
+                        foreach ($line as $column) {
+                            if ($show) {
+                                echo '<td class="feed-time-cell">';
+                                echo $column;
+                            }
+                            echo '</td>';
+                            $show = !$show;
+                        }
+                        echo '</tr>';
+                    }
+                    ?>
+                </table>
+            <?php } ?>
     </div>
     <script src="scripts/calendar.js"></script>
     <?php include "shared/footer.php" ?>

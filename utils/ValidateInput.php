@@ -9,7 +9,7 @@ class ValidateInput {
         return $param;
     }
 
-    public static function work_arr($param): array {
+    public static function work_arr(array $param): array {
         foreach($param as $curr_element) {
             $curr_element = trim($curr_element);                // Strip whitespace (or other characters) from the beginning and end of a string
             $curr_element = stripslashes($curr_element);        // Un-quotes a quoted string
