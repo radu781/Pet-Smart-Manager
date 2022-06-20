@@ -273,6 +273,8 @@
             }
         }
 
+
+        /* Sofron */
         /* function to return user details */
         public function returnUserData(string $param_id): array
         {
@@ -389,6 +391,11 @@
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
+        }
+
+        /* function to delete pet from database */
+        public function deletePet(string $param_pet_id)
+        {
         }
 
 

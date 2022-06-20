@@ -54,7 +54,7 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 echo '<p class="pet_field with_link"><a href="petdetails.php?id=' . $pet_id["pet_id"] . '" class="link for_pet">Details</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo '<p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo '<p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>';
-                echo  '<p class="pet_field delete">Delete</p>';
+                echo '<p class="pet_field delete"><a class="delete" href="mypets.php?id=>' . $pet_id["pet_id"] . '">Delete</a></p>';
                 echo '</section>';
                 echo '</div>';
             }
