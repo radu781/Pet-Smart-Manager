@@ -393,9 +393,53 @@
             }
         }
 
-        /* function to delete pet from database */
+        /* function to delete pet from every database */
         public function deletePet(string $param_pet_id)
         {
+            try {
+                /* delete from owned_pets database */
+                $stmt = $this->connection->prepare("DELETE FROM `owned_pets` WHERE `pet_id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+
+            try {
+                /* delete from pet_info database */
+                $stmt = $this->connection->prepare("DELETE FROM `pet_info` WHERE `pet_id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+
+            try {
+                /* delete from pet_meals database */
+                $stmt = $this->connection->prepare("DELETE FROM `pet_meals` WHERE `pet_id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+
+            try {
+                /* delete from pet_media database*/
+                $stmt = $this->connection->prepare("DELETE FROM `pet_media` WHERE `pet_id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+
+            try {
+                /* delete from group_pet database */
+                $stmt = $this->connection->prepare("DELETE FROM `group_pet` WHERE `pet_id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
         }
 
 

@@ -47,14 +47,14 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 echo '<p class="pet_field_output"><i>' . $pet_info["breed"] . '</i></p>';
                 echo '<p class="pet_field">Meals / day:</p>';
                 if ($pet_noOfMeals == 0)
-                    echo '<p class="pet_field_output"> ??? </p>';
+                    echo '<p class="pet_field_output"> -- </p>';
                 else
                     echo '<p class="pet_field_output">' . $pet_noOfMeals . '</p>';
                 echo '<section class="pet_links">';
                 echo '<p class="pet_field with_link"><a href="petdetails.php?id=' . $pet_id["pet_id"] . '" class="link for_pet">Details</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo '<p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo '<p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>';
-                echo '<p class="pet_field delete"><a class="delete" href="mypets.php?id=>' . $pet_id["pet_id"] . '">Delete</a></p>';
+                echo '<p class="pet_field delete"><a class="delete" href="deletepet.php?id=' . $pet_id["pet_id"] . '">Delete</a></p>';
                 echo '</section>';
                 echo '</div>';
             }
@@ -88,6 +88,7 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
+                    <p class="pet_field with_link"><a href="petdetails.php" class="link for_pet friends">Details</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
@@ -106,6 +107,7 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
+                    <p class="pet_field with_link"><a href="petdetails.php" class="link for_pet friends">Details</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
@@ -124,6 +126,7 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
+                    <p class="pet_field with_link"><a href="petdetails.php" class="link for_pet friends">Details</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
@@ -142,6 +145,7 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
+                    <p class="pet_field with_link"><a href="petdetails.php" class="link for_pet friends">Details</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
                     <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>

@@ -90,6 +90,10 @@ form.hazi-form {
 	padding: 5vh 0vh 0vh;
 }
 
+input.default-button{
+    cursor: pointer;
+}
+
 @media (max-width: 900px) {
 
     .hazi-form > div > input, #hazi-dynamic-fields > div > input[type=time] {

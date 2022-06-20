@@ -49,25 +49,37 @@ $pet_meals = DBManager::getInstance()->getPetNoOfMeals($pet_id);
             <div class="pet_detail meals  border-right">
                 <h5 class="pet_detail_title">Meals / day</h5>
                 <?php
-                echo '<p class="content"><i>' . $pet_meals . '</i></p>';
+                if ($pet_meals == 0)
+                    echo '<p class="content"><i>--</i></p>';
+                else
+                    echo '<p class="content"><i>' . $pet_meals . '</i></p>';
                 ?>
             </div>
             <div class="pet_detail restrictions border-right">
                 <h5 class="pet_detail_title">Restrictions</h5>
                 <?php
-                echo '<p class="content"><i>' . $pet_info["restrictions"] . '</i></p>';
+                if ($pet_info["restrictions"] == null)
+                    echo '<p class="content"><i>--</i></p>';
+                else
+                    echo '<p class="content"><i>' . $pet_info["restrictions"] . '</i></p>';
                 ?>
             </div>
             <div class="pet_detail medical_history border-right">
                 <h5 class="pet_detail_title">Medical history</h5>
                 <?php
-                echo '<p class="content"><i>' . $pet_info["medical_history"] . '</i></p>';
+                if ($pet_info["medical_history"] == null)
+                    echo '<p class="content"><i>--</i></p>';
+                else
+                    echo '<p class="content"><i>' . $pet_info["medical_history"] . '</i></p>';
                 ?>
             </div>
             <div class="pet_detail relationships">
                 <h5 class="pet_detail_title">Relationships</h5>
                 <?php
-                echo '<p class="content"><i>' . $pet_info["relationships"] . '</i></p>';
+                if ($pet_info["relationships"] == null)
+                    echo '<p class="content"><i>--</i></p>';
+                else
+                    echo '<p class="content"><i>' . $pet_info["relationships"] . '</i></p>';
                 ?>
             </div>
         </section>
