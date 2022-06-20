@@ -148,10 +148,10 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
             </div>
         </div>
     </div>
+
     <?php
     include "shared/footer.php"
     ?>
-
 </body>
 
 </html>

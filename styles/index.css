@@ -189,6 +189,13 @@ a.page_link.bottom{
         flex-basis: 40%;
         flex-direction: column;
     }
+    h3.subtitle{
+        font-size: 200%;
+    }
+    p.description{
+        flex-basis: 100%;
+        font-size: 150%;
+    }
 }
 @media (max-width: 350px)
 {
