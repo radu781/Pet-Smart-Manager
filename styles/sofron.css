@@ -201,17 +201,26 @@ img.infomeals{
     cursor: pointer;
 }
 section.pet_links{
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 p.pet_field.with_link{
     margin: 2vh;
+    margin-bottom: 0vh;
     position: relative;
     flex-basis: 0;
+    width: fit-content;
 
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: left;
+}
+p.pet_field.with_link.last{
+    margin: 2vh;
 }
 a.link{
     text-decoration: none;
@@ -235,8 +244,8 @@ a.link.for_pet:hover::after{
     width: 100%;
 }
 img.new_page{
-    width: 20%;
-    height: 20%;
+    width: 75%;
+    height: 75%;
 }
 p.pet_field.delete{
     margin: 2vh;

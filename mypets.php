@@ -88,8 +88,8 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
             </div>
             <div class="pet friends">
@@ -106,8 +106,8 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
             </div>
             <div class="pet friends">
@@ -124,8 +124,8 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
             </div>
             <div class="pet friends">
@@ -142,8 +142,8 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 <p class="pet_field">Relationship with animals:</p>
                 <p class="pet_field_output"><i>lorem</i></p>
                 <section class="pet_links">
-                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
+                    <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
                 </section>
             </div>
         </div>

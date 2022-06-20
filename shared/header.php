@@ -11,8 +11,8 @@
 <nav>
     <ul class="menu">
         <li class="normal option_my_profile"><a class="link_for_menu " href="homepage.php">My profile</a></li>
-        <li class="normal option_my_pets"><a class="link_for_menu " href="mypets.php">My pets</a></li>
-        <li class="normal option_my_groups"><a class="link_for_menu " href="mygroups.php">My groups</a></li>
+        <li class="normal option_my_pets"><a class="link_for_menu " href="mypets.php">Pets</a></li>
+        <li class="normal option_my_groups"><a class="link_for_menu " href="mygroups.php">Groups</a></li>
 
         <!-- responsive design -->
         <li class="phone option_my_profile">
