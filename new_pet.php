@@ -138,11 +138,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
             <div class="hazi-center-left-align">
                 <label for="petname">Pet name: <i>(required)</i></label>
-                <input type="text" id="petname" name="petname" minlength="2" maxlength="64" value="<?php if (empty($petname_err)) echo $$_POST["petname"];  ?>" required>
+                <input type="text" id="petname" name="petname" minlength="2" maxlength="64" value="<?php if (empty($petname_err) && isset($_POST["petname"])) echo $$_POST["petname"];  ?>" required>
             </div>
             <div class="hazi-center-left-align">
                 <label for="breed">Breed: <i>(required)</i></label>
-                <input type="text" id="breed" name="breed" minlength="2" maxlength="64" value="<?php if (empty($breed_err)) echo $$_POST["breed"];  ?>" required>
+                <input type="text" id="breed" name="breed" minlength="2" maxlength="64" value="<?php if (empty($breed_err) && isset($_POST["breed"])) echo $$_POST["breed"];  ?>" required>
             </div>
             <div>
                 <label for="meals">Meals per day: <i>(optional)</i></label>
@@ -152,15 +152,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="hazi-center-left-align">
                 <label for="restrictions">Restrictions: <i>(optional)</i></label>
-                <textarea class="hazi-input-width" name="restrictions" id="restrictions" rows="5" maxlength="255"><?php if (empty($restrictions_err)) echo $_POST["restrictions"];  ?></textarea>
+                <textarea class="hazi-input-width" name="restrictions" id="restrictions" rows="5" maxlength="255"><?php if (empty($restrictions_err) && isset($_POST["restrictions"])) echo $_POST["restrictions"];  ?></textarea>
             </div>
             <div class="hazi-center-left-align">
                 <label for="medical-history">Medical history: <i>(optional)</i></label>
-                <textarea class="hazi-input-width" name="medical-history" id="medical-history" rows="5" maxlength="255"><?php if (empty($medical_history_err)) echo $_POST["medical-history"];  ?></textarea>
+                <textarea class="hazi-input-width" name="medical-history" id="medical-history" rows="5" maxlength="255"><?php if (empty($medical_history_err) && isset($_POST["medical-history"])) echo $_POST["medical-history"];  ?></textarea>
             </div>
             <div class="hazi-center-left-align">
                 <label for="relationships">Relationships: <i>(optional)</i></label>
-                <textarea class="hazi-input-width" name="relationships" id="relationships" rows="3" maxlength="255"><?php if (empty($relationships_err)) echo $_POST["relationships"];  ?></textarea>
+                <textarea class="hazi-input-width" name="relationships" id="relationships" rows="3" maxlength="255"><?php if (empty($relationships_err) && isset($_POST["relationships"])) echo $_POST["relationships"];  ?></textarea>
             </div>
             <input class="default-button" type="submit" value="Register now!">
         </form>

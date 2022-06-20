@@ -137,7 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
             <div class="hazi-form-row">
                 <label for="email">Email:</label>
-                <input type="text" id="email" name="email" value="<?php if (empty($emailErr)) echo $_POST["email"];  ?>" required>
+                <input type="text" id="email" name="email" value="<?php if (empty($emailErr) && isset($_POST["email"])) echo $_POST["email"];  ?>" required>
             </div>
             <div class="hazi-form-row">
                 <label for="password">Password:</label>
@@ -145,15 +145,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="hazi-form-row">
                 <label for="fname">First name:</label>
-                <input type="text" id="fname" name="fname" minlength="2" maxlength="64" value="<?php if (empty($fnameErr)) echo $_POST["fname"];  ?>" required>
+                <input type="text" id="fname" name="fname" minlength="2" maxlength="64" value="<?php if (empty($fnameErr) && isset($_POST["fname"])) echo $_POST["fname"];  ?>" required>
             </div>
             <div class="hazi-form-row">
                 <label for="mname">Middle name:</label>
-                <input type="text" id="mname" name="mname" minlength="2" maxlength="64" value="<?php if (empty($mnameErr)) echo $_POST["mname"];  ?>">
+                <input type="text" id="mname" name="mname" minlength="2" maxlength="64" value="<?php if (empty($mnameErr) && isset($_POST["mname"])) echo $_POST["mname"];  ?>">
             </div>
             <div class="hazi-form-row">
                 <label for="lname">Last name:</label>
-                <input type="text" id="lname" name="lname" minlength="2" maxlength="64" value="<?php if (empty($lnameErr)) echo $_POST["lname"];  ?>" required>
+                <input type="text" id="lname" name="lname" minlength="2" maxlength="64" value="<?php if (empty($lnameErr) && isset($_POST["lname"])) echo $_POST["lname"];  ?>" required>
             </div>
             <input class="default-button" type="submit" value="Register now!">
             <p class="hazi-login-register-text">Already have an account? <a href="login.php">Go to Login</a>.</p>
