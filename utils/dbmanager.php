@@ -304,7 +304,7 @@
             }
         }
 
-        /* function to return user's pets' id */
+        /* function to return user's pets' id - used in mypets.php*/
         public function getPets(string $param_id): array
         {
             // create statement to return user's pets' id
@@ -320,7 +320,7 @@
             }
         }
 
-        /* function to return pet's name & breed for card */
+        /* function to return pet's name & breed for card - used in mypets.php*/
         public function getPetNameAndBreed(string $param_pet_id): array
         {
             $result = array(
@@ -346,7 +346,7 @@
             return $result;
         }
 
-        /* function to return pet's no of meals for card */
+        /* function to return pet's no of meals for card - used in mypets.php*/
         public function getPetNoOfMeals(string $param_pet_id): string
         {
             try {
@@ -356,6 +356,36 @@
 
                 $result = $stmt->fetchAll();
                 return sizeof($result);
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        /* function to return pet's full data (wihtout no of meals) - used in petdetails.php */
+        public function getPetData(string $param_pet_id): array
+        {
+            $result = array(
+                'name' => "",
+                'breed' => "",
+                'restrictions' => "",
+                'medical_history' => "",
+                'relationships' => ""
+            );
+            try {
+                $stmt = $this->connection->prepare("SELECT `name`, `breed`, `restrictions`, `medical_history`, `relationships` FROM `pet_info` WHERE `id` = :id");
+                $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result["name"] = $row["name"];
+                        $result["breed"] = $row["breed"];
+                        $result["restrictions"] = $row["restrictions"];
+                        $result["medical_history"] = $row["medical_history"];
+                        $result["relationships"] = $row["relationships"];
+                    }
+                }
+                return $result;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }

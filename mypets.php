@@ -51,7 +51,7 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 else
                     echo '<p class="pet_field_output">' . $pet_noOfMeals . '</p>';
                 echo '<section class="pet_links">';
-                echo '<p class="pet_field with_link"><a href="petdetails.php" class="link for_pet">Details</a><img class="new_page" src="resources/newpage.png"></p>';
+                echo '<p class="pet_field with_link"><a href="petdetails.php?id=' . $pet_id["pet_id"] . '" class="link for_pet">Details</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo '<p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo '<p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>';
                 echo  '<p class="pet_field delete">Delete</p>';

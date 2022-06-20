@@ -28,7 +28,7 @@ section.pet_details{
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
 }
 div.pet_detail{
     flex-basis: 19.7%;
