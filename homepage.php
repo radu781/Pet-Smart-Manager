@@ -1,7 +1,6 @@
 <?php
-// Include config file
-require_once "utils/dbmanager.php";
 require_once "utils/configuration.php";
+require_once "utils/filemanager.php";
 
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
     header("location: login.php");
@@ -41,6 +40,22 @@ $user_data = DBManager::getInstance()->returnUserData($_SESSION["id"]);
             <p class="data"><i><?php echo $user_data["middlename"]; ?></i></p>
             <p class="user-details">E-mail:</p>
             <p class="data"><i><?php echo $user_data["email"]; ?></i></p>
+
+            <p class="user-details">Export data</p>
+            <p class="data">
+            <form action="" method="post">
+                <input type="submit" name="export-csv" value="CSV"></p>
+                <input type="submit" name="export-pretty" value="Pretty"></p>
+            </form>
+            <?php
+            if (isset($_POST["export-csv"])) {
+                $file = new FileManager();
+                $file->exportCSV();
+            } else if (isset($_POST["export-pretty"])) {
+                $file = new FileManager();
+                $file->exportPretty();
+            }
+            ?>
         </div>
     </div>
 

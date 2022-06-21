@@ -138,11 +138,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
             <div class="hazi-center-left-align">
                 <label for="petname">Pet name: <i>(required)</i></label>
-                <input type="text" id="petname" name="petname" minlength="2" maxlength="64" value="<?php if (empty($petname_err) && isset($_POST["petname"])) echo $$_POST["petname"];  ?>" required>
+                <input type="text" id="petname" name="petname" minlength="2" maxlength="64" value="<?php if (empty($petname_err) && isset($_POST["petname"])) echo $_POST["petname"];  ?>" required>
             </div>
             <div class="hazi-center-left-align">
                 <label for="breed">Breed: <i>(required)</i></label>
-                <input type="text" id="breed" name="breed" minlength="2" maxlength="64" value="<?php if (empty($breed_err) && isset($_POST["breed"])) echo $$_POST["breed"];  ?>" required>
+                <input type="text" id="breed" name="breed" minlength="2" maxlength="64" value="<?php if (empty($breed_err) && isset($_POST["breed"])) echo $_POST["breed"];  ?>" required>
             </div>
             <div>
                 <label for="meals">Meals per day: <i>(optional)</i></label>

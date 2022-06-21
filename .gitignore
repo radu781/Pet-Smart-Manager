@@ -3,3 +3,5 @@
 multimedia/
 *cache*
 config/passwords.json
+*.csv
+

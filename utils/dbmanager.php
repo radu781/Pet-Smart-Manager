@@ -154,6 +154,19 @@
             }
         }
 
+        public function getUsername(int $userId):string
+        {
+            $stmt = $this->connection->prepare("SELECT concat(firstname, lastname) as name FROM `users` WHERE `id` = :userId");
+            try {
+                $stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
+                $stmt->execute();
+                return $stmt->fetch()["name"];
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                return "";
+            }
+        }
+
         public function checkCredentials(string $param_username, string $param_password): array
         {
             $result = array(
@@ -283,6 +296,35 @@
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
+        }
+
+        public function getPetsNameAndMeals(int $userId): array
+        {
+            $stmt = $this->connection->prepare("SELECT
+              pi.name,
+              pi.breed,
+              pi.restrictions,
+              pi.medical_history,
+              pi.relationships,
+              pm.feed_time
+            FROM
+              pet_info AS pi
+              JOIN owned_pets AS op ON op.pet_id = pi.id
+              JOIN pet_meals as pm on pm.pet_id = pi.id
+              AND op.user_id = :user_id
+            GROUP BY
+              pm.feed_time
+            ORDER BY
+              pm.feed_time");
+            $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
+            try {
+                $stmt->execute();
+                $result = $stmt->fetchAll();
+            } catch (PDOException $e) {
+                echo "Error $e->getMessage()";
+                return [];
+            }
+            return $result;
         }
 
 
