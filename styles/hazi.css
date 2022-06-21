@@ -1,3 +1,16 @@
+.ajax-feedback {
+    margin-top: -1.5vh;
+    width: 35vh;
+}
+
+.hazi-ajax-error {
+    color: red;
+}
+
+.hazi-ajax-ok {
+    color: green;
+}
+
 form.hazi-form {
     display: flex;
     flex-direction: column;
@@ -64,7 +77,8 @@ form.hazi-form {
 }
 
 .hazi-alert-paragraph {
-    width: 90%;
+    width: 60%;
+    align-self: center;
     text-align: center;
     font-size: large;
     background-color: var(--orange);
@@ -95,6 +109,9 @@ input.default-button{
 }
 
 @media (max-width: 900px) {
+    .ajax-feedback {
+        width: 30vh;
+    }
 
     .hazi-form > div > input, #hazi-dynamic-fields > div > input[type=time] {
         width: 30vh;
@@ -115,6 +132,16 @@ input.default-button{
 }
 
 @media (max-width: 400px) {
+    .ajax-feedback {
+        width: 25vh;
+        font-size: smaller;
+    }
+
+    .hazi-alert-paragraph {
+        width: 100%;
+        font-size: smaller;
+    }
+
     .hazi-form > div > label, #hazi-dynamic-fields > div > label {
         display: flex;
         margin-top: 1vh;

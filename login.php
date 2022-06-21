@@ -94,7 +94,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <form class="hazi-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div>
                 <label for="username">Username:</label>
-                <input type="email" name="username" id="username" required>
+                <input type="email" name="username" id="username" onkeyup="showUsernameHint(this.value)" required>
+                <p class="ajax-feedback"><span id="usernameValidation"></span></p>
             </div>
             <div>
                 <label for="password">Password:</label>

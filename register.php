@@ -35,9 +35,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($password)) {
             $passwordErr = "Password is required";
         } else {
-            if (strlen($_POST["password"]) <= 8) {
+            if (strlen($password) <= 8) {
                 $passwordErr = "Your Password Must Contain At Least 8 Characters! <br>";
+            } else if (strlen($password) >= 64) {
+                $passwordErr .= "Your Password Must Contain At Most 64 Characters! <br>";
             }
+
             if(!preg_match("#[0-9]+#", $password)) {
                 $passwordErr .= "Your Password Must Contain At Least 1 Number! <br>";
             }
@@ -65,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validate middle name
         if (!empty($mname)) {
             if (!preg_match("/^[a-zA-Z'-]+$/", $mname)) {
-                $mnameErr = "Invalid first name format! <br>";
+                $mnameErr = "Invalid middle name format! <br>";
             }
             if (strlen($mname) < 2 || strlen($mname) > 64) {
                 $mnameErr .= "Middle name must have between 2-64 characters!";
@@ -137,11 +140,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             ?>
             <div class="hazi-form-row">
                 <label for="email">Email:</label>
-                <input type="text" id="email" name="email" value="<?php if (empty($emailErr) && isset($_POST["email"])) echo $_POST["email"];  ?>" required>
+                <input type="text" id="email" name="email" value="<?php if (empty($emailErr) && isset($_POST["email"])) echo $_POST["email"];  ?>" onkeyup="showUsernameHint(this.value)" required>
+                <p class="ajax-feedback"><span id="usernameValidation"></span></p>
             </div>
             <div class="hazi-form-row">
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="password" required>
+                <input type="password" name="password" id="password" onkeyup="showPasswordHint(this.value)" required>
+                <p class="ajax-feedback"><span id="passwordValidation"></span></p>
             </div>
             <div class="hazi-form-row">
                 <label for="fname">First name:</label>
