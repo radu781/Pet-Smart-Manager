@@ -84,6 +84,27 @@
             return $result;
         }
 
+        public function getFirstPetMedia(int $petId): array
+        {
+            $stmt = $this->connection->prepare("SELECT
+              `filename`
+            FROM
+              pet_media AS pm
+            WHERE
+              pm.pet_id =:pet_id
+            LIMIT
+              1");
+            $stmt->bindParam(":pet_id", $petId, PDO::PARAM_INT);
+            try {
+                $stmt->execute();
+                $result = $stmt->fetchAll();
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error $e->getMessage()";
+            }
+            return [];
+        }
+
         private function petMediaExists(int $petId, string $filename): bool
         {
             $stmt = $this->connection->prepare("SELECT
@@ -154,7 +175,7 @@
             }
         }
 
-        public function getUsername(int $userId):string
+        public function getUsername(int $userId): string
         {
             $stmt = $this->connection->prepare("SELECT concat(firstname, lastname) as name FROM `users` WHERE `id` = :userId");
             try {

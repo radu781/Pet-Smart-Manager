@@ -38,10 +38,15 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 $pet_id = $user_pets[$i];
                 $pet_info = DBManager::getInstance()->getPetNameAndBreed($pet_id["pet_id"]);
                 $pet_noOfMeals = DBManager::getInstance()->getPetNoOfMeals($pet_id["pet_id"]);
+                $petMedia = DBManager::getInstance()->getFirstPetMedia($pet_id["pet_id"]);
                 echo '<div class="pet">';
                 echo '<h3 class="pet_name">' . $pet_info["name"] . '</h3>';
                 echo '<div class="photo_container">';
-                echo '<img class="pet_photo" src="resources/nopicture.png" alt="no picture">';
+                if ($petMedia !== []) {
+                    echo '<img class="pet_photo" src="multimedia/' . $pet_id["pet_id"] . '/' . $petMedia[0]["filename"] . '" alt="user uploaded file">';
+                } else {
+                    echo '<img class="pet_photo" src="resources/nopicture.png" alt="no picture">';
+                }
                 echo '</div>';
                 echo '<p class="pet_field">Breed:</p>';
                 echo '<p class="pet_field_output"><i>' . $pet_info["breed"] . '</i></p>';

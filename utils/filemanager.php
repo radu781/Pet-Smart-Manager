@@ -28,6 +28,9 @@ class FileManager
         $result = DBManager::getInstance()->getPetsNameAndMeals($_SESSION["id"]);
         $columns = "name\tbreed\trestrictions\tmedical_history\trelationships\tfeed_time\n";
         fwrite($myfile, $columns);
+        if (sizeof($result) === 0) {
+            return "";
+        }
         $prevResult = $result[0];
         $currentLine = $prevResult["name"] . "\t" . $prevResult["breed"] . "\t" . $prevResult["restrictions"] . "\t";
         $currentLine .= $prevResult["medical_history"] . "\t" . $prevResult["relationships"] . "\t";
