@@ -127,6 +127,12 @@ li:before {
     padding-left: 1rem;
 }
 
+div.image_place{
+    padding: 5vh 0vh;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
 
 /* responsive items */
 
