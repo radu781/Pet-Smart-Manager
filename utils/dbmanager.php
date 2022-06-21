@@ -583,7 +583,14 @@
         {
             // create statement to return user's pets' id
             try {
-                $stmt = $this->connection->prepare("SELECT `id` FROM `groups` WHERE `owner_id` = :id");
+                $stmt = $this->connection->prepare("SELECT
+                  g.id,
+                  `invite_hash`,
+                  g.name
+                FROM
+                  `group_members` AS gm
+                  JOIN `groups` AS g ON gm.group_id = g.id
+                  AND `user_id` = :id");
                 $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
                 $stmt->execute();
 
