@@ -581,7 +581,7 @@
         /* function to return user's groups as admin - used in mygroups.php */
         public function getGroups(string $param_id): array
         {
-            // create statement to return user's pets' id
+            // create statement to return user's groups' id
             try {
                 $stmt = $this->connection->prepare("SELECT
                   g.id,
@@ -601,24 +601,42 @@
             }
         }
 
-        public function getGroupData(string $param_id): array
+        public function getGroupName(string $param_id): string
         {
-            $result = array(
-                'name' => "",
-                'invite_hash' => ""
-            );
-            // create statement to return user's pets' id
+            $result = "";
+            // create statement to return a group name
             try {
-                $stmt = $this->connection->prepare("SELECT `name, `invite_hash` FROM `groups` WHERE `owner_id` = :id");
+                $stmt = $this->connection->prepare("SELECT `name` FROM `groups` WHERE `owner_id` = :id");
                 $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
                 $stmt->execute();
 
                 if ($stmt->rowCount() == 1) {
                     if ($row = $stmt->fetch()) {
-                        $result["name"] = $row["name"];
-                        $result["invite_hash"] = $row["invite_hash"];
+                        $result = $row["name"];
                     }
                 }
+
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        public function getGroupKey(string $param_id): string
+        {
+            $result = "";
+            // create statement to return a group key
+            try {
+                $stmt = $this->connection->prepare("SELECT `invite_hash` FROM `groups` WHERE `owner_id` = :id");
+                $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result = $row["invite_hash"];
+                    }
+                }
+
                 return $result;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
