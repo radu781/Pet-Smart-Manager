@@ -41,14 +41,13 @@ $user_groups = DBManager::getInstance()->getGroups($_SESSION["id"]);
             <?php
             for ($i = 0; $i < sizeof($user_groups); $i++) {
                 $group_id = $user_groups[$i];
-                $group_info = DBManager::getInstance()->getPetNameAndBreed($group_id["id"]);
-                echo $group_info["name"];
-                echo $group_info["invite_hash"];
+                $group_name = DBManager::getInstance()->getGroupName($group_id["id"]);
+                $group_invite_hash = DBManager::getInstance()->getGroupKey($group_id["id"]);
                 echo '<div class="group">';
-                echo    '<h3 class="group_name">1st group</h3>';
+                echo    '<h3 class="group_name">' . $group_name . '</h3>';
                 echo    '<section class="group_links">';
                 echo        '<p class="group_field">Access key:</p>';
-                echo        '<p class="group_field join_key"><i>lorem</i></p>';
+                echo        '<p class="group_field join_key"><i>' . $group_invite_hash . '</i></p>';
                 echo        '<p class="group_field delete">Delete</p>';
                 echo    '</section>';
                 echo '</div>';
