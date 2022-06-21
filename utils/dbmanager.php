@@ -299,6 +299,61 @@
             }
         }
 
+        public function addUserToGroup(int $userId, string $groupHash): void
+        {
+            if (self::isUserInGroup($userId, $groupHash)) {
+                return;
+            }
+            $stmt = $this->connection->prepare("INSERT INTO
+              group_members (group_id, user_id)
+            VALUES
+              (
+                (
+                  SELECT
+                    id AS group_id
+                  FROM
+                    `groups` AS g
+                  where
+                    g.invite_hash = :group_hash
+                ),
+                :user_id
+              )");
+            try {
+                $stmt->bindParam(":group_hash", $groupHash, PDO::PARAM_STR);
+                $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
+                $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        private function isUserInGroup(int $userId, string $grouphash): bool
+        {
+            $stmt = $this->connection->prepare("SELECT
+              *
+            FROM
+              group_members AS gm
+            WHERE
+              gm.group_id = (
+                SELECT
+                  id AS group_id
+                FROM
+                  `groups` AS g
+                WHERE
+                  g.invite_hash = :group_hash
+              )
+              AND gm.user_id = :user_id");
+            try {
+                $stmt->bindParam(":group_hash", $grouphash, PDO::PARAM_STR);
+                $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
+                $stmt->execute();
+                return sizeof($stmt->fetchAll()) > 0;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            return false;
+        }
+
         public function getPetName(string $param_pet_id): string
         {
             $result = "";

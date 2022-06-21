@@ -20,10 +20,19 @@
         <p class="default-title">Join group</p>
 
         <div class="hazi-center-left-align">
-            <label for="name">Group id:</label>
-            <input type="text" name="name" id="name" required>
+            <form action="" method="post">
+                <label for="name">Group id:</label>
+                <input type="text" name="name" id="name" required>
+                <input class="default-button" type="submit" value="Join group">
+            </form>
         </div>
-        <input class="default-button" type="submit" value="Join group">
+        <?php
+        include "utils/dbmanager.php";
+        if (isset($_POST["name"])) {
+            DBManager::getInstance()->addUserToGroup($_SESSION["id"], $_POST["name"]);
+            echo '<script>window.location="mygroups.php"</script>';
+        }
+        ?>
     </div>
 
     <?php include "shared/footer.php" ?>
