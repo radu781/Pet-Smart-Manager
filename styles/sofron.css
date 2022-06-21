@@ -353,11 +353,18 @@ h3.group_name{
     flex-basis: 100%;
 }
 section.group_links{
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+p.group_field{
+    flex-basis: 49.5%;
 }
 p.group_field.delete{
     margin: 2vh;
-    flex-basis: 0;
+    flex-basis: 100%;
     padding: 0.5vh;
     border: 0.1rem solid var(--red);
     border-radius: 0.5rem;

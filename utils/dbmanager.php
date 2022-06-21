@@ -329,6 +329,7 @@
 
 
         /* Sofron */
+        /*pets*/
         /* function to return user details */
         public function returnUserData(string $param_id): array
         {
@@ -494,6 +495,48 @@
                 $stmt = $this->connection->prepare("DELETE FROM `group_pet` WHERE `pet_id` = :id");
                 $stmt->bindParam(":id", $param_pet_id, PDO::PARAM_STR);
                 $stmt->execute();
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+
+        /*groups*/
+        /* function to return user's groups as admin - used in mygroups.php */
+        public function getGroups(string $param_id): array
+        {
+            // create statement to return user's pets' id
+            try {
+                $stmt = $this->connection->prepare("SELECT `id` FROM `groups` WHERE `owner_id` = :id");
+                $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $result = $stmt->fetchAll();
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        public function getGroupData(string $param_id): array
+        {
+            $result = array(
+                'name' => "",
+                'invite_hash' => ""
+            );
+            // create statement to return user's pets' id
+            try {
+                $stmt = $this->connection->prepare("SELECT `name, `invite_hash` FROM `groups` WHERE `owner_id` = :id");
+                $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                if ($stmt->rowCount() == 1) {
+                    if ($row = $stmt->fetch()) {
+                        $result["name"] = $row["name"];
+                        $result["invite_hash"] = $row["invite_hash"];
+                    }
+                }
+                return $result;
             } catch (PDOException $e) {
                 echo "Error: " . $e->getMessage();
             }
