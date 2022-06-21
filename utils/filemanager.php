@@ -9,6 +9,7 @@ class FileManager
 
     public function exportCSV()
     {
+        $this->filename .= ".csv";
         $myfile = fopen($this->filename, "w") or die("Unable to open file!");
         $result = DBManager::getInstance()->getPetsNameAndMeals($_SESSION["id"]);
         $columns = "name,breed,restrictions,medical_history,relationships,feed_time\n";
@@ -24,6 +25,7 @@ class FileManager
 
     public function exportPretty(): string
     {
+        $this->filename .= ".pretty";
         $myfile = fopen($this->filename, "w") or die("Unable to open file!");
         $result = DBManager::getInstance()->getPetsNameAndMeals($_SESSION["id"]);
         $columns = "name\tbreed\trestrictions\tmedical_history\trelationships\tfeed_time\n";
@@ -69,7 +71,7 @@ class FileManager
         $date = getdate();
         $filename =  DBManager::getInstance()->getUsername($_SESSION["id"]) . "_" . $date["year"] . "-";
         $filename .= $date["mon"] . "-" . $date["mday"] . "_" . $date["hours"] . "-" . $date["minutes"] . "-";
-        $filename .= $date["seconds"] . ".csv";
+        $filename .= $date["seconds"];
         return $filename;
     }
 

@@ -42,7 +42,6 @@ $user_groups = DBManager::getInstance()->getGroups($_SESSION["id"]);
             for ($i = 0; $i < sizeof($user_groups); $i++) {
                 $group_id = $user_groups[$i];
                 $group_info = DBManager::getInstance()->getPetNameAndBreed($group_id["id"]);
-                echo $group_info["name"];
                 echo '<div class="group">';
                 echo    '<h3 class="group_name">'. $user_groups[$i]["name"].'</h3>';
                 echo    '<section class="group_links">';

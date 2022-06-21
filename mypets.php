@@ -8,6 +8,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
 }
 
 $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
+$friendsPets = DBManager::getInstance()->getFriendsPets($_SESSION["id"]);
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +44,7 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
                 echo '<h3 class="pet_name">' . $pet_info["name"] . '</h3>';
                 echo '<div class="photo_container">';
                 if ($petMedia !== []) {
-                    echo '<img class="pet_photo" src="multimedia/' . $pet_id["pet_id"] . '/' . $petMedia[0]["filename"] . '" alt="user uploaded file">';
+                    echo '<img class="pet_photo" src="multimedia/' . $pet_id["pet_id"] . '/' . $petMedia[0]["filename"] . '" alt="user uploaded file" width="200">';
                 } else {
                     echo '<img class="pet_photo" src="resources/nopicture.png" alt="no picture">';
                 }
@@ -79,88 +80,41 @@ $user_pets = DBManager::getInstance()->getPets($_SESSION["id"]);
             <p class="details">You don't have permissions to add, edit or delete their pets.</p>
         </div>
         <div class="pets">
-            <div class="pet friends">
-                <h3 class="pet_name">1st pet</h3>
-                <div class="photo_container">
-                    <img class="pet_photo" src="resources/nopicture.png">
-                </div>
-                <p class="pet_field">Name:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Breed:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Meals / day:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Relationship with animals:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <section class="pet_links">
-                    <p class="pet_field with_link"><a href="petdetails.php" class="link for_pet friends">Details</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
-                </section>
-            </div>
-            <div class="pet friends">
-                <h3 class="pet_name">2nd pet</h3>
-                <div class="photo_container">
-                    <img class="pet_photo" src="resources/nopicture.png">
-                </div>
-                <p class="pet_field">Name:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Breed:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Meals / day:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Relationship with animals:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <section class="pet_links">
-                    <p class="pet_field with_link"><a href="petdetails.php" class="link for_pet friends">Details</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
-                </section>
-            </div>
-            <div class="pet friends">
-                <h3 class="pet_name">3rd pet</h3>
-                <div class="photo_container">
-                    <img class="pet_photo" src="resources/nopicture.png">
-                </div>
-                <p class="pet_field">Name:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Breed:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Meals / day:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Relationship with animals:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <section class="pet_links">
-                    <p class="pet_field with_link"><a href="petdetails.php" class="link for_pet friends">Details</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
-                </section>
-            </div>
-            <div class="pet friends">
-                <h3 class="pet_name">4th pet</h3>
-                <div class="photo_container">
-                    <img class="pet_photo" src="resources/nopicture.png">
-                </div>
-                <p class="pet_field">Name:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Breed:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Meals / day:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <p class="pet_field">Relationship with animals:</p>
-                <p class="pet_field_output"><i>lorem</i></p>
-                <section class="pet_links">
-                    <p class="pet_field with_link"><a href="petdetails.php" class="link for_pet friends">Details</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link"><a href="calendar.php" class="link for_pet friends">Calendar</a><img class="new_page" src="resources/newpage.png"></p>
-                    <p class="pet_field with_link last"><a href="multimedia.php" class="link for_pet friends">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>
-                </section>
-            </div>
+            <?php
+            for ($i = 0; $i < sizeof($friendsPets); $i++) {
+                $pet_id = $friendsPets[$i];
+                $pet_info = DBManager::getInstance()->getPetNameAndBreed($pet_id["pet_id"]);
+                $pet_noOfMeals = DBManager::getInstance()->getPetNoOfMeals($pet_id["pet_id"]);
+                $petMedia = DBManager::getInstance()->getFirstPetMedia($pet_id["pet_id"]);
+                echo '<div class="pet">';
+                echo '<h3 class="pet_name">' . $pet_info["name"] . '</h3>';
+                echo '<div class="photo_container">';
+                if ($petMedia !== []) {
+                    echo '<img class="pet_photo" src="multimedia/' . $pet_id["pet_id"] . '/' . $petMedia[0]["filename"] . '" alt="user uploaded file" width="200">';
+                } else {
+                    echo '<img class="pet_photo" src="resources/nopicture.png" alt="no picture">';
+                }
+                echo '</div>';
+                echo '<p class="pet_field">Breed:</p>';
+                echo '<p class="pet_field_output"><i>' . $pet_info["breed"] . '</i></p>';
+                echo '<p class="pet_field">Meals / day:</p>';
+                if ($pet_noOfMeals == 0)
+                    echo '<p class="pet_field_output"> -- </p>';
+                else
+                    echo '<p class="pet_field_output">' . $pet_noOfMeals . '</p>';
+                echo '<section class="pet_links">';
+                echo '<p class="pet_field with_link"><a href="petdetails.php?id=' . $pet_id["pet_id"] . '" class="link for_pet">Details</a><img class="new_page" src="resources/newpage.png"></p>';
+                echo '<p class="pet_field with_link"><a href="calendar.php" class="link for_pet">Calendar</a><img class="new_page" src="resources/newpage.png"></p>';
+                echo '<p class="pet_field with_link"><a href="multimedia.php" class="link for_pet">Multimedia</a><img class="new_page" src="resources/newpage.png"></p>';
+                echo '<p class="pet_field delete"><a class="delete" href="deletepet.php?id=' . $pet_id["pet_id"] . '">Delete</a></p>';
+                echo '</section>';
+                echo '</div>';
+            }
+            ?>
         </div>
     </div>
 
-    <?php
-    include "shared/footer.php"
-    ?>
+    <?php include "shared/footer.php" ?>
 </body>
 
 </html>

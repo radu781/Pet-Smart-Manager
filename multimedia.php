@@ -40,7 +40,7 @@
 
                     echo '<div class="cell">';
                     echo '<p>' . $currentMedia["name"] . '</p>';
-                    echo '<img src="multimedia/' . $currentMedia["pet_id"] . "/" . $currentMedia["filename"] . '" width="200" height="200" alt="user provided image">';
+                    echo '<img class="pet_photo" src="multimedia/' . $currentMedia["pet_id"] . "/" . $currentMedia["filename"] . '" width="200" height="200" alt="user provided image">';
                     echo '<p>' . $currentMedia["description"] . '</p>';
                     echo '<a href="petdetails.php?id=' . $media[$i]["pet_id"] . '"><button class="default-button">Details</button></a>';
                     echo '</div>';

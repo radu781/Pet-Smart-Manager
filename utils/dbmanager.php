@@ -33,7 +33,7 @@
               AND op.user_id = :user_id
               JOIN pet_meals AS pm ON pm.pet_id = pi.id
             ORDER BY
-              pi.name");
+              pi.name, pm.feed_time");
             $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
             try {
                 $stmt->execute();
@@ -446,6 +446,31 @@
                 FROM `owned_pets` AS `op` 
                 JOIN `pet_info` AS `pi` 
                 ON pi.id = op.pet_id and user_id = :id");
+                $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                $result = $stmt->fetchAll();
+                return $result;
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        public function getFriendsPets(string $param_id): array
+        {
+            try {
+                $stmt = $this->connection->prepare("SELECT
+                  g.id,
+                  g.name,
+                  gp.pet_id,
+                  pi.name,
+                  pi.breed
+                FROM
+                  group_members AS gm
+                  JOIN `groups` AS g ON gm.user_id = :id
+                  AND g.id = gm.group_id
+                  JOIN group_pet AS gp ON g.id = gp.group_id
+                  JOIN pet_info AS pi ON pi.id = gp.pet_id");
                 $stmt->bindParam(":id", $param_id, PDO::PARAM_STR);
                 $stmt->execute();
 

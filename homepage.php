@@ -42,10 +42,9 @@ $user_data = DBManager::getInstance()->returnUserData($_SESSION["id"]);
             <p class="data"><i><?php echo $user_data["email"]; ?></i></p>
 
             <p class="user-details">Export data</p>
-            <p class="data">
             <form action="" method="post">
-                <input type="submit" name="export-csv" value="CSV"></p>
-                <input type="submit" name="export-pretty" value="Pretty"></p>
+                <input type="submit" name="export-csv" value="CSV">
+                <input type="submit" name="export-pretty" value="Pretty">
             </form>
             <?php
             if (isset($_POST["export-csv"])) {
